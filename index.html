@@ -250,7 +250,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-t
   .edital-card:hover{border-color:var(--navy);transform:translateY(-3px);box-shadow:0 10px 28px rgba(24,52,84,.16)}
   .edital-ico{font-size:46px;margin-bottom:2px}
   .edital-nome{font-weight:800;font-size:28px;color:var(--navy);line-height:1.15}
-  .edital-data{font-size:17px;color:var(--green);font-weight:800;margin:0 0 10px}
+  .edital-data{font-size:17px;color:var(--navy);font-weight:800;margin:0 0 10px}
   .edital-desc{font-size:17px;color:var(--txt);line-height:1.7;margin-bottom:14px}
   .edital-btn{display:inline-block;background:var(--navy);color:#fff;font-size:18px;font-weight:800;padding:12px 26px;border-radius:24px;align-self:flex-start}
   .edital-card:hover .edital-btn{background:var(--green)}
@@ -688,7 +688,7 @@ const LEIS_ART=[
 ];
 
 const LSKEY='palhoca_study_v2';
-const APP_VER='v33';
+const APP_VER='v34';
 let STATE=loadState();
 function loadState(){try{const s=JSON.parse(localStorage.getItem(LSKEY));if(s)return s;}catch(e){}
   return {edital:'10896a860906ced7b',cards:{},topics:{},quiz:[],pomoCycles:0,streak:0,lastDay:'',leitner:{},xp:0,badges:[],conf:{},setupDone:false};}
@@ -901,7 +901,7 @@ function showQuiz(examMode,aviso){
     fb.innerHTML=correct?`✅ <b>Correto!</b> ${q.a}`:`❌ <b>Errado.</b> ${q.a}`;
     if(correct)quizScore++;quizLog.push({matId:q.matId,correct});
     STATE.cards[q.k+'']='known';STATE.leitner[q.k+''+'_ts']=Date.now();
-    STATE.leitner[q.k+'']=Math.min((boxFor(q.k,stu)+1),5);
+    STATE.leitner[q.k+'']=Math.min((boxFor(q.k)+1),5);
     if(correct)STATE.xp=(STATE.xp||0)+15; else STATE.xp=(STATE.xp||0)+3;
     touchStreak();save();checkBadges();
     document.getElementById('nextQuiz').onclick=()=>{quizIdx++;showQuiz();};
@@ -992,6 +992,7 @@ function masteryPct(cargo){
   return tot?Math.round(dom/tot*100):0;
 }
 function checkBadges(){
+  const cargo=STATE.edital==='10896a860906ced7b'?'tec':'adm';
   const xp=STATE.xp||0;const b=STATE.badges||(STATE.badges=[]);
   const add=(id,nm)=>{if(!b.includes(id)){b.push(id);}};
   if(xp>=100)add('b1','Iniciante 🥉');
@@ -1127,9 +1128,9 @@ const EXERCICIOS=[
   {mat:"Contabilidade", enun:"Despesa empenhada de R$ 10.000, paga R$ 6.000. Qual o saldo a pagar?",
    passos:["Empenho = R$ 10.000 (reserva)","Pagamento = R$ 6.000","Saldo a pagar = 10.000 − 6.000 = R$ 4.000,00"],
    resp:"R$ 4.000,00"},
-  {mat:"Contabilidade", enun:"Limite de pessoal = 60% da RCL. Se RCL = R$ 1.000.000, qual o teto?",
-   passos:["Teto = 60% da RCL (Lei de Responsabilidade Fiscal)","1.000.000 × 0,60 = R$ 600.000,00"],
-   resp:"R$ 600.000,00"}
+  {mat:"Contabilidade", enun:"Teto de pessoal do ENTE = 60% da RCL (LRF art. 19). Se RCL do Município = R$ 1.000.000, qual o limite geral? (Obs: para a Câmara, o limite individual é 6% da RCL do Município.)",
+   passos:["Teto do ente = 60% da RCL (Lei de Responsabilidade Fiscal, art. 19)","1.000.000 × 0,60 = R$ 600.000,00 (teto global do Município)","Câmara = 6% da RCL = R$ 60.000,00 (limite próprio)"],
+   resp:"R$ 600.000,00 (ente) · R$ 60.000,00 (Câmara)"}
 ];
 function renderExercicios(){
   let html='';
