@@ -208,9 +208,35 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-t
   .students .tag{font-size:12px;color:rgba(255,255,255,.8);font-weight:600;margin-left:auto}
   header.top .wrap{display:flex;align-items:center}
   @media(max-width:640px){header.top .wrap{flex-direction:column;align-items:flex-start;gap:6px}.students .tag{margin-left:0}}
+  /* === SETUP MODAL === */
+  .modal-overlay{position:fixed;inset:0;background:rgba(15,30,48,.55);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;z-index:1000;padding:16px}
+  .modal{background:var(--card);border-radius:20px;max-width:760px;width:100%;padding:26px;box-shadow:0 20px 60px rgba(0,0,0,.25);max-height:92vh;overflow:auto}
+  .setup-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:16px}
+  .setup-col{background:#f6f9fc;border-radius:14px;padding:14px}
+  .setup-who{font-weight:800;color:var(--navy);margin-bottom:10px;font-size:15px;text-align:center}
+  .setup-cards{display:grid;gap:8px}
+  .setup-opt{border:2px solid var(--line);border-radius:10px;padding:10px 12px;cursor:pointer;font-size:13px;font-weight:600;color:var(--navy);background:#fff;transition:.15s;text-align:left}
+  .setup-opt:hover{border-color:var(--navy)}
+  .setup-opt.sel.A{border-color:var(--navy);background:var(--navy);color:#fff}
+  .setup-opt.sel.B{border-color:var(--green);background:var(--green);color:#0c2a17}
+  .ctx-banner{background:linear-gradient(90deg,var(--navy),var(--navy2));color:#fff;display:flex;align-items:center;justify-content:center;gap:14px;padding:9px 16px;font-size:13px;font-weight:600;position:sticky;top:0;z-index:50}
+  .ctx-banner #ctxText b{color:#bfe3c8}
+  @media(max-width:640px){.setup-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
+<div class="modal-overlay" id="setupModal">
+  <div class="modal">
+    <h2 class="sec" style="text-align:center;margin-bottom:4px">&#127919; Qual cargo voces vao fazer?</h2>
+    <p class="sub" style="text-align:center">Escolham abaixo. O app mostra flashcards, simulados, leis e plano so do cargo de cada uma.</p>
+    <div class="setup-grid">
+      <div class="setup-col"><div class="setup-who">&#128089; Voce (A)</div><div class="setup-cards" id="setupA"></div></div>
+      <div class="setup-col"><div class="setup-who">&#128089; Amiga (B)</div><div class="setup-cards" id="setupB"></div></div>
+    </div>
+    <div class="btn-row" style="justify-content:center;margin-top:18px"><button class="btn primary" id="setupConfirm">&#9989; Comecar a estudar</button></div>
+  </div>
+</div>
+<div class="ctx-banner" id="ctxBanner" style="display:none"><span id="ctxText"></span><button class="btn ghost" id="ctxChange" style="padding:6px 14px;font-size:12px">&#128260; Trocar cargo</button></div>
 <header class="top">
   <div class="wrap">
     <div class="logo"><span class="dot"></span> Estuda Palhoça 01/2026</div>
@@ -404,7 +430,7 @@ const LEIS=[
 const LSKEY='palhoca_study_v2';
 let STATE=loadState();
 function loadState(){try{const s=JSON.parse(localStorage.getItem(LSKEY));if(s)return s;}catch(e){}
-  return {stu:'A',cargoA:'adm',cargoB:'cont',cards:{},topics:{},quiz:[],pomoCycles:0,streak:{A:0,B:0},lastDay:{A:'',B:''},leitner:{},xp:{A:0,B:0},badges:{A:[],B:[]},conf:{}};}
+  return {stu:'A',cargoA:'adm',cargoB:'cont',cards:{},topics:{},quiz:[],pomoCycles:0,streak:{A:0,B:0},lastDay:{A:'',B:''},leitner:{},xp:{A:0,B:0},badges:{A:[],B:[]},conf:{},setupDone:false};}
 function save(){localStorage.setItem(LSKEY,JSON.stringify(STATE));}
 function today(){return new Date().toISOString().slice(0,10);}
 function matForCargo(cargoId){return DADOS.materias.filter(m=>m.cargos.includes('todos')||m.cargos.includes(cargoId));}
@@ -762,11 +788,15 @@ function renderLeis(){
 function renderAtaque(){
   const sup=[['Língua Portuguesa','10 q','1,20','Maior fatia dos Gerais — prioridade'],['Matemática/Raciocínio Lógico','05 q','1,20',''],['Informática','05 q','1,20','IA, Copilot, LGPD, segurança'],['Legislação','06 q','1,20','LO Palhoça, LC 96/2010, CP Admin'],['Conhecimentos Gerais','04 q','1,20','Atualidades + Direitos Humanos'],['Conhecimentos Específicos','50 q','1,28','VALOR MÁXIMO — foco pesado']];
   const med=[['Língua Portuguesa','10 q','1,20',''],['Matemática/Raciocínio Lógico','05 q','1,20',''],['Informática','05 q','1,20',''],['Legislação','06 q','1,20',''],['Conhecimentos Gerais','04 q','1,20',''],['Conhecimentos Específicos','40 q','1,60','VALOR MÁXIMO']];
+  const mk=(rows)=>{let h='';rows.forEach(r=>{h+='<div class="topic" style="padding:6px 0"><div class="txt" style="font-size:13px">'+r[0]+(r[3]?' <b style="color:var(--ok)">'+r[3]+'</b>':'')+'</div><div class="box-opt"><span class="leitner">'+r[1]+'</span><span class="leitner">'+r[2]+'</span></div></div>';});return h;};
   let html='<div class="card" style="margin-bottom:16px"><h3>📊 Estrutura da Prova (Edital 04/2026)</h3>';
-  html+='<p style="font-size:13px;color:var(--muted);margin:6px 0 10px">Mínimo para passar: <b>12 pts em Conhecimentos Gerais</b> + <b>25 pts em Específicos</b> (Superior) · <b>20 pts em Específicos</b> (Médio).</p>';
+  html+='<p style="font-size:13px;color:var(--muted);margin:6px 0 10px">Mínimo p/ habilitar: <b>12 pts em Conhecimentos Gerais</b> + <b>25 pts em Específicos</b> (Superior) · <b>20 pts em Específicos</b> (Médio). Foque nos Específicos (maior nº e peso).</p>';
+  const ca=STATE.cargoA, cb=STATE.cargoB;
+  const isMedA=['tec'].includes(ca), isMedB=['tec'].includes(cb);
   html+='<div class="grid cards3">';
-  const mk=(title,rows)=>{let h='<div class="card"><h3>'+title+'</h3>';rows.forEach(r=>{h+='<div class="topic" style="padding:6px 0"><div class="txt" style="font-size:13px">'+r[0]+(r[3]?' <b style="color:var(--ok)">'+r[3]+'</b>':'')+'</div><div class="box-opt"><span class="leitner">'+r[1]+'</span><span class="leitner">'+r[2]+'</span></div></div>';});h+='</div>';return h;};
-  html+=mk('NÍVEL SUPERIOR (manhã)',sup);html+=mk('NÍVEL MÉDIO (tarde)',med);html+='</div></div>';
+  html+=`<div class="card" style="border-left:5px solid var(--navy)"><h3>👩 Você (A)</h3><div style="font-size:12px;color:var(--muted);margin-bottom:6px;font-weight:700">${DADOS.cargos[ca]}</div>${mk(isMedA?med:sup)}</div>`;
+  html+=`<div class="card" style="border-left:5px solid var(--green)"><h3>👩 Amiga (B)</h3><div style="font-size:12px;color:var(--muted);margin-bottom:6px;font-weight:700">${DADOS.cargos[cb]}</div>${mk(isMedB?med:sup)}</div>`;
+  html+='</div></div>';
   html+='<div class="card"><h3>🚀 Roteiro de estudo (últimos dias)</h3><ul style="list-style:none;display:grid;gap:8px;margin-top:6px">';
   ['Dias 1-4: dominem os <b>Específicos</b> do cargo de cada uma (50/40 questões, maior peso).','Dias 5-6: Português (10 q) + Lei Orgânica de Palhoça e LC 96/2010 (caem em Legislação).','Dias 7-8: simulados diários no app + revisão dos cards da caixa 1 (os que mais erram).','Dia 29: revisão leve, consultar <b>local de prova</b> no site da FUNDATEC (a partir de 21/08).','Leve RG, comprovante e caneta preta. Chegue 1h antes.','Dica de ouro: nos Gerais, Português vale 10q — é onde dá pra garantir pontos fáceis.'].forEach(d=>html+='<li>▸ '+d+'</li>');
   html+='</ul></div>';
@@ -783,7 +813,33 @@ document.getElementById('importBtn').onclick=()=>document.getElementById('import
 document.getElementById('importFile').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{STATE=JSON.parse(r.result);save();location.reload();}catch(err){alert('Arquivo inválido.');}};r.readAsText(f);};
 document.getElementById('resetBtn').onclick=()=>{if(confirm('Apagar TODO o progresso?')){localStorage.removeItem(LSKEY);STATE=loadState();location.reload();}};
 
-renderDash();renderSobre();pomoRender();
+// === SETUP DE CARGO (escolha inicial) ===
+function buildSetup(){
+  ['A','B'].forEach(who=>{
+    const cur=who==='A'?STATE.cargoA:STATE.cargoB;
+    const box=document.getElementById('setup'+who);
+    box.innerHTML=Object.entries(DADOS.cargos).map(([k,v])=>`<div class="setup-opt ${k===cur?'sel '+who:''}" data-who="${who}" data-cargo="${k}">${v}</div>`).join('');
+    box.querySelectorAll('.setup-opt').forEach(el=>el.onclick=()=>{
+      const w=el.dataset.who,cg=el.dataset.cargo;
+      if(w==='A')STATE.cargoA=cg;else STATE.cargoB=cg;
+      box.querySelectorAll('.setup-opt').forEach(x=>x.classList.remove('sel','A','B'));
+      el.classList.add('sel',w);save();
+    });
+  });
+}
+function showSetup(force){
+  if(force||!STATE.setupDone){buildSetup();document.getElementById('setupModal').style.display='flex';}
+  else document.getElementById('setupModal').style.display='none';
+  updateCtx();
+}
+function updateCtx(){
+  const b=document.getElementById('ctxBanner');
+  if(STATE.setupDone){b.style.display='flex';document.getElementById('ctxText').innerHTML='&#128209; Voce: <b>'+DADOS.cargos[STATE.cargoA]+'</b> &nbsp;|&nbsp; &#128209; Amiga: <b>'+DADOS.cargos[STATE.cargoB]+'</b>';}
+  else b.style.display='none';
+}
+document.getElementById('setupConfirm').onclick=()=>{STATE.setupDone=true;save();document.getElementById('setupModal').style.display='none';updateCtx();renderDash();};
+document.getElementById('ctxChange').onclick=()=>showSetup(true);
+renderDash();renderSobre();pomoRender();showSetup(false);
 </script>
 </body>
 </html>
