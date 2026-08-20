@@ -171,6 +171,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-t
   .topic .txt{font-size:14px;color:#37475a;flex:1;line-height:1.4}
 .study-topics{margin:8px 0 0 18px;padding:0;list-style:disc}
   .study-topics li{font-size:14px;color:#37475a;line-height:1.5;margin:8px 0}  .study-resumo{font-size:13px;color:#37475a;line-height:1.5;margin:4px 0 8px;background:#f6f9fc;border-left:3px solid var(--green);padding:8px 10px;border-radius:0 8px 8px 0}  .tts-btn{margin-top:6px;background:var(--green);color:#fff;border:none;border-radius:8px;padding:4px 10px;font-size:12px;cursor:pointer}
+  .tts-btn.big{font-size:14px;padding:8px 14px;margin-bottom:4px}
   .tts-btn:hover{opacity:.85}
 
   .study-topics li{margin:8px 0}
@@ -687,7 +688,7 @@ const LEIS_ART=[
 ];
 
 const LSKEY='palhoca_study_v2';
-const APP_VER='v32';
+const APP_VER='v33';
 let STATE=loadState();
 function loadState(){try{const s=JSON.parse(localStorage.getItem(LSKEY));if(s)return s;}catch(e){}
   return {edital:'10896a860906ced7b',cards:{},topics:{},quiz:[],pomoCycles:0,streak:0,lastDay:'',leitner:{},xp:0,badges:[],conf:{},setupDone:false};}
@@ -812,6 +813,8 @@ function showCard(){
   const c=flashDeck[flashIdx];if(!c){document.getElementById('fq').textContent='🎉 Tudo revisado por enquanto!';document.getElementById('fa').textContent='Volte depois ou mude o filtro.';document.getElementById('flashCount').textContent='0/0';document.getElementById('leitnerTag').textContent='-';return;}
   const mid=c.k.split('_')[1];const mAtual=DADOS.materias.find(x=>x.id===mid);
   document.getElementById('fq').textContent=c.q;document.getElementById('fa').textContent=c.a;
+  document.getElementById('fq').insertAdjacentHTML('beforeend',' <button class="tts-btn" onclick="speakFrom(this)" data-t="'+encodeURIComponent(c.q)+'">🔊</button>');
+  document.getElementById('fa').insertAdjacentHTML('beforeend',' <button class="tts-btn" onclick="speakFrom(this)" data-t="'+encodeURIComponent(c.a)+'">🔊</button>');
   document.getElementById('flashCount').textContent=`${flashIdx+1} / ${flashDeck.length}`;
   document.getElementById('leitnerTag').textContent='C'+boxFor(c.k);
   const ft=document.getElementById('flashTopic');if(ft)ft.textContent=(mAtual?mAtual.nome:'')+' · '+(STATE.edital==='10896a860906ced7b'?'Retificado':'Original');
@@ -1013,7 +1016,7 @@ function renderLeis(){var _l=document.getElementById('view-leis');var _o=_l.quer
   let html='';
   LEIS.forEach((L,idx)=>{var li=idx;
     html+=`<div class="lei" data-i="${idx}" style="border-left-color:${L.cor}"><h3>${L.lei}</h3><div class="body">`;
-    L.items.forEach((it,ii)=>{var art=(LEIS_ART[li]&&LEIS_ART[li][ii])?('<div class="li-art">📜 '+LEIS_ART[li][ii]+'</div>'):'';html+=`<div class="li"><div class="q">${it[0]}</div><div class="a">${it[1]}</div>${art}</div>`;});
+    L.items.forEach((it,ii)=>{var art=(LEIS_ART[li]&&LEIS_ART[li][ii])?('<div class="li-art">📜 '+LEIS_ART[li][ii]+'</div>'):'';var txt=it[0]+'. '+it[1]+(art?(' '+LEIS_ART[li][ii]):'');var btn='<button class="tts-btn" onclick="speakFrom(this)" data-t="'+encodeURIComponent(txt)+'">🔊 Ouvir</button>';html+=`<div class="li"><div class="q">${it[0]}${btn}</div><div class="a">${it[1]}</div>${art}</div>`;});
     html+='</div></div>';
   });
   document.getElementById('leisBox').innerHTML=html;
@@ -1051,10 +1054,12 @@ function renderSobre(){let html=`<p style="margin-bottom:10px"><b>Concurso:</b> 
 
 function renderStudy(){
   const mats=matsDoEdital();
-  let html='';
+  window._studyTexts=[];
+  let html='<button class="tts-btn big" onclick="speakAll()">🔊 Revisão completa (ouvir tudo)</button><br><br>';
   mats.forEach(function(m){
     const areaCls=m.area==='Conhecimentos Gerais'?'g':'e';
     var cont=(CONTEUDO[m.id]||[]).concat(CONTEUDO_EST[m.id]||[]);
+    cont.forEach(function(c){if(c)window._studyTexts.push(c);});
     let tops='<ul class="study-topics">'
     m.topicos.forEach(function(t,ti){var res=cont[ti]?('<div class="study-resumo">'+cont[ti]+'<button class="tts-btn" onclick="speakFrom(this)" data-t="'+encodeURIComponent(cont[ti])+'">🔊 Ouvir</button></div>'):'';tops+='<li><b>'+t+'</b>'+res+'</li>';});
     tops+='</ul>';
@@ -1139,6 +1144,20 @@ function renderExercicios(){
     html+='</div>';
   });
   document.getElementById('exerBox').innerHTML=html;
+}
+
+function speakAll(){
+  if(!('speechSynthesis' in window)){alert('Seu navegador nao suporta audio.');return;}
+  var texts=window._studyTexts||[]; if(!texts.length){alert('Nada para ler.');return;}
+  window.speechSynthesis.cancel();
+  var i=0;
+  function next(){
+    if(i>=texts.length){return;}
+    var u=new SpeechSynthesisUtterance(texts[i]); u.lang='pt-BR'; u.rate=0.95;
+    u.onend=function(){i++; setTimeout(next,400);};
+    window.speechSynthesis.speak(u);
+  }
+  next();
 }
 
 // === SETUP: landing com 2 cards de edital ===
