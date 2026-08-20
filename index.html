@@ -7,6 +7,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <title>Estuda Palhoça 01/2026</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23183454'/%3E%3Ctext x='32' y='44' font-size='36' text-anchor='middle' fill='%239CCB8F' font-family='sans-serif' font-weight='bold'%3EP%3C/text%3E%3C/svg%3E">
 <style>
 :root{--navy:#183454;--navy2:#22466e;--green:#9CCB8F;--green2:#7fb87a;--bg:#f4f7fb;
 --card:#fff;--txt:#1d2735;--muted:#6b7a90;--line:#e2e9f1;--ok:#3da35d;--bad:#d9534f;--warn:#e0a800;
@@ -461,7 +462,7 @@ const LEIS=[
   ]}
 ];
 const LSKEY='palhoca_study_v2';
-const APP_VER='v17';
+const APP_VER='v18';
 let STATE=loadState();
 function loadState(){try{const s=JSON.parse(localStorage.getItem(LSKEY));if(s)return s;}catch(e){}
   return {stu:'A',cargoA:'adm',cargoB:'cont',edital:'10896a860906ced7b',editalA:'10896a22e9f36131a',editalB:'10896a860906ced7b',cards:{},topics:{},quiz:[],pomoCycles:0,streak:{A:0,B:0},lastDay:{A:'',B:''},leitner:{},xp:{A:0,B:0},badges:{A:[],B:[]},conf:{},setupDone:false};}
@@ -506,7 +507,8 @@ function matsDoEdital(){
 function goView(v){document.querySelectorAll('nav.tabs button').forEach(b=>{if(b.dataset.view===v)b.click();});}
 function renderHome(){
   const edName=STATE.edital==='10896a860906ced7b'?'Retificado (19/08)':'Original (05/06)';
-  document.getElementById('dashSub').textContent='Edital '+edName+' selecionado. Escolha um metodo de estudo abaixo.';
+  document.getElementById('dashSub').innerHTML='Edital <b>'+edName+'</b> selecionado. Escolha um metodo de estudo abaixo. <button class="btn ghost" id="homeChange" style="padding:4px 12px;font-size:12px;margin-left:8px">🔄 Trocar</button>';
+  document.getElementById('homeChange').onclick=()=>{STATE.setupDone=false;showSetup(true);};
   const methods=[
     {v:'flash',ico:'🃏',n:'Flashcards',d:'Revisao espacada (Leitner). Acertos e erros.',c:'#183454'},
     {v:'quiz',ico:'📝',n:'Simulado',d:'Questoes por matéria ou misto (interleaving).',c:'#22466e'},
@@ -850,11 +852,8 @@ function showSetup(force){
   updateCtx();
 }
 function updateCtx(){
-  const b=document.getElementById('ctxBanner');
-  if(STATE.setupDone){
-    const nm=STATE.edital==='10896a860906ced7b'?'Retificado (19/08)':'Original (05/06)';
-    b.style.display='flex';document.getElementById('ctxText').innerHTML='📑 Edital selecionado: <b>'+nm+'</b>';
-  } else b.style.display='none';
+  // banner oculto por padrao; o edital selecionado ja aparece no subtitulo da home
+  document.getElementById('ctxBanner').style.display='none';
 }
 document.getElementById('ctxChange').onclick=()=>{STATE.setupDone=false;showSetup(true);};
 renderHome();renderSobre();pomoRender();
