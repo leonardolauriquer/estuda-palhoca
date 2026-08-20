@@ -89,6 +89,15 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-t
 .leitner{font-size:12px;padding:2px 8px;border-radius:999px;background:var(--bg);border:1px solid var(--line);color:var(--muted);font-weight:700}
 @media(max-width:640px){nav.tabs{top:118px}.cargos-sel .cs{min-width:100%}}
   .rank-card{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+.streak-bar{padding:12px 16px;border-radius:12px;background:linear-gradient(135deg,#183454,#22466e);color:#fff;font-size:15px;margin:12px 0;box-shadow:0 2px 10px rgba(24,52,84,.18)}
+.red-train{margin-top:18px;background:#f4f7fb;border:1px solid #dde6f0;border-radius:14px;padding:16px}
+.red-train textarea{width:100%;min-height:150px;padding:12px;border-radius:10px;border:1px solid #c7d3e0;font-family:inherit;font-size:14px;resize:vertical}
+.red-train .chk{margin-top:10px}
+.red-train .chk label{display:block;padding:4px 0;font-size:13px;color:#1d2735}
+.red-result{padding:10px 12px;border-radius:10px;margin-top:10px;font-size:14px}
+.red-result.ok{background:#e8f6ec;color:#1d5c34}
+.red-result.no{background:#fdeaea;color:#8a2b29}
+
   .player{padding:16px;border-radius:14px;background:linear-gradient(135deg,#fff,#f3f7fb);border:2px solid #e3eaf2;text-align:center}
   .player.A{border-color:var(--navy)}
   .player.B{border-color:var(--green)}
@@ -531,6 +540,26 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-t
       <li>Configure <b>negritos</b> só para termos-chave.</li>
       <li>Treine 1 modelo por dia na aba Foco (Pomodoro).</li>
     </ul>
+  
+    <h3 class="sec" style="margin-top:18px">🎯 Treino de Redação (interativo)</h3>
+    <div class="red-train">
+      <p class="study-resumo">Escreva seu ofício/memorando/ata abaixo. O app confere os itens obrigatórios e dá XP por acerto.</p>
+      <textarea id="redText" placeholder="Ex.: CÂMARA MUNICIPAL DE PALHOÇA — SC
+Ofício nº 12/2026
+Palhoça, 20 de agosto de 2026.
+Senhor(a) ...
+Assunto: ...
+..."></textarea>
+      <div class="chk">
+        <label><input type="checkbox" id="redR1" disabled> Cabeçalho com órgão (CÂMARA / OFÍCIO / MEMORANDO / ATA)</label>
+        <label><input type="checkbox" id="redR2" disabled> Número e data por extenso</label>
+        <label><input type="checkbox" id="redR3" disabled> Destinatário/Assunto claros</label>
+        <label><input type="checkbox" id="redR4" disabled> Assinatura (nome + cargo)</label>
+        <label><input type="checkbox" id="redR5" disabled> Voz ativa / impessoal (sem "eu acho")</label>
+      </div>
+      <button class="btn" onclick="checkRedacao()" style="margin-top:10px">🔍 Conferir e ganhar XP</button>
+      <div id="redResult" class="red-result" style="display:none"></div>
+    </div>
   </section>
   <section class="view" id="view-trophy">
     <h2 class="sec">🏆 Gamificação & Desafio entre vocês</h2>
@@ -798,7 +827,7 @@ const LEIS_ART=[
 ];
 
 const LSKEY='palhoca_study_v2';
-const APP_VER='v40';
+const APP_VER='v41';
 let STATE=loadState();
 function loadState(){try{const s=JSON.parse(localStorage.getItem(LSKEY));if(s)return s;}catch(e){}
   return {edital:'10896a860906ced7b',cards:{},topics:{},quiz:[],pomoCycles:0,streak:0,lastDay:'',leitner:{},xp:0,badges:[],conf:{},setupDone:false};}
@@ -1119,10 +1148,10 @@ function checkBadges(){
   if(masteryPct(cargo)>=50)add('b5','Meio caminho 🎯');
   if(masteryPct(cargo)>=90)add('b6','Quase lá 🏆');
 }
-function renderTrophy(){var _t=document.getElementById('view-trophy');var _o=_t.querySelector('.ctx-edital');if(_o)_o.remove();_t.insertAdjacentHTML('afterbegin',ctxLine());
+function renderTrophy(){touchStreak();var _t=document.getElementById('view-trophy');var _o=_t.querySelector('.ctx-edital');if(_o)_o.remove();_t.insertAdjacentHTML('afterbegin',ctxLine());
   const lv=xpForLevel(STATE.xp||0);
   const badges=(STATE.badges&&STATE.badges.length)?STATE.badges.map(b=>'<span class="badge-pill">'+b+'</span>').join(''):'<span style="font-size:11px;color:var(--muted)">sem medalhas ainda</span>';
-  let html='<div class="rank-card"><div class="player A"><div class="lvl">Nv '+lv.lvl+'</div><div class="nm">Você</div><div class="xp">⭐ '+(STATE.xp||0)+' XP</div><div class="xpbar"><i style="width:'+Math.round(lv.cur/lv.need*100)+'%"></i></div><div style="margin-top:8px">'+badges+'</div></div></div>';
+  let html='<div class="streak-bar">🔥 <b>'+(STATE.streak||0)+'</b> dias de sequência'+(STATE.lastDay?' &nbsp;·&nbsp; último acesso: '+STATE.lastDay:'')+'</div><div class="rank-card"><div class="player A"><div class="lvl">Nv '+lv.lvl+'</div><div class="nm">Você</div><div class="xp">⭐ '+(STATE.xp||0)+' XP</div><div class="xpbar"><i style="width:'+Math.round(lv.cur/lv.need*100)+'%"></i></div><div style="margin-top:8px">'+badges+'</div></div></div>';
   const cargo=STATE.edital==='10896a860906ced7b'?'tec':'adm';
   html+='<div class="card"><h3>🎯 Maestria por matéria</h3><div class="mastery">';
   matsDoEdital().forEach(m=>{let dom=0,tot=m.cards.length;m.cards.forEach((_,i)=>{const k='c_'+m.id+'_'+i;if(STATE.cards[k]==='known'&&(STATE.leitner[k]||1)>=5)dom++;});const p=tot?Math.round(dom/tot*100):0;html+='<div class="ms"><div class="top"><span>'+m.nome+'</span><span class="pct">'+p+'%</span></div><div class="xpbar"><i style="width:'+p+'%"></i></div></div>';});
@@ -1832,6 +1861,30 @@ function renderExercicios(){
 }
 
 function renderRed(){/* conteudo estatico na section #view-red */}
+function checkRedacao(){
+  const t=document.getElementById('redText').value.trim();
+  const low=t.toLowerCase();
+  const r={};
+  r.r1=/(câmara|ofício|oficio|memorando|ata|parecer)/i.test(t);
+  r.r2=/(nº|no |número|\/)/i.test(t) && /(janeiro|fevereiro|março|abril|maio|junho|julho|agosto|setembro|outubro|novembro|dezembro|\d{1,2}\/\d{1,2}\/\d{4})/i.test(t);
+  r.r3=/(senhor|senhora|para:|de:|assunto:|a:|prezado)/i.test(t);
+  r.r4=/(cargo|presidente|vereador|secretário|diretor|assinatura)/i.test(t) || (t.split('\n').filter(x=>x.trim()).length>=2);
+  r.r5=!/(eu acho|eu penso|na minha opinião|eu creio)/i.test(low) && /(aprov|encaminh|solicit|inform|submet|trata|decid)/i.test(low);
+  const ids={r1:'redR1',r2:'redR2',r3:'redR3',r4:'redR4',r5:'redR5'};
+  let n=0;
+  for(const k in r){document.getElementById(ids[k]).checked=r[k]; if(r[k])n++;}
+  const pct=Math.round(n/5*100);
+  const res=document.getElementById('redResult');
+  let xp=0;
+  if(n>=4){xp=15; STATE.xp=(STATE.xp||0)+xp; touchStreak();}
+  else if(n>=2){xp=8; STATE.xp=(STATE.xp||0)+xp; touchStreak();}
+  save(); renderTrophy();
+  res.style.display='block';
+  if(n>=4)res.className='red-result ok';
+  else res.className='red-result no';
+  res.innerHTML='✅ Itens ok: <b>'+n+'/5</b> ('+pct+'%)'+(xp?' &nbsp;·&nbsp; +'+xp+' XP 🎉':' &nbsp;·&nbsp; acrescente cabeçalho, data, destinatário e assinatura para ganhar XP');
+}
+
 
 function speakAll(){
   if(!('speechSynthesis' in window)){alert('Seu navegador nao suporta audio.');return;}
