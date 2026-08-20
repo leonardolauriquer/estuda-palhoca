@@ -693,7 +693,7 @@ const LEIS_ART=[
 ];
 
 const LSKEY='palhoca_study_v2';
-const APP_VER='v36';
+const APP_VER='v37';
 let STATE=loadState();
 function loadState(){try{const s=JSON.parse(localStorage.getItem(LSKEY));if(s)return s;}catch(e){}
   return {edital:'10896a860906ced7b',cards:{},topics:{},quiz:[],pomoCycles:0,streak:0,lastDay:'',leitner:{},xp:0,badges:[],conf:{},setupDone:false};}
@@ -791,7 +791,7 @@ function dueCards(matId,mode){
       const wait=BOX_DAYS[Math.min(L,5)]*864e5;
       return now-ts>=wait;
     });
-    if(arr.length===0)arr=m.cards.map((c,i)=>({q:c[0],a:c[1],k:'c_'+matId+'_'+i})); // fallback
+    if(arr.length===0)arr=[]; // sem vencidos: respeita revisao espacada
   }else if(mode==='hard'){
     arr=arr.filter(c=>boxFor(c.k)<=1);
   }
@@ -815,6 +815,7 @@ function buildDeck(matId){
 document.getElementById('flashMode').onchange=()=>buildDeck(document.getElementById('flashMat').value);
 function touchStreak(){const t=today();if(STATE.lastDay!==t){if(STATE.lastDay){const d=(Date.now()-new Date(STATE.lastDay).getTime())/864e5;STATE.streak=(d<=1.5?(STATE.streak||0)+1:1);}else STATE.streak=1;STATE.lastDay=t;save();}}
 function showCard(){
+  flashFlipped=false;document.getElementById('okCard').disabled=true;document.getElementById('notCard').disabled=true;
   const flip=document.getElementById('flip');flip.classList.remove('flipped');
   const c=flashDeck[flashIdx];if(!c){document.getElementById('fq').textContent='🎉 Tudo revisado por enquanto!';document.getElementById('fa').textContent='Volte depois ou mude o filtro.';document.getElementById('flashCount').textContent='0/0';document.getElementById('leitnerTag').textContent='-';return;}
   const mid=c.k.split('_')[1];const mAtual=DADOS.materias.find(x=>x.id===mid);
@@ -828,14 +829,17 @@ function showCard(){
 document.getElementById('flip').onclick=()=>document.getElementById('flip').classList.toggle('flipped');
 document.getElementById('prevCard').onclick=()=>{if(flashIdx>0){flashIdx--;showCard();}};
 document.getElementById('nextCard').onclick=()=>{if(flashIdx<flashDeck.length-1){flashIdx++;showCard();}};
+let flashFlipped=false;
 function markFlash(known){
-  const c=flashDeck[flashIdx];if(!c)return;const k=c.k;const L=boxFor(k);
+  const c=flashDeck[flashIdx];if(!c||!flashFlipped)return;const k=c.k;const L=boxFor(k);
   if(known){STATE.cards[k+'']='known';STATE.leitner[k+'']=Math.min(L+1,5);}
   else{STATE.cards[k+'']='unknown';STATE.leitner[k+'']=1;}
   STATE.leitner[k+''+'_ts']=Date.now();
   if(known)STATE.xp=(STATE.xp||0)+10; else STATE.xp=(STATE.xp||0)+2;
   touchStreak();save();checkBadges();
+  flashFlipped=false;document.getElementById('okCard').disabled=true;document.getElementById('notCard').disabled=true;
 }
+document.getElementById('flip').onclick=function(){flashFlipped=true;document.getElementById('okCard').disabled=false;document.getElementById('notCard').disabled=false;};
 document.getElementById('okCard').onclick=()=>markFlash(true);
 document.getElementById('notCard').onclick=()=>markFlash(false);
 
@@ -906,8 +910,8 @@ function showQuiz(examMode,aviso){
     const fb=document.getElementById('fb');fb.style.display='block';
     fb.innerHTML=correct?`✅ <b>Correto!</b> ${q.a}`:`❌ <b>Errado.</b> ${q.a}`;
     if(correct)quizScore++;quizLog.push({matId:q.matId,correct});
-    STATE.cards[q.k+'']='known';STATE.leitner[q.k+''+'_ts']=Date.now();
-    STATE.leitner[q.k+'']=Math.min((boxFor(q.k)+1),5);
+    STATE.cards[q.k+'']=(correct?'known':'unknown');STATE.leitner[q.k+''+'_ts']=Date.now();
+    STATE.leitner[q.k+'']=correct?Math.min((boxFor(q.k)+1),5):1;
     if(correct)STATE.xp=(STATE.xp||0)+15; else STATE.xp=(STATE.xp||0)+3;
     touchStreak();save();checkBadges();
     document.getElementById('nextQuiz').onclick=()=>{quizIdx++;showQuiz();};
@@ -943,8 +947,9 @@ document.getElementById('mergeBtn').onclick=()=>{
     let n=0;
     const merge=(recv,cur)=>{for(const k in recv){if(recv[k]&&recv[k]!=='unknown'){if(!(k in cur)||cur[k]==='unknown'||recv[k]==='known'){cur[k]=recv[k];n++;}}}};
     merge(inc.t,STATE.topics);merge(inc.c,STATE.cards);merge(inc.l,STATE.leitner);
-    for(const k in inc.st)STATE.streak[k]=Math.max(STATE.streak[k]||0,inc.st[k]||0);
-    for(const k in inc.ld)if(!STATE.lastDay[k]||inc.ld[k]>STATE.lastDay[k])STATE.lastDay[k]=inc.ld[k];
+    STATE.streak=Math.max(STATE.streak||0,inc.st||0);
+    STATE.lastDay=Math.max(STATE.lastDay||0,inc.ld||0);
+    STATE.xp=Math.max(STATE.xp||0,inc.xp||0);
     STATE.pomoCycles=Math.max(STATE.pomoCycles||0,inc.cy||0);
     if(inc.xp)for(const k in inc.xp)STATE.xp[k]=Math.max(STATE.xp[k]||0,inc.xp[k]||0);
     if(inc.bg)for(const k in inc.bg)STATE.badges[k]=(STATE.badges[k]||[]).concat(inc.bg[k]||[]).filter((v,i,a)=>a.indexOf(v)===i);
@@ -1068,8 +1073,11 @@ function renderStudy(){
     var cont=(CONTEUDO[m.id]||[]).concat(CONTEUDO_EST[m.id]||[]);
     cont.forEach(function(c){if(c)window._studyTexts.push(c);});
     let tops='<ul class="study-topics">'
-    m.topicos.forEach(function(t,ti){var res=cont[ti]?('<div class="study-resumo">'+cont[ti]+'<button class="tts-btn" onclick="speakFrom(this)" data-t="'+encodeURIComponent(cont[ti])+'">🔊 Ouvir</button></div>'):'';tops+='<li><b>'+t+'</b>'+res+'</li>';});
+    var est=(CONTEUDO_EST[m.id]||[]);
+    m.topicos.forEach(function(t,ti){var res=cont[ti]?('<div class="study-resumo">'+cont[ti]+'<button class="tts-btn" onclick="speakFrom(this)" data-t="'+encodeURIComponent(cont[ti])+'">🔊 Ouvir</button></div>'):'';tops+='<li><b>'+t+'</b>'+res+'</li>'});
     tops+='</ul>';
+    var nt=m.topicos.length;
+    if(est.length>nt){tops+='<div class="study-extra" style="margin-top:8px"><b>📌 Complemento específico:</b><ul class="study-topics">';for(var ei=nt;ei<est.length;ei++){tops+='<li><div class="study-resumo">'+est[ei]+'<button class="tts-btn" onclick="speakFrom(this)" data-t="'+encodeURIComponent(est[ei])+'">🔊 Ouvir</button></div></li>';}tops+='</ul></div>';}
     html+='<div class="subj-block"><div class="head"><h3>'+m.nome+'</h3><span class="badge '+areaCls+'">'+(m.area==='Conhecimentos Gerais'?'Geral':'Específico')+'</span></div>'+tops
       +'<div class="btn-row" style="margin-top:10px"><button class="btn primary" onclick="goFlashMat(\''+m.id+'\')">🃏 Flashcards desta matéria</button><button class="btn ghost" onclick="goQuizMat(\''+m.id+'\')">📝 Quiz desta matéria</button></div></div>';
   });
