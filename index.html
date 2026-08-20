@@ -327,7 +327,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-t
         <span class="pill" id="flashCount"></span>
       </div>
       <div class="flip" id="flip"><div class="inner">
-        <div class="face front"><div class="q-tag">PERGUNTA <span class="leitner" id="leitnerTag">C1</span></div><div class="q" id="fq"></div><div class="hint">clique para ver a resposta</div></div>
+        <div class="face front"><div class="q-tag">PERGUNTA <span class="leitner" id="leitnerTag">C1</span></div><div id="flashTopic" style="font-size:13px;font-weight:800;color:var(--green);margin-bottom:6px"></div><div class="q" id="fq"></div><div class="hint">clique para ver a resposta</div></div>
         <div class="face back"><div class="q-tag">RESPOSTA</div><div class="a" id="fa"></div></div>
       </div></div>
       <div class="btn-row">
@@ -457,7 +457,7 @@ const LEIS=[
   ]}
 ];
 const LSKEY='palhoca_study_v2';
-const APP_VER='v23';
+const APP_VER='v24';
 let STATE=loadState();
 function loadState(){try{const s=JSON.parse(localStorage.getItem(LSKEY));if(s)return s;}catch(e){}
   return {edital:'10896a860906ced7b',cards:{},topics:{},quiz:[],pomoCycles:0,streak:0,lastDay:'',leitner:{},xp:0,badges:[],conf:{},setupDone:false};}
@@ -554,9 +554,14 @@ function dueCards(matId,mode){
   return arr;
 }
 function renderFlashSetup(){var _f=document.getElementById('view-flash');var _o=_f.querySelector('.ctx-edital');if(_o)_o.remove();_f.insertAdjacentHTML('afterbegin',ctxLine());
-  const sel=document.getElementById('flashMat');const cargo=STATE.edital==='10896a860906ced7b'?'tec':'adm';
-  sel.innerHTML=matsDoEdital().map(m=>`<option value="${m.id}">${m.nome}</option>`).join('');
-  sel.onchange=()=>buildDeck(sel.value);buildDeck(matsDoEdital()[0].id);
+  const sel=document.getElementById('flashMat');
+  const mats=matsDoEdital();
+  const gerais=mats.filter(m=>m.area==='Conhecimentos Gerais');
+  const esp=mats.filter(m=>m.area!=='Conhecimentos Gerais');
+  const opt=m=>`<option value="${m.id}">${m.nome}</option>`;
+  sel.innerHTML='<optgroup label="📘 Gerais (todas as vagas)">'+gerais.map(opt).join('')+'</optgroup>'+
+                '<optgroup label="🎯 Específicos da vaga">'+(esp.length?esp.map(opt).join(''):'<option value="">— nenhum —</option>')+'</optgroup>';
+  sel.onchange=()=>buildDeck(sel.value);buildDeck(gerais[0].id);
 }
 function buildDeck(matId){
   flashDeck=dueCards(matId,document.getElementById('flashMode').value);
@@ -568,9 +573,11 @@ function touchStreak(){const t=today();if(STATE.lastDay!==t){if(STATE.lastDay){c
 function showCard(){
   const flip=document.getElementById('flip');flip.classList.remove('flipped');
   const c=flashDeck[flashIdx];if(!c){document.getElementById('fq').textContent='🎉 Tudo revisado por enquanto!';document.getElementById('fa').textContent='Volte depois ou mude o filtro.';document.getElementById('flashCount').textContent='0/0';document.getElementById('leitnerTag').textContent='-';return;}
+  const mid=c.k.split('_')[1];const mAtual=DADOS.materias.find(x=>x.id===mid);
   document.getElementById('fq').textContent=c.q;document.getElementById('fa').textContent=c.a;
   document.getElementById('flashCount').textContent=`${flashIdx+1} / ${flashDeck.length}`;
   document.getElementById('leitnerTag').textContent='C'+boxFor(c.k);
+  const ft=document.getElementById('flashTopic');if(ft)ft.textContent=(mAtual?mAtual.nome:'')+' · '+(STATE.edital==='10896a860906ced7b'?'Retificado':'Original');
 }
 document.getElementById('flip').onclick=()=>document.getElementById('flip').classList.toggle('flipped');
 document.getElementById('prevCard').onclick=()=>{if(flashIdx>0){flashIdx--;showCard();}};
