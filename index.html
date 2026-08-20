@@ -323,6 +323,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-t
   <button data-view="leis">📜 Leis Comentadas</button>
   <button data-view="fontes">🔗 Fontes Oficiais</button>
   <button data-view="exer">📝 Exercícios</button>
+  <button data-view="red">✍️ Redação</button>
   <button data-view="trophy">🏆 Gamificação</button>
   <button data-view="pomo">⏱️ Foco</button>
   <button data-view="sobre">ℹ️ Edital</button>
@@ -426,6 +427,110 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-t
     <h2 class="sec">📝 Exercícios resolvidos</h2>
     <p class="sub">Problemas de Matemática e Contabilidade com resolução passo a passo. Estude o raciocínio.</p>
     <div id="exerBox"></div>
+  </section>
+  <section class="view" id="view-red">
+    <h2 class="sec">✍️ Redação Oficial e Escrita — Câmara de Palhoça</h2>
+    <p class="dash-sub">A prova discursiva/prática de Câmara exige domínio dos <b>gêneros da redação oficial</b> (ofício, memorando, ata, parecer, expediente) e clareza na escrita. Aqui você aprende a estrutura, o padrão SLIM e treina com modelos.</p>
+
+    <div class="cards">
+      <div class="card">
+        <h3>📋 O que cai em Redação Oficial</h3>
+        <ul class="study-topics">
+          <li><b>Ofício</b>: comunicação entre órgãos públicos (expedido/recebido).</li>
+          <li><b>Memorando</b>: comunicação interna entre unidades.</li>
+          <li><b>Ata</b>: registro de reuniões/sessões (verbativa ou resumida).</li>
+          <li><b>Parecer</b>: análise técnica/jurídica fundamentada.</li>
+          <li><b>Expediente</b>: aviso, circular, portaria, requerimento.</li>
+          <li><b>Interpretação de texto</b>: fato x opinião, intenção, implícitos (no edital).</li>
+        </ul>
+        <button class="tts-btn" onclick="speakFrom(this)" data-t="Redação oficial exige dominar ofício, memorando, ata, parecer e expediente, além de clareza na escrita.">🔊 Ouvir</button>
+      </div>
+
+      <div class="card">
+        <h3>🏛️ Padrão SLIM (manual de redação)</h3>
+        <ul class="study-topics">
+          <li><b>S</b>intaxe: frases curtas, voz ativa, sujeito + verbo.</li>
+          <li><b>L</b>éxico: palavras precisas, sem redundância (evite "subir para cima").</li>
+          <li><b>I</b>mpositividade: linguagem impessoal (não use "eu acho").</li>
+          <li><b>M</b>orfologia: padronização (nomes, cargos, datas por extenso).</li>
+        </ul>
+        <button class="tts-btn" onclick="speakFrom(this)" data-t="O padrão SLIM prioriza sintaxe clara, léxico preciso, impessoalidade e padronização morfológica.">🔊 Ouvir</button>
+      </div>
+
+      <div class="card">
+        <h3>✅ Checklist antes de entregar</h3>
+        <ul class="study-topics">
+          <li>Timbre/identificação do órgão correto.</li>
+          <li>Número, data e local por extenso.</li>
+          <li>Destinatário e assunto claros.</li>
+          <li>Texto impessoal, coeso e coerente.</li>
+          <li>Revisão ortográfica e de crase.</li>
+          <li>Assinatura com nome e cargo.</li>
+        </ul>
+        <button class="tts-btn" onclick="speakFrom(this)" data-t="Antes de entregar, confira timbre, número, data por extenso, destinatário, impessoalidade e assinatura.">🔊 Ouvir</button>
+      </div>
+    </div>
+
+    <h3 class="sec" style="margin-top:18px">📄 Modelos prontos (copie e adapte)</h3>
+
+    <div class="exer-card" style="text-align:left">
+      <h4>OFÍCIO (expedido)</h4>
+      <p class="study-resumo">CÂMARA MUNICIPAL DE PALHOÇA — SC<br>
+      Ofício nº __/2026<br>
+      Palhoça, __ de __________ de 2026.<br><br>
+      Senhor(a) ____________________________<br>
+      Assunto: ____________________________<br><br>
+      Tendo em vista ______________________, submeto à Vossa consideração o presente ofício, a fim de ______________________.<br><br>
+      Para tanto, solicito ________________.<br><br>
+      Atenciosamente,<br><br>
+      ______________________<br>
+      Cargo / Presidente da Câmara</p>
+      <button class="tts-btn" onclick="speakFrom(this)" data-t="Modelo de ofício: cabeçalho com órgão, número, data, destinatário, assunto, corpo impessoal e assinatura.">🔊 Ouvir</button>
+    </div>
+
+    <div class="exer-card" style="text-align:left;margin-top:12px">
+      <h4>MEMORANDO (interno)</h4>
+      <p class="study-resumo">CÂMARA MUNICIPAL DE PALHOÇA — SC<br>
+      MEMORANDO nº __/2026<br>
+      PARA: ____________________________<br>
+      DE: ______________________________<br>
+      DATA: __/__/2026<br>
+      ASSUNTO: __________________________<br><br>
+      Trata-se de ______________________, devendo a unidade adotar ______________________.<br><br>
+      Sigiloso? ( ) Sim ( ) Não</p>
+      <button class="tts-btn" onclick="speakFrom(this)" data-t="Memorando é comunicação interna: para, de, data, assunto e corpo direto.">🔊 Ouvir</button>
+    </div>
+
+    <div class="exer-card" style="text-align:left;margin-top:12px">
+      <h4>ATA (reunião/sessão)</h4>
+      <p class="study-resumo">ATA DA __ª REUNIÃO ORDINÁRIA<br>
+      Aos __ dias do mês de __________ de 2026, às __ horas, na Sede da Câmara Municipal de Palhoça, reuniu-se a Comissão ______________________. Abriu-se a sessão pelo Presidente. Aprovou-se a ata anterior. Em seguida, tratou-se de ______________________. Nada mais havendo, foi encerrada a sessão e lavrada a presente ata.</p>
+      <button class="tts-btn" onclick="speakFrom(this)" data-t="Ata registra data, hora, local, abertura, discussões e encerramento de reunião ou sessão.">🔊 Ouvir</button>
+    </div>
+
+    <div class="exer-card" style="text-align:left;margin-top:12px">
+      <h4>PARECER (técnico/jurídico)</h4>
+      <p class="study-resumo">PARECER<br>
+      Processo nº ____/2026<br>
+      Assunto: __________________________<br><br>
+      I — RELATÓRIO: Trata-se de ______________________.<br>
+      II — FUNDAMENTAÇÃO: Nos termos da Lei __________, ______________________.<br>
+      III — CONCLUSÃO: Opino por ______________.<br><br>
+      Palhoça, __ de __________ de 2026.<br>
+      ______________________<br>
+      Parecerista</p>
+      <button class="tts-btn" onclick="speakFrom(this)" data-t="Parecer tem relatório, fundamentação legal e conclusão técnica.">🔊 Ouvir</button>
+    </div>
+
+    <h3 class="sec" style="margin-top:18px">💡 Dicas de escrita que pontuam</h3>
+    <ul class="study-topics">
+      <li>Use <b>voz ativa</b> e sujeito claro: "A Câmara aprovou" em vez de "Foi aprovado pela Câmara".</li>
+      <li>Evite <b>gerúndio abundante</b> e repetição de "quanto a".</li>
+      <li>Datas e valores por <b>extenso</b> no cabeçalho; números nos gráficos.</li>
+      <li>Mantenha <b>parágrafos curtos</b> (3 a 5 linhas).</li>
+      <li>Configure <b>negritos</b> só para termos-chave.</li>
+      <li>Treine 1 modelo por dia na aba Foco (Pomodoro).</li>
+    </ul>
   </section>
   <section class="view" id="view-trophy">
     <h2 class="sec">🏆 Gamificação & Desafio entre vocês</h2>
@@ -693,7 +798,7 @@ const LEIS_ART=[
 ];
 
 const LSKEY='palhoca_study_v2';
-const APP_VER='v39';
+const APP_VER='v40';
 let STATE=loadState();
 function loadState(){try{const s=JSON.parse(localStorage.getItem(LSKEY));if(s)return s;}catch(e){}
   return {edital:'10896a860906ced7b',cards:{},topics:{},quiz:[],pomoCycles:0,streak:0,lastDay:'',leitner:{},xp:0,badges:[],conf:{},setupDone:false};}
@@ -718,6 +823,7 @@ document.querySelectorAll('nav.tabs button').forEach(b=>{b.onclick=()=>{
   if(b.dataset.view==='leis')renderLeis();
   if(b.dataset.view==='fontes')renderFontes();
   if(b.dataset.view==='exer')renderExercicios();
+  if(b.dataset.view==='red')renderRed();
 };});
 
 function matsDoEdital(){
@@ -1724,6 +1830,8 @@ function renderExercicios(){
   });
   document.getElementById('exerBox').innerHTML=html;
 }
+
+function renderRed(){/* conteudo estatico na section #view-red */}
 
 function speakAll(){
   if(!('speechSynthesis' in window)){alert('Seu navegador nao suporta audio.');return;}
