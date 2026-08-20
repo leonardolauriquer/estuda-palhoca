@@ -109,7 +109,8 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-t
   .lei.open .body{display:block}
   .lei .li{padding:8px 0;border-top:1px dashed #e3eaf2}
   .lei .li .q{font-weight:700;color:var(--green);font-size:13px}
-  .lei .li .a{font-size:13px;color:#37475a;margin-top:3px}
+  .lei .li .a{font-size:13px;color:#37475a;margin-top:3px}  .li-art{font-size:12px;color:#14304f;background:#eef4fa;border-left:3px solid var(--navy);padding:6px 8px;margin-top:4px;border-radius:0 6px 6px 0;line-height:1.45}
+
   /* === DASH PROFISSIONAL === */
   .students-cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
   .student-card{background:#fff;border:2px solid #e3eaf2;border-radius:16px;padding:16px;cursor:pointer;transition:.18s;position:relative;overflow:hidden}
@@ -169,7 +170,9 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-t
   .topic:last-child{border-bottom:none}
   .topic .txt{font-size:14px;color:#37475a;flex:1;line-height:1.4}
 .study-topics{margin:8px 0 0 18px;padding:0;list-style:disc}
-  .study-topics li{font-size:14px;color:#37475a;line-height:1.5;margin:4px 0}
+  .study-topics li{font-size:14px;color:#37475a;line-height:1.5;margin:8px 0}  .study-resumo{font-size:13px;color:#37475a;line-height:1.5;margin:4px 0 8px;background:#f6f9fc;border-left:3px solid var(--green);padding:8px 10px;border-radius:0 8px 8px 0}
+  .study-topics li{margin:8px 0}
+
   .cb{width:30px;height:30px;border-radius:50%;border:2px solid var(--line);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;transition:.15s;flex-shrink:0;user-select:none}
   .cb.A{border-color:var(--navy)} .cb.A.on{background:var(--navy)} .cb.A:not(.on){color:var(--navy)}
   .cb.B{border-color:var(--green)} .cb.B.on{background:var(--green)} .cb.B:not(.on){color:var(--green)}
@@ -479,8 +482,102 @@ const LEIS=[
     ["Por que cai:","Citação literal do Edital 19/2026 na Parte 5 de Legislação."]
   ]}
 ];
+
+const CONTEUDO={
+"port":[
+"Leitura e interpretação: entenda o que o texto diz (literal) e o que sugere (implícito). Gêneros (notícia, edital, lei, e-mail) têm estrutura própria. Dica: leia o comando da questão antes do texto.",
+"Fato x opinião: fato é verificável (''choveu 20mm''); opinião traz juízo de valor (''foi o pior dia''). Intencionalidade = o objetivo do autor (convencer, informar, ironizar).",
+"Implícitos e efeitos de sentido: o que não está escrito mas se deduz pelo contexto. Ex.: ''ele chegou molhado'' => implícito: ''choveu''. Cuidado com o que o enunciado ESCONDE.",
+"Ideias principais/secundárias: principal = núcleo do parágrafo; secundária = exemplo/detalhe. Argumentação usa teses, argumentos e conectivos (logo, portanto, porém).",
+"Variações linguísticas: a língua muda conforme lugar, classe social, situação. Não existe ''errado'' absoluto — há adequação ao contexto (formal x informal).",
+"Gêneros textuais: cada gênero tem estrutura (e-mail tem saudação; edital tem numeração). Intertextualidade = um texto cita/outro (''como dizia Machado...'').",
+"Coesão (conectivos, pronomes) x coerência (sentido lógico). Texto coeso une frases; coerente faz sentido. ''Porque chovia, levei guarda-chuva'' = coeso e coerente.",
+"Léxico: sinônimos (mesmo sentido), antônimos (sentido oposto), parônimos (parecidos, ex.: ''descrição'' x ''discrição''), homônimos (mesma forma, som diferente).",
+"Ortografia: hífen em prefixo + palavra (''anti-inflamatório''), acentuação (proparoxítonas, ''í''/''á'' tônicas). Acordo Ortográfico 2009 (Decreto 6.583/12).",
+"Figuras de linguagem: metáfora (''mar de gente''), metonímia (''bebi um copo'' = líquido), ironia (dizer o oposto). Não confunda com figura de sintaxe.",
+"Fonologia: fonema (som) x grafema (letra). ''x'' pode ser /ch/ (xadrez) ou /ks/ (táxi). Relação nem sempre 1:1.",
+"Morfologia: classes (substantivo, verbo, adjetivo...). Formação: prefixação, sufixação, composição. Vozes: ativa (sujeito age), passiva (sujeito sofre), reflexiva.",
+"Sintaxe: concordância (nome com verbo/nome), regência (preposição exigida pelo verbo: ''gostar DE''), colocação (próclise/ênclise/mesóclise).",
+"Coordenação (orações independentes: ''e'', ''mas'') x subordinação (uma depende da outra: ''que'', ''se''). Pronomes relativos: ''que'', ''o qual'', ''cujo''.",
+"Pontuação muda sentido: ''Não vem, João'' (proíbe) x ''Não, vem João'' (ordem). Vírgula separa orações; ponto final encerra."
+],
+"mat":[
+"Números e operações: soma, subtração, multiplicação, divisão. Prioridade: () > ×÷ > +- . Porcentagem = fração de 100 (25% = 25/100 = 0,25).",
+"Razão e proporção: razão compara dois valores (3:4). Proporção: duas razões iguais. Regra de 3 simples (direta/inversa) resolve problemas de escala.",
+"Porcentagem e juros: % de um valor = valor × %/100. Juros simples = P×i×t. Desconto = valor × (1 - %/100).",
+"Média aritmética: soma dos valores ÷ quantidade. Média ponderada: cada valor × peso, soma ÷ soma dos pesos.",
+"Equações do 1º e 2º grau: ax+b=0 => x=-b/a. 2º grau: ax²+bx+c=0 => Bhaskara. Substituir x e conferir.",
+"Geometria básica: perímetro (soma dos lados), área (m²). Retângulo: A=b×h. Triângulo: A=b×h/2. Círculo: A=π×r². Volume: litros/m³.",
+"Sistemas de medidas: comprimento (m, cm, km), massa (kg, g), tempo (h, min). 1 km=1000 m; 1 h=60 min. Conversão é multiplicar/dividir pela relação.",
+"Raciocínio lógico: sequências (1,3,5,7...), verdades/falsidades, conjuntos (união ∩, interseção ∪). Leia o enunciado devagar.",
+"Probabilidade: casos favoráveis ÷ casos possíveis. Lançar dado: P(6)=1/6. Evento certo=1, impossível=0.",
+"Análise de gráficos: leia título, eixos e legenda. Barra = comparação; linha = evolução no tempo; pizza = proporção do todo."
+],
+"inf":[
+"Sistema operacional: Windows/Linux gerenciam hardware. Arquivos e pastas, extensões (.pdf, .exe). Atalhos comuns (Ctrl+C, Ctrl+V).",
+"Pacote Office: Word (texto), Excel (planilha, fórmulas =SOMA()), PowerPoint (slides). PDF preserva layout; não edita fácil.",
+"Internet e navegadores: URL, HTTP/HTTPS (seguro), e-mail com anexo. Cookies = pequenos dados de sessão. Phishing = e-mail falso pedindo senha.",
+"Segurança da informação: senhas fortes, antivírus, backup. LGPD (Lei 13.709/18) protege dados pessoais: consentimento, anonimização.",
+"Inteligência Artificial (novo no edital): IA gera texto/imagem (ChatGPT, Copilot). LLM = modelo de linguagem. Vieses e alucinações são riscos conhecidos.",
+"Redes: LAN (local), WAN (longa distância), Wi-Fi, IP (identificador). Nuvem = servidores remotos. Firewall protege a rede.",
+"Hardware x software: hardware = peças físicas (CPU, RAM, HD); software = programas. RAM é memória volátil; HD/SSD armazena.",
+"Lógica de programação: algoritmo = passos ordenados. Variável guarda valor. Estruturas: sequência, decisão (se), repetição (enquanto)."
+],
+"leg":[
+"Atualidades: temas recentes de SC/Brasil (economia, meio ambiente, política). Leia fontes oficiais. Questões cobram contexto do ano da prova.",
+"Legislação: LC 14.133/21 (Licitações), LRF (LC 101/00), LINDB, LO Palhoça, LC 96/2010 (servidores). Veja aba ''Leis Comentadas'' com texto e artigos.",
+"Direitos Humanos: dignidade, igualdade, não discriminação (CF art. 1º e 5º). Estatuto do Idoso, ECA, acessibilidade.",
+"Legislação trabalhista básica: CLT (consolidação), jornada 8h, férias, FGTS, rescisão. Servidor público tem regime próprio (LC 96/2010).",
+"Cidadania e ética: princípios da administração pública (legalidade, impessoalidade, moralidade, publicidade, eficiência — art. 37 CF)."
+]
+};
+
+
+const LEIS_ART=[
+[ // LC 14.133/2021
+"Art. 5º: Na aplicação desta Lei, serão observados os princípios da legalidade, da impessoalidade, da moralidade, da publicidade, da eficiência, do interesse público, da probidade administrativa, da igualdade, do planejamento, da transparência, da eficácia, da segregação de funções, da motivação, da vinculação ao edital, da racionalidade, da segurança jurídica e do reaproveitamento dos ativos.",
+"Art. 22-29: São modalidades de licitação: concorrência, concurso, leilão, pregão e diálogo competitivo. Art. 74: inexigibilidade (único fornecedor). Art. 75: dispensa (hipóteses de dispensa de licitação).",
+"Art. 30-38: Fases de planejamento (estudo técnico preliminar, termo de referência), seleção (tipos: menor preço, maior desconto, técnica e preço, maior lance ou proposta, híbrido) e homologação.",
+"Arts. 154-166: Sanções: advertência, multa, suspensão temporária, declaração de inidoneidade. Cabível defesa e recurso administrativo.",
+"Art. 177: Caberá recurso administrativo no prazo de 15 (quinze) dias úteis a contar da intimação do ato.",
+"Cobra pesadamente nos cargos de Contador, Controlador e Técnico Legislativo (anexo VII)."
+],
+[ // LRF
+"Art. 1º: A Lei Complementar de Responsabilidade Fiscal estabelece normas de gestão fiscal responsável, voltadas para a sustentabilidade do financiamento das políticas públicas.",
+"Art. 20-22: Limites máximos (em % da RCL): despesa total com pessoal — 60% (União/Estados), 54% (Municípios); Lei de Camara: 6% da receita líquida para Legislativo municipal.",
+"Arts. 42-43: Proibido contrair obrigação de pagamento sem prévia dotação orçamentária e autorização, sob pena de crime de responsabilidade.",
+"Art. 48: Relatórios Resumo de Execução Orçamentária (RREO) e de Gestão Fiscal (RGF), publicados na internet.",
+"Arts. 50-55: Crimes de responsabilidade e improbidade; descumprimento de limites gera suspensão de repasses e transferências.",
+"Controlador Interno e Contador Legislativo cobram execução orçamentária, RREO/RGF e limites de pessoal."
+],
+[ // LO Palhoça + LC 96
+"Lei Orgânica do Município de Palhoça: norma fundamental do município; organiza Poderes (Executivo e Câmara), servidores e finanças.",
+"Regimento Interno da Câmara: estrutura, atribuições das comissões, processo legislativo interno e funcionamento do Legislativo.",
+"LC 96/2010 (Estatuto dos Servidores): regime jurídico único, provimento por concurso, estágio probatório, estabilidade, vacância e processo disciplinar.",
+"Art. 17 LC 96/2010: reserva de 10% das vagas a PcD, observada proporcionalidade (5ª, 15ª, 25ª vaga...).",
+"Processo legislativo municipal: lei complementar, lei ordinária, decreto legislativo, resolução; iniciativa, discussão, votação, sanção/veto.",
+"Toda a parte de 'Legislação' (6 q) do cargo tem base na LO Palhoça + LC 96 + Regimento da Câmara."
+],
+[ // CP Admin
+"Arts. 312-326 (Crimes contra a Administração): peculato, concussão, corrupção passiva/ativa, prevaricação, advocacia administrativa (art. 327 define funcionário público).",
+"Art. 312 (Peculato): apropriar-se de dinheiro ou valor público de que tem posse em razão do cargo.",
+"Art. 316 (Concussão): exigir, em razão do cargo, vantagem indevida.",
+"Art. 317 (Corrupção passiva): solicitar/receber vantagem indevida ou aceitar promessa.",
+"Art. 337-A (Fraude em licitação): frustrar ou fraudar licitação (impedir concorrente, fraudar caráter competitivo).",
+"Art. 359 (Crimes contra finanças públicas): desviar finalidade de verba; não prestar contas; ordenar despesa não autorizada."
+],
+[ // LINDB
+"Vigência e aplicação: lei em vigor conta-se do dia seguinte à publicação; irretroatividade (salvo exceções expressas).",
+"Hierarquia das normas: Constituição > tratado/lei complementar > lei ordinária > decreto > norma infralegal.",
+"Analogia e equidade: aplicáveis na ausência de norma específica, observados os princípios gerais do direito.",
+"Tempo do direito: direito adquirido, ato jurídico perfeito e coisa julgada (CF art. 5º XXXVI).",
+"Por que cai: citação literal do Edital 19/2026 na Parte 5 de Legislação.",
+"Edital 19/2026 cita a LINDB expressamente na Parte 5 de Legislação."
+]
+];
+
 const LSKEY='palhoca_study_v2';
-const APP_VER='v29';
+const APP_VER='v30';
 let STATE=loadState();
 function loadState(){try{const s=JSON.parse(localStorage.getItem(LSKEY));if(s)return s;}catch(e){}
   return {edital:'10896a860906ced7b',cards:{},topics:{},quiz:[],pomoCycles:0,streak:0,lastDay:'',leitner:{},xp:0,badges:[],conf:{},setupDone:false};}
@@ -801,9 +898,9 @@ function renderTrophy(){var _t=document.getElementById('view-trophy');var _o=_t.
 
 function renderLeis(){var _l=document.getElementById('view-leis');var _o=_l.querySelector('.ctx-edital');if(_o)_o.remove();_l.insertAdjacentHTML('afterbegin',ctxLine());
   let html='';
-  LEIS.forEach((L,idx)=>{
+  LEIS.forEach((L,idx)=>{var li=idx;
     html+=`<div class="lei" data-i="${idx}" style="border-left-color:${L.cor}"><h3>${L.lei}</h3><div class="body">`;
-    L.items.forEach(it=>{html+=`<div class="li"><div class="q">${it[0]}</div><div class="a">${it[1]}</div></div>`;});
+    L.items.forEach((it,ii)=>{var art=(LEIS_ART[li]&&LEIS_ART[li][ii])?('<div class="li-art">📜 '+LEIS_ART[li][ii]+'</div>'):'';html+=`<div class="li"><div class="q">${it[0]}</div><div class="a">${it[1]}</div>${art}</div>`;});
     html+='</div></div>';
   });
   document.getElementById('leisBox').innerHTML=html;
@@ -844,8 +941,9 @@ function renderStudy(){
   let html='';
   mats.forEach(function(m){
     const areaCls=m.area==='Conhecimentos Gerais'?'g':'e';
+    var cont=CONTEUDO[m.id]||[];
     let tops='<ul class="study-topics">'
-    m.topicos.forEach(function(t){tops+='<li>'+t+'</li>';});
+    m.topicos.forEach(function(t,ti){var res=cont[ti]?('<div class="study-resumo">'+cont[ti]+'</div>'):'';tops+='<li><b>'+t+'</b>'+res+'</li>';});
     tops+='</ul>';
     html+='<div class="subj-block"><div class="head"><h3>'+m.nome+'</h3><span class="badge '+areaCls+'">'+(m.area==='Conhecimentos Gerais'?'Geral':'Específico')+'</span></div>'+tops
       +'<div class="btn-row" style="margin-top:10px"><button class="btn primary" onclick="goFlashMat(\''+m.id+'\')">🃏 Flashcards desta matéria</button><button class="btn ghost" onclick="goQuizMat(\''+m.id+'\')">📝 Quiz desta matéria</button></div></div>';
