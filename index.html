@@ -461,7 +461,7 @@ const LEIS=[
   ]}
 ];
 const LSKEY='palhoca_study_v2';
-const APP_VER='v16';
+const APP_VER='v17';
 let STATE=loadState();
 function loadState(){try{const s=JSON.parse(localStorage.getItem(LSKEY));if(s)return s;}catch(e){}
   return {stu:'A',cargoA:'adm',cargoB:'cont',edital:'10896a860906ced7b',editalA:'10896a22e9f36131a',editalB:'10896a860906ced7b',cards:{},topics:{},quiz:[],pomoCycles:0,streak:{A:0,B:0},lastDay:{A:'',B:''},leitner:{},xp:{A:0,B:0},badges:{A:[],B:[]},conf:{},setupDone:false};}
@@ -822,13 +822,16 @@ function renderAtaque(){
 function renderSobre(){let html=`<p style="margin-bottom:10px"><b>Concurso:</b> ${DADOS.concurso}</p><p style="margin-bottom:14px"><b>Cargos:</b></p><ul style="list-style:none;display:grid;gap:6px;margin-bottom:16px">`;
   for(const[k,v]of Object.entries(DADOS.cargos))html+=`<li>▸ ${v}</li>`;
   html+=`</ul><div class="note" style="margin-top:8px">📌 Fonte oficial: <b>FUNDATEC</b> (Concurso 01/2026, ID 1089). Editais 04/11/19/20 baixados e conferidos. Prova <b>30/08/2026</b>. App cobre Gerais (Anexo VI) e Específicos (Anexo VII) conforme programa retificado.</div>`;
-  document.getElementById('sobreCard').innerHTML=html;}
+  document.getElementById('sobreCard').innerHTML=html;
+  const ub=document.createElement('div');ub.className='btn-row';ub.style.marginTop='16px';
+  ub.innerHTML='<button class="btn ghost" id="exportBtn">⬇️ Exportar JSON</button><button class="btn ghost" id="importBtn">⬆️ Importar</button><button class="btn ghost" id="resetBtn">🗑️ Resetar tudo</button><input type="file" id="importFile" accept="application/json" style="display:none">';
+  document.getElementById('sobreCard').after(ub);
+  document.getElementById('exportBtn').onclick=()=>{const b=new Blob([JSON.stringify(STATE)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='progresso-palhoca.json';a.click();};
+  document.getElementById('importBtn').onclick=()=>document.getElementById('importFile').click();
+  document.getElementById('importFile').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{STATE=JSON.parse(r.result);save();location.reload();}catch(err){alert('Arquivo inválido.');}};r.readAsText(f);};
+  document.getElementById('resetBtn').onclick=()=>{if(confirm('Apagar TODO o progresso?')){localStorage.removeItem(LSKEY);STATE=loadState();location.reload();}};
+}
 
-// EXPORT/IMPORT/RESET
-document.getElementById('exportBtn').onclick=()=>{const b=new Blob([JSON.stringify(STATE)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='progresso-palhoca.json';a.click();};
-document.getElementById('importBtn').onclick=()=>document.getElementById('importFile').click();
-document.getElementById('importFile').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{STATE=JSON.parse(r.result);save();location.reload();}catch(err){alert('Arquivo inválido.');}};r.readAsText(f);};
-document.getElementById('resetBtn').onclick=()=>{if(confirm('Apagar TODO o progresso?')){localStorage.removeItem(LSKEY);STATE=loadState();location.reload();}};
 
 // === SETUP: landing com 2 cards de edital ===
 function buildSetup(){
