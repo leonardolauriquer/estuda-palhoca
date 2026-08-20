@@ -170,7 +170,9 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-t
   .topic:last-child{border-bottom:none}
   .topic .txt{font-size:14px;color:#37475a;flex:1;line-height:1.4}
 .study-topics{margin:8px 0 0 18px;padding:0;list-style:disc}
-  .study-topics li{font-size:14px;color:#37475a;line-height:1.5;margin:8px 0}  .study-resumo{font-size:13px;color:#37475a;line-height:1.5;margin:4px 0 8px;background:#f6f9fc;border-left:3px solid var(--green);padding:8px 10px;border-radius:0 8px 8px 0}
+  .study-topics li{font-size:14px;color:#37475a;line-height:1.5;margin:8px 0}  .study-resumo{font-size:13px;color:#37475a;line-height:1.5;margin:4px 0 8px;background:#f6f9fc;border-left:3px solid var(--green);padding:8px 10px;border-radius:0 8px 8px 0}  .tts-btn{margin-top:6px;background:var(--green);color:#fff;border:none;border-radius:8px;padding:4px 10px;font-size:12px;cursor:pointer}
+  .tts-btn:hover{opacity:.85}
+
   .study-topics li{margin:8px 0}
 
   .cb{width:30px;height:30px;border-radius:50%;border:2px solid var(--line);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;transition:.15s;flex-shrink:0;user-select:none}
@@ -259,6 +261,12 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-t
   .fonte-top b{color:var(--navy);font-size:15px}
   .fonte-desc{font-size:13px;color:var(--muted);margin-top:4px;line-height:1.45}
   .fonte-go{font-size:22px;color:var(--green);font-weight:800}
+  .exer-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px;box-shadow:0 2px 10px rgba(24,52,84,.05)}
+  .exer-mat{display:inline-block;background:var(--navy);color:#fff;font-size:11px;padding:2px 8px;border-radius:6px;margin-bottom:6px}
+  .exer-enun{font-weight:700;color:var(--navy);margin-bottom:8px;line-height:1.4}
+  .exer-passos{margin:0 0 8px 18px}
+  .exer-passos li{margin:3px 0;color:#37475a;line-height:1.5}
+  .exer-resp{background:#eefaf0;border-left:3px solid var(--green);padding:8px 10px;border-radius:0 8px 8px 0;color:#1d2735}
   .home-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:14px}
   .home-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;cursor:pointer;transition:.15s;box-shadow:0 2px 10px rgba(24,52,84,.05)}
   .home-card:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(24,52,84,.14)}
@@ -313,6 +321,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-t
   <button data-view="ataque">🎯 Plano de Ataque</button>
   <button data-view="leis">📜 Leis Comentadas</button>
   <button data-view="fontes">🔗 Fontes Oficiais</button>
+  <button data-view="exer">📝 Exercícios</button>
   <button data-view="trophy">🏆 Gamificação</button>
   <button data-view="pomo">⏱️ Foco</button>
   <button data-view="sobre">ℹ️ Edital</button>
@@ -411,6 +420,11 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-t
     <h2 class="sec">🔗 Onde estudar — fontes oficiais</h2>
     <p class="sub">Tudo o que cai no concurso está nestas fontes oficiais. Use o app para treinar depois de ler.</p>
     <div id="fontesBox"></div>
+  </section>
+  <section class="view" id="view-exer">
+    <h2 class="sec">📝 Exercícios resolvidos</h2>
+    <p class="sub">Problemas de Matemática e Contabilidade com resolução passo a passo. Estude o raciocínio.</p>
+    <div id="exerBox"></div>
   </section>
   <section class="view" id="view-trophy">
     <h2 class="sec">🏆 Gamificação & Desafio entre vocês</h2>
@@ -673,7 +687,7 @@ const LEIS_ART=[
 ];
 
 const LSKEY='palhoca_study_v2';
-const APP_VER='v31';
+const APP_VER='v32';
 let STATE=loadState();
 function loadState(){try{const s=JSON.parse(localStorage.getItem(LSKEY));if(s)return s;}catch(e){}
   return {edital:'10896a860906ced7b',cards:{},topics:{},quiz:[],pomoCycles:0,streak:0,lastDay:'',leitner:{},xp:0,badges:[],conf:{},setupDone:false};}
@@ -697,6 +711,7 @@ document.querySelectorAll('nav.tabs button').forEach(b=>{b.onclick=()=>{
   if(b.dataset.view==='trophy')renderTrophy();
   if(b.dataset.view==='leis')renderLeis();
   if(b.dataset.view==='fontes')renderFontes();
+  if(b.dataset.view==='exer')renderExercicios();
 };});
 
 function matsDoEdital(){
@@ -718,6 +733,7 @@ function renderHome(){
   
   const methods=[
     {v:'fontes',ico:'🔗',n:'Fontes Oficiais',d:'Onde estudar de verdade (edital, banca, leis).',c:'#9CCB8F'},
+    {v:'exer',ico:'📝',n:'Exercícios',d:'Resolvidos passo a passo (Matemática, Contabilidade).',c:'#22466e'},
     {v:'study',ico:'📖',n:'Estudar',d:'Leia o conteudo da materia (topicos do edital).',c:'#183454'},
     {v:'flash',ico:'🃏',n:'Flashcards',d:'Revisao espacada (Leitner). Depois de ler.',c:'#22466e'},
     {v:'quiz',ico:'📝',n:'Simulado',d:'Questoes por matéria ou misto (interleaving).',c:'#22466e'},
@@ -1040,7 +1056,7 @@ function renderStudy(){
     const areaCls=m.area==='Conhecimentos Gerais'?'g':'e';
     var cont=(CONTEUDO[m.id]||[]).concat(CONTEUDO_EST[m.id]||[]);
     let tops='<ul class="study-topics">'
-    m.topicos.forEach(function(t,ti){var res=cont[ti]?('<div class="study-resumo">'+cont[ti]+'</div>'):'';tops+='<li><b>'+t+'</b>'+res+'</li>';});
+    m.topicos.forEach(function(t,ti){var res=cont[ti]?('<div class="study-resumo">'+cont[ti]+'<button class="tts-btn" onclick="speakFrom(this)" data-t="'+encodeURIComponent(cont[ti])+'">🔊 Ouvir</button></div>'):'';tops+='<li><b>'+t+'</b>'+res+'</li>';});
     tops+='</ul>';
     html+='<div class="subj-block"><div class="head"><h3>'+m.nome+'</h3><span class="badge '+areaCls+'">'+(m.area==='Conhecimentos Gerais'?'Geral':'Específico')+'</span></div>'+tops
       +'<div class="btn-row" style="margin-top:10px"><button class="btn primary" onclick="goFlashMat(\''+m.id+'\')">🃏 Flashcards desta matéria</button><button class="btn ghost" onclick="goQuizMat(\''+m.id+'\')">📝 Quiz desta matéria</button></div></div>';
@@ -1067,6 +1083,62 @@ function renderFontes(){
     html+='<a class="fonte-card" href="'+href+'"'+tgt+'><div class="fonte-ico">'+f.ico+'</div><div class="fonte-body"><div class="fonte-top"><b>'+f.nome+'</b><span class="badge">'+f.tag+'</span></div><div class="fonte-desc">'+f.desc+'</div></div><span class="fonte-go">➔</span></a>';
   });
   document.getElementById("fontesBox").innerHTML=html;
+}
+
+function speakFrom(btn){speak(decodeURIComponent(btn.dataset.t));}
+function speak(text){
+  if(!('speechSynthesis' in window)){alert('Seu navegador nao suporta audio.');return;}
+  window.speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='pt-BR'; u.rate=0.95; u.pitch=1;
+  window.speechSynthesis.speak(u);
+}
+
+const EXERCICIOS=[
+  {mat:"Matemática", enun:"Um produto custa R$ 240,00 e recebeu desconto de 15%. Qual o preço final?",
+   passos:["Preço original: R$ 240,00","Desconto de 15% = 240 × 0,15 = R$ 36,00","Preço final = 240 − 36 = R$ 204,00"],
+   resp:"R$ 204,00"},
+  {mat:"Matemática", enun:"Divida R$ 1.200,00 em 3 prestações iguais. Qual o valor de cada?",
+   passos:["Valor total: R$ 1.200,00","Número de prestações: 3","1.200 ÷ 3 = R$ 400,00"],
+   resp:"R$ 400,00 cada"},
+  {mat:"Matemática", enun:"Calcule 20% de 350.",
+   passos:["20% = 20/100 = 0,20","350 × 0,20 = 70"],
+   resp:"70"},
+  {mat:"Matemática", enun:"Um capital de R$ 2.000,00 rende juros simples de 5% ao mês por 4 meses. Qual o montante?",
+   passos:["Juros simples: J = C × i × t","J = 2.000 × 0,05 × 4 = R$ 400,00","Montante M = C + J = 2.000 + 400 = R$ 2.400,00"],
+   resp:"R$ 2.400,00"},
+  {mat:"Matemática", enun:"Média de 8, 10 e 12.",
+   passos:["Soma = 8 + 10 + 12 = 30","Quantidade = 3","Média = 30 ÷ 3 = 10"],
+   resp:"10"},
+  {mat:"Matemática", enun:"Razão de 12 para 18 simplificada.",
+   passos:["Razão 12:18","Divide-se por 6 (mdc)","12÷6 : 18÷6 = 2:3"],
+   resp:"2:3"},
+  {mat:"Contabilidade", enun:"Ativo = R$ 500.000, Passivo = R$ 200.000. Qual o Patrimônio Líquido?",
+   passos:["Equação: Ativo = Passivo + Patrimônio Líquido","Patrimônio = Ativo − Passivo","500.000 − 200.000 = R$ 300.000,00"],
+   resp:"R$ 300.000,00"},
+  {mat:"Contabilidade", enun:"Receita de R$ 80.000 e Despesa de R$ 55.000. Qual o resultado?",
+   passos:["Resultado = Receita − Despesa","80.000 − 55.000 = R$ 25.000,00","Positivo = superávit"],
+   resp:"Superávit de R$ 25.000,00"},
+  {mat:"Contabilidade", enun:"Despesa empenhada de R$ 10.000, paga R$ 6.000. Qual o saldo a pagar?",
+   passos:["Empenho = R$ 10.000 (reserva)","Pagamento = R$ 6.000","Saldo a pagar = 10.000 − 6.000 = R$ 4.000,00"],
+   resp:"R$ 4.000,00"},
+  {mat:"Contabilidade", enun:"Limite de pessoal = 60% da RCL. Se RCL = R$ 1.000.000, qual o teto?",
+   passos:["Teto = 60% da RCL (Lei de Responsabilidade Fiscal)","1.000.000 × 0,60 = R$ 600.000,00"],
+   resp:"R$ 600.000,00"}
+];
+function renderExercicios(){
+  let html='';
+  EXERCICIOS.forEach(function(e,idx){
+    html+='<div class="exer-card">';
+    html+='<div class="exer-mat">'+e.mat+'</div>';
+    html+='<div class="exer-enun">'+e.enun+'</div>';
+    html+='<ol class="exer-passos">';
+    e.passos.forEach(function(p){html+='<li>'+p+'</li>';});
+    html+='</ol>';
+    html+='<div class="exer-resp">✅ Resposta: <b>'+e.resp+'</b></div>';
+    html+='</div>';
+  });
+  document.getElementById('exerBox').innerHTML=html;
 }
 
 // === SETUP: landing com 2 cards de edital ===
