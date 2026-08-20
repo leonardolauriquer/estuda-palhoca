@@ -17,8 +17,7 @@ header.top .wrap{display:flex;align-items:center;gap:14px;padding:14px 16px;flex
 .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;letter-spacing:.3px}
 .logo .dot{width:12px;height:12px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px rgba(156,203,143,.25)}
 .students{margin-left:auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.students span.lbl{font-size:12px;opacity:.8}
-.chip{cursor:pointer;border:1.5px solid rgba(255,255,255,.35);background:rgba(255,255,255,.08);color:#fff;padding:6px 12px;border-radius:999px;font-size:13px;font-weight:600;transition:.15s}
+.students span.chip{cursor:pointer;border:1.5px solid rgba(255,255,255,.35);background:rgba(255,255,255,.08);color:#fff;padding:6px 12px;border-radius:999px;font-size:13px;font-weight:600;transition:.15s}
 .chip.active{background:var(--green);border-color:var(--green);color:var(--navy)}
 nav.tabs{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:60px;z-index:20}
 nav.tabs .wrap{display:flex;gap:4px;overflow-x:auto;padding:0 8px}
@@ -35,7 +34,6 @@ h2p.grid{display:grid;gap:16px}
 .bar{height:9px;border-radius:999px;background:var(--bg);overflow:hidden;margin-top:8px;border:1px solid var(--line)}
 .bar>i{display:block;height:100%;background:linear-gradient(90deg,var(--green),var(--green2));border-radius:999px;transition:width .4s}
 .stat-row{display:flex;justify-content:space-between;font-size:13px;margin-top:6px;color:var(--muted)}
-.student-tag{width:11px;height:11px;border-radius:50%;display:inline-block;margin-right:5px;vertical-align:middle}
 .sA{background:#3b82f6}.sB{background:#f59e0b}
 .cargos-sel{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
 .cargos-sel .cs{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;box-shadow:var(--shadow);min-width:230px;flex:1}
@@ -78,10 +76,7 @@ select{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8p
 .pomo{display:flex;flex-direction:column;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px;box-shadow:var(--shadow);max-width:360px;margin:0 auto}
 .pomo .clock{font-size:58px;font-weight:800;color:var(--navy);font-variant-numeric:tabular-nums}
 .pomo .mode{font-size:14px;color:var(--muted);font-weight:700;letter-spacing:.5px}
-.streak{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:16px}
-.streak .s{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 18px;box-shadow:var(--shadow);flex:1;min-width:200px;text-align:center}
-.streak .s .num{font-size:34px;font-weight:800;color:var(--navy)}
-.streak .s .lbl{font-size:12px;color:var(--muted)}
+.streak .streak .streak .s .lbl{font-size:12px;color:var(--muted)}
 .sharebox{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:var(--shadow);margin-bottom:18px}
 .sharebox textarea{width:100%;min-height:80px;font-family:monospace;font-size:12px;padding:10px;border:1px solid var(--line);border-radius:8px;resize:vertical;color:var(--txt)}
 .sharebox .row{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
@@ -210,17 +205,16 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-t
   .dotA,.dotB{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff}
   .dotA{background:var(--navy)} .dotB{background:var(--green)}
   .cb-row{display:flex;gap:8px;flex-shrink:0}
+  .students .tag{font-size:12px;color:rgba(255,255,255,.8);font-weight:600;margin-left:auto}
+  header.top .wrap{display:flex;align-items:center}
+  @media(max-width:640px){header.top .wrap{flex-direction:column;align-items:flex-start;gap:6px}.students .tag{margin-left:0}}
 </style>
 </head>
 <body>
 <header class="top">
   <div class="wrap">
     <div class="logo"><span class="dot"></span> Estuda Palhoça 01/2026</div>
-    <div class="students">
-      <span class="lbl">Quem estuda:</span>
-      <div class="chip active" data-stu="A" id="chipA">👩 Você (A)</div>
-      <div class="chip" data-stu="B" id="chipB">👩 Amiga (B)</div>
-    </div>
+    <div class="students"><span class="tag">Concurso Câmara de Palhoça/SC · 30/08</span></div>
   </div>
 </header>
 <nav class="tabs"><div class="wrap" id="tabs">
@@ -431,11 +425,9 @@ document.querySelectorAll('nav.tabs button').forEach(b=>{b.onclick=()=>{
   if(b.dataset.view==='trophy')renderTrophy();
   if(b.dataset.view==='leis')renderLeis();
 };});
-document.getElementById('chipA').onclick=()=>setStu('A');
-document.getElementById('chipB').onclick=()=>setStu('B');
 function setStu(s){STATE.stu=s;save();
-  document.getElementById('chipA').classList.toggle('active',s==='A');
-  document.getElementById('chipB').classList.toggle('active',s==='B');renderDash();}
+  
+  renderDash();}
 
 function buildCargoSel(c,who){
   const cur=who==='A'?STATE.cargoA:STATE.cargoB;
@@ -568,7 +560,7 @@ document.getElementById('sureB').onclick=()=>{STATE.xp.B=(STATE.xp.B||0)+5;STATE
 
 
 // SIMULADO
-let quizDeck=[],quizIdx=0,quizScore=0,quizAnswered=false;
+let quizDeck=[],quizIdx=0,quizScore=0,quizAnswered=false,quizLog=[];
 function renderQuizSetup(){
   const sel=document.getElementById('quizMat');const cargo=STATE.stu==='A'?STATE.cargoA:STATE.cargoB;
   sel.innerHTML=matForCargo(cargo).map(m=>`<option value="${m.id}">${m.nome}</option>`).join('');
@@ -591,35 +583,31 @@ document.getElementById('startQuiz').onclick=()=>{
     if(pool.length===0)pool=m.cards.map((c,i)=>({q:c[0],a:c[1],k:'c_'+m.id+'_'+i,matId:m.id}));
   }
   quizDeck=pool.sort(()=>Math.random()-0.5).slice(0,Math.min(10,pool.length));
-  quizIdx=0;quizScore=0;showQuiz();
+  quizIdx=0;quizScore=0;quizLog=[];showQuiz();
 };
 
 // PROVA COMPLETA (caderno oficial por cargo + cronometro 4h)
 let examTimer=null,examLeft=4*3600,examRun=false;
-const WEIGHT={port:1.20,mat:1.20,inf:1.20,leg:1.20,ger:1.20,esp:1.28,espM:1.60};
+// pesos oficiais por area tratados em finishQuiz
 function examTimeStr(){const h=Math.floor(examLeft/3600),m=Math.floor((examLeft%3600)/60),ss=examLeft%60;return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(ss).padStart(2,'0')}`;}
 function startExam(){
   const cargo=STATE.stu==='A'?STATE.cargoA:STATE.cargoB;
   const isMed=['tec'].includes(cargo);
   const mats=matForCargo(cargo);
-  const gerais=mats.filter(m=>m.area==='Conhecimentos Gerais');
-  const esp=mats.filter(m=>m.area==='Conhecimentos Específicos');
-  // distribuicao oficial: port10,mat5,inf5,leg6,ger4 = 30 ; esp 50(sup)/40(med)
-  const dist=[['port',10],['mat',5],['inf',5],['leg',6],['ger',4]];
-  let pool=[];
-  dist.forEach(([mid,n])=>{const m=DADOS.materias.find(x=>x.id===mid);if(m){m.cards.forEach((c,i)=>pool.push({q:c[0],a:c[1],k:'c_'+mid+'_'+i,matId:mid}));}});
-  esp.forEach(m=>m.cards.forEach((c,i)=>pool.push({q:c[0],a:c[1],k:'c_'+m.id+'_'+i,matId:m.id})));
-  const nEsp=isMed?40:50;
-  const gPool=pool.filter(p=>DADOS.materias.find(x=>x.id===p.matId).area==='Conhecimentos Gerais').sort(()=>Math.random()-0.5);
-  const ePool=pool.filter(p=>DADOS.materias.find(x=>x.id===p.matId).area==='Conhecimentos Específicos').sort(()=>Math.random()-0.5);
-  const exDeck=gPool.slice(0,30).concat(ePool.slice(0,nEsp)).sort(()=>Math.random()-0.5);
-  quizDeck=exDeck;quizIdx=0;quizScore=0;quizAnswered=false;
+  const gMats=mats.filter(m=>m.area==='Conhecimentos Gerais');
+  const eMats=mats.filter(m=>m.area==='Conhecimentos Específicos');
+  const nG=30, nE=isMed?40:50;
+  const gPool=[].concat(...gMats.map(m=>m.cards.map((c,i)=>({q:c[0],a:c[1],k:'c_'+m.id+'_'+i,matId:m.id})))).sort(()=>Math.random()-0.5);
+  const ePool=[].concat(...eMats.map(m=>m.cards.map((c,i)=>({q:c[0],a:c[1],k:'c_'+m.id+'_'+i,matId:m.id})))).sort(()=>Math.random()-0.5);
+  const exDeck=gPool.slice(0,nG).concat(ePool.slice(0,nE)).sort(()=>Math.random()-0.5);
+  quizDeck=exDeck;quizIdx=0;quizScore=0;quizAnswered=false;quizLog=[];
   examLeft=4*3600;examRun=true;
   if(examTimer)clearInterval(examTimer);
   examTimer=setInterval(()=>{if(examLeft>0){examLeft--;const el=document.getElementById('examClock');if(el)el.textContent=examTimeStr();}else{clearInterval(examTimer);examRun=false;}},1000);
-  showQuiz(true);
+  const aviso=(gPool.length<nG||ePool.length<nE)?`⚠️ Banco com ${gPool.length} gerais / ${ePool.length} específicos (oficial: ${nG}/${nE}). Estudem mais esses cards.`:'';
+  showQuiz(true,aviso);
 }
-function showQuiz(examMode){
+function showQuiz(examMode,aviso){
   const q=quizDeck[quizIdx];if(!q){finishQuiz();return;}
   let opts=[q.a];const all=[];DADOS.materias.forEach(m=>m.cards.forEach(c=>{if(c[1]!==q.a)all.push(c[1]);}));
   all.sort(()=>Math.random()-0.5);for(let i=0;i<3&&i<all.length;i++)opts.push(all[i]);opts.sort(()=>Math.random()-0.5);
@@ -629,13 +617,14 @@ function showQuiz(examMode){
     <div class="q" style="font-size:16px;font-weight:700;margin-bottom:14px">${q.q}</div>`;
   opts.forEach(o=>html+=`<button class="quiz-opt" data-o="${o.replace(/"/g,'&quot;')}">${o}</button>`);
   html+=`<div class="feedback" id="fb" style="display:none"></div><div class="btn-row" style="margin-top:14px"><button class="btn primary" id="nextQuiz">Próxima ⟶</button></div></div>`;
-  document.getElementById('quizBox').innerHTML=html;quizAnswered=false;
+  let av=(aviso)?`<div class="note" style="margin-bottom:12px">${aviso}</div>`:'';
+  document.getElementById('quizBox').innerHTML=av+html;quizAnswered=false;
   document.querySelectorAll('.quiz-opt').forEach(btn=>{btn.onclick=()=>{
     if(quizAnswered)return;quizAnswered=true;const correct=(btn.dataset.o===q.a);
     document.querySelectorAll('.quiz-opt').forEach(b=>{if(b.dataset.o===q.a)b.classList.add('correct');else if(b===btn)b.classList.add('wrong');else b.classList.add('dim');});
     const fb=document.getElementById('fb');fb.style.display='block';
     fb.innerHTML=correct?`✅ <b>Correto!</b> ${q.a}`:`❌ <b>Errado.</b> ${q.a}`;
-    if(correct)quizScore++;const stu=STATE.stu;
+    if(correct)quizScore++;quizLog.push({matId:q.matId,correct});const stu=STATE.stu;
     STATE.cards[q.k+'_'+stu]='known';STATE.leitner[q.k+'_'+stu+'_ts']=Date.now();
     STATE.leitner[q.k+'_'+stu]=Math.min((boxFor(q.k,stu)+1),5);
     if(correct)STATE.xp[stu]=(STATE.xp[stu]||0)+15; else STATE.xp[stu]=(STATE.xp[stu]||0)+3;
@@ -647,12 +636,11 @@ function finishQuiz(){
   if(examTimer){clearInterval(examTimer);examRun=false;}
   document.getElementById('quizInfo').textContent='';
   const examOn=quizDeck.length>=30;
-  let per={};quizDeck.forEach(q=>{const m=DADOS.materias.find(x=>x.id===q.matId);if(!per[m.nome])per[m.nome]={t:0,a:0,w:m.area==='Conhecimentos Específicos'?(STATE.stu==='A'&&['tec'].includes(STATE.cargoA)?1.60:1.28):1.20};});
-  // recompute using saved quiz results: we stored acertos in STATE.quizExam if present
   let html=`<div class="quiz-q"><h3 style="color:var(--navy);font-size:20px;text-align:center">Concluído! 🎉</h3><p style="font-size:18px;margin:14px 0;text-align:center">${STATE.stu} acertou <b>${quizScore}</b> de <b>${quizDeck.length}</b>.</p>`;
   if(examOn){
+    const agg={};quizLog.forEach(r=>{if(!agg[r.matId])agg[r.matId]={t:0,a:0};agg[r.matId].t++;if(r.correct)agg[r.matId].a++;});
     html+='<div class="card" style="margin-top:10px"><h3>📊 Desempenho por matéria</h3>';
-    Object.entries(per).forEach(([nm,d])=>{html+=`<div class="stat-row"><span>${nm}</span><span>peso ${d.w}</span></div>`;});
+    Object.entries(agg).forEach(([mid,d])=>{const m=DADOS.materias.find(x=>x.id===mid);const p=Math.round(d.a/d.t*100);const w=m.area==='Conhecimentos Específicos'?(STATE.stu==='A'&&['tec'].includes(STATE.cargoA)?'1,60':'1,28'):'1,20';html+=`<div class="stat-row"><span>${m.nome}</span><span>${d.a}/${d.t} (${p}%) · peso ${w}</span></div><div class="bar"><i style="width:${p}%"></i></div>`;});
     html+='</div><p class="sub" style="text-align:center;margin-top:10px">Dica: foque nas matérias com menor % de acerto nos próximos dias.</p>';
   }
   html+='<div class="btn-row" style="justify-content:center;margin-top:14px"><button class="btn green" onclick="document.getElementById(\'startQuiz\').click()">🔁 Refazer</button></div></div>';
@@ -661,7 +649,7 @@ function finishQuiz(){
 
 // SHARE / SYNC
 function packShare(){
-  const payload={t:STATE.topics,c:STATE.cards,l:STATE.leitner,st:STATE.streak,ld:STATE.lastDay,cy:STATE.pomoCycles,xp:STATE.xp,bg:STATE.badges};
+  const payload={t:STATE.topics,c:STATE.cards,l:STATE.leitner,st:STATE.streak,ld:STATE.lastDay,cy:STATE.pomoCycles,xp:STATE.xp,bg:STATE.badges,cf:STATE.conf};
   return 'https://leonardolauriquer.github.io/estuda-palhoca/#d='+btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
 }
 document.getElementById('genLink').onclick=()=>{document.getElementById('shareOut').value=packShare();};
@@ -679,6 +667,7 @@ document.getElementById('mergeBtn').onclick=()=>{
     STATE.pomoCycles=Math.max(STATE.pomoCycles||0,inc.cy||0);
     if(inc.xp)for(const k in inc.xp)STATE.xp[k]=Math.max(STATE.xp[k]||0,inc.xp[k]||0);
     if(inc.bg)for(const k in inc.bg)STATE.badges[k]=(STATE.badges[k]||[]).concat(inc.bg[k]||[]).filter((v,i,a)=>a.indexOf(v)===i);
+    if(inc.conf)for(const k in inc.conf)STATE.conf[k]=(STATE.conf[k]||0)+(inc.conf[k]||0);
     save();document.getElementById('mergeMsg').textContent=`✅ Unidos! ${n} itens atualizados.`;renderDash();
   }catch(e){document.getElementById('mergeMsg').textContent='❌ Erro ao ler.';}
 };
@@ -687,15 +676,21 @@ if(location.hash.startsWith('#d=')){document.getElementById('shareIn').value=loc
 
 // CRONOGRAMA
 function renderPlan(){
-  buildCargoSel(document.getElementById('cargosSel3'),'A');buildCargoSel(document.getElementById('cargosSel3'),'B');
-  const cargo=STATE.stu==='A'?STATE.cargoA:STATE.cargoB,mats=matForCargo(cargo);
-  const gerais=mats.filter(m=>m.area==='Conhecimentos Gerais'),esp=mats.filter(m=>m.area==='Conhecimentos Específicos');
-  const weeks=[];let gi=0;const perG=Math.max(1,Math.ceil(gerais.length/4));
-  for(let w=1;w<=4;w++){const items=gerais.slice(gi,gi+perG);gi+=items.length;weeks.push({w,title:`Semana ${w} — Base comum`,items:items.map(m=>m.nome)});}
-  let ei=0;const perW=Math.max(1,Math.ceil(esp.length/4));
-  for(let w=5;w<=8;w++){const items=esp.slice(ei,ei+perW);ei+=items.length;weeks.push({w,title:`Semana ${w} — Específicos`,items:items.length?items.map(m=>m.nome):['Revisão e simulados']});}
-  let html='';weeks.forEach(wk=>{html+=`<div class="week"><h4>${wk.title}</h4><ul>`;wk.items.forEach(it=>html+=`<li><span class="ico">▸</span><span>${it}</span></li>`);html+=`</ul></div>`;});
-  html+=`<div class="note" style="margin-top:8px">📌 Dica: revezem flashcards e quizzes. Nos fins de semana, simulado juntas e revisa os erros.</div>`;
+  const cargo=STATE.stu==='A'?STATE.cargoA:STATE.cargoB;
+  const isMed=['tec'].includes(cargo);
+  const sprint=[
+    {d:'Dia 1-2',t:'Específicos do cargo (parte 1)',x:isMed?'40 q valem 1,60 cada':'50 q valem 1,28 cada — MAIOR peso'},
+    {d:'Dia 3-4',t:'Específicos do cargo (parte 2) + flashcards Leitner',x:'foque na caixa 1 (os que mais erra)'},
+    {d:'Dia 5',t:'Português (10 q) + Matemática/Raciocínio (5 q)',x:'maior fatia dos Gerais'},
+    {d:'Dia 6',t:'Informática (5 q) + Legislação (6 q)',x:'LO Palhoça, LC 96/2010, CP Admin'},
+    {d:'Dia 7',t:'Leis Comentadas + Atualidades/Direitos Humanos (4 q)',x:'reveja LC 14.133, LRF, LINDB'},
+    {d:'Dia 8',t:'Simulado Misto + Prova Completa (cronômetro 4h)',x:'treina tempo e cansaço'},
+    {d:'Dia 9',t:'Revisão dos erros + flashcards caixa 1',x:'refaça só o que trava'},
+    {d:'Dia 10',t:'Revisão leve · consultar local de prova (21/08+)',x:'RG, comprovante, caneta preta · chegar 1h antes'}
+  ];
+  let html='<div class="note">⏰ Prova <b>30/08/2026</b>. Plano de reta final (10 dias) focado no que mais pontua.</div>';
+  sprint.forEach(sd=>{html+=`<div class="week"><h4>${sd.d}</h4><ul><li><span class="ico">▸</span><span><b>${sd.t}</b> — ${sd.x}</span></li></ul></div>`;});
+  html+='<div class="note" style="margin-top:8px">📌 Dica: revezem flashcards e quizzes diariamente. O simulado Misto (interleaving) fixa melhor que estudar matéria isolada.</div>';
   document.getElementById('planBox').innerHTML=html;
 }
 
@@ -779,7 +774,7 @@ function renderAtaque(){
 }
 function renderSobre(){let html=`<p style="margin-bottom:10px"><b>Concurso:</b> ${DADOS.concurso}</p><p style="margin-bottom:14px"><b>Cargos:</b></p><ul style="list-style:none;display:grid;gap:6px;margin-bottom:16px">`;
   for(const[k,v]of Object.entries(DADOS.cargos))html+=`<li>▸ ${v}</li>`;
-  html+=`</ul><p style="font-size:13px;color:var(--muted)">App cobre Anexos VI (Gerais) e VII (Específicos). Conteúdo didático a partir do programa oficial.</p>`;
+  html+=`</ul><div class="note" style="margin-top:8px">📌 Fonte oficial: <b>FUNDATEC</b> (Concurso 01/2026, ID 1089). Editais 04/11/19/20 baixados e conferidos. Prova <b>30/08/2026</b>. App cobre Gerais (Anexo VI) e Específicos (Anexo VII) conforme programa retificado.</div>`;
   document.getElementById('sobreCard').innerHTML=html;}
 
 // EXPORT/IMPORT/RESET
