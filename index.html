@@ -3,33 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Estuda Palhoça 01/2026 — App de Estudos</title>
+<title>Estuda Palhoça 01/2026</title>
 <style>
-:root{
-  --navy:#183454; --navy2:#22466e; --green:#9CCB8F; --green2:#7fb87a;
-  --bg:#f4f7fb; --card:#ffffff; --txt:#1d2735; --muted:#6b7a90;
-  --line:#e2e9f1; --ok:#3da35d; --bad:#d9534f; --warn:#e0a800;
-  --shadow:0 6px 24px rgba(24,52,84,.10);
-}
+:root{--navy:#183454;--navy2:#22466e;--green:#9CCB8F;--green2:#7fb87a;--bg:#f4f7fb;
+--card:#fff;--txt:#1d2735;--muted:#6b7a90;--line:#e2e9f1;--ok:#3da35d;--bad:#d9534f;--warn:#e0a800;
+--shadow:0 6px 24px rgba(24,52,84,.10)}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Segoe UI',system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
-  background:var(--bg);color:var(--txt);line-height:1.5;-webkit-font-smoothing:antialiased}
+body{font-family:'Segoe UI',system-ui,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--txt);line-height:1.5;-webkit-font-smoothing:antialiased}
 a{color:var(--navy2)}
 .wrap{max-width:1180px;margin:0 auto;padding:0 16px}
-header.top{background:linear-gradient(120deg,var(--navy),var(--navy2));color:#fff;
-  box-shadow:var(--shadow);position:sticky;top:0;z-index:30}
+header.top{background:linear-gradient(120deg,var(--navy),var(--navy2));color:#fff;box-shadow:var(--shadow);position:sticky;top:0;z-index:30}
 header.top .wrap{display:flex;align-items:center;gap:14px;padding:14px 16px;flex-wrap:wrap}
 .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;letter-spacing:.3px}
 .logo .dot{width:12px;height:12px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px rgba(156,203,143,.25)}
 .students{margin-left:auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .students span.lbl{font-size:12px;opacity:.8}
-.chip{cursor:pointer;border:1.5px solid rgba(255,255,255,.35);background:rgba(255,255,255,.08);
-  color:#fff;padding:6px 12px;border-radius:999px;font-size:13px;font-weight:600;transition:.15s}
+.chip{cursor:pointer;border:1.5px solid rgba(255,255,255,.35);background:rgba(255,255,255,.08);color:#fff;padding:6px 12px;border-radius:999px;font-size:13px;font-weight:600;transition:.15s}
 .chip.active{background:var(--green);border-color:var(--green);color:var(--navy)}
 nav.tabs{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:60px;z-index:20}
 nav.tabs .wrap{display:flex;gap:4px;overflow-x:auto;padding:0 8px}
-nav.tabs button{background:none;border:none;cursor:pointer;padding:13px 14px;font-size:14px;
-  color:var(--muted);font-weight:600;white-space:nowrap;border-bottom:3px solid transparent;transition:.15s}
+nav.tabs button{background:none;border:none;cursor:pointer;padding:13px 12px;font-size:13.5px;color:var(--muted);font-weight:600;white-space:nowrap;border-bottom:3px solid transparent;transition:.15s}
 nav.tabs button:hover{color:var(--navy)}
 nav.tabs button.active{color:var(--navy);border-bottom-color:var(--green)}
 main{padding:26px 0 60px}
@@ -42,82 +35,73 @@ p.sub{color:var(--muted);margin-bottom:18px;font-size:14px}
 .cards3{grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:var(--shadow)}
 .card h3{font-size:15px;color:var(--navy);margin-bottom:10px;display:flex;align-items:center;gap:8px}
-.badge{font-size:11px;background:var(--bg);color:var(--muted);border:1px solid var(--line);
-  padding:2px 8px;border-radius:999px;font-weight:700}
+.badge{font-size:11px;background:var(--bg);color:var(--muted);border:1px solid var(--line);padding:2px 8px;border-radius:999px;font-weight:700}
 .bar{height:9px;border-radius:999px;background:var(--bg);overflow:hidden;margin-top:8px;border:1px solid var(--line)}
 .bar>i{display:block;height:100%;background:linear-gradient(90deg,var(--green),var(--green2));border-radius:999px;transition:width .4s}
 .stat-row{display:flex;justify-content:space-between;font-size:13px;margin-top:6px;color:var(--muted)}
 .student-tag{width:11px;height:11px;border-radius:50%;display:inline-block;margin-right:5px;vertical-align:middle}
 .sA{background:#3b82f6}.sB{background:#f59e0b}
 .cargos-sel{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
-.cargos-sel .cs{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;
-  box-shadow:var(--shadow);min-width:230px;flex:1}
+.cargos-sel .cs{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;box-shadow:var(--shadow);min-width:230px;flex:1}
 .cargos-sel .cs label{font-size:12px;color:var(--muted);font-weight:700;display:block;margin-bottom:6px}
-select{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;font-size:14px;
-  background:#fff;color:var(--txt);font-family:inherit}
-/* Checklist */
+select{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;font-size:14px;background:#fff;color:var(--txt);font-family:inherit}
 .subj-block{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:var(--shadow);margin-bottom:18px}
 .subj-block .head{display:flex;align-items:center;gap:10px;justify-content:space-between;margin-bottom:6px}
 .subj-block .head h3{font-size:16px;color:var(--navy)}
 .topic{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px dashed var(--line)}
 .topic:last-child{border-bottom:none}
 .topic .txt{font-size:14px;flex:1}
-.cb-stu{display:flex;gap:6px;align-items:center}
-.cb{width:26px;height:26px;border-radius:8px;border:2px solid var(--line);cursor:pointer;
-  display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:#fff;flex:none;transition:.15s}
+.cb{width:26px;height:26px;border-radius:8px;border:2px solid var(--line);cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:#fff;flex:none;transition:.15s}
 .cb.A.on{background:#3b82f6;border-color:#3b82f6}
 .cb.B.on{background:#f59e0b;border-color:#f59e0b}
-.cb small{font-size:9px;color:var(--muted);position:absolute}
-/* Flashcards */
 .flash-stage{display:flex;flex-direction:column;align-items:center;gap:18px}
 .flip{width:100%;max-width:680px;min-height:240px;perspective:1200px;cursor:pointer}
 .flip .inner{position:relative;width:100%;height:100%;min-height:240px;transition:transform .5s;transform-style:preserve-3d}
 .flip.flipped .inner{transform:rotateY(180deg)}
-.face{position:absolute;inset:0;backface-visibility:hidden;border-radius:16px;padding:26px;
-  display:flex;flex-direction:column;justify-content:center;box-shadow:var(--shadow)}
+.face{position:absolute;inset:0;backface-visibility:hidden;border-radius:16px;padding:26px;display:flex;flex-direction:column;justify-content:center;box-shadow:var(--shadow)}
 .face.front{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff}
 .face.back{background:#fff;border:1px solid var(--line);color:var(--txt);transform:rotateY(180deg)}
 .face .q-tag{font-size:12px;opacity:.75;margin-bottom:10px;letter-spacing:.4px}
 .face .q{font-size:17px;font-weight:700}
 .face .a{font-size:15px;line-height:1.6}
 .face .hint{margin-top:14px;font-size:12px;color:var(--muted)}
+.box-opt{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .btn-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
-.btn{border:none;cursor:pointer;padding:11px 18px;border-radius:10px;font-size:14px;font-weight:700;
-  font-family:inherit;transition:.15s;box-shadow:var(--shadow)}
+.btn{border:none;cursor:pointer;padding:11px 18px;border-radius:10px;font-size:14px;font-weight:700;font-family:inherit;transition:.15s;box-shadow:var(--shadow)}
 .btn.primary{background:var(--navy);color:#fff}
 .btn.green{background:var(--green);color:var(--navy)}
 .btn.ghost{background:#fff;color:var(--navy);border:1px solid var(--line)}
 .btn.bad{background:var(--bad);color:#fff}
 .btn:hover{transform:translateY(-1px);filter:brightness(1.04)}
 .btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
-.pill{font-size:13px;color:var(--muted);background:var(--card);border:1px solid var(--line);
-  padding:6px 12px;border-radius:999px;box-shadow:var(--shadow)}
-/* Simulado */
+.pill{font-size:13px;color:var(--muted);background:var(--card);border:1px solid var(--line);padding:6px 12px;border-radius:999px;box-shadow:var(--shadow)}
+.box-opt .pill{box-shadow:none}
 .quiz-q{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;box-shadow:var(--shadow);max-width:720px;margin:0 auto}
-.quiz-opt{display:block;width:100%;text-align:left;background:#fff;border:1.5px solid var(--line);
-  border-radius:10px;padding:13px 15px;margin:9px 0;cursor:pointer;font-size:14px;font-family:inherit;transition:.12s}
+.quiz-opt{display:block;width:100%;text-align:left;background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:13px 15px;margin:9px 0;cursor:pointer;font-size:14px;font-family:inherit;transition:.12s}
 .quiz-opt:hover{border-color:var(--navy2)}
 .quiz-opt.correct{background:#e8f6ec;border-color:var(--ok);color:#1d5c34}
 .quiz-opt.wrong{background:#fdecec;border-color:var(--bad);color:#8a2b29}
 .quiz-opt.dim{opacity:.55}
 .feedback{margin-top:14px;font-size:14px;padding:12px 14px;border-radius:10px;background:var(--bg);border:1px solid var(--line)}
-/* Cronograma */
 .week{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow);margin-bottom:12px}
 .week h4{color:var(--navy);font-size:15px;margin-bottom:8px}
 .week ul{list-style:none;display:grid;gap:6px}
 .week li{font-size:14px;display:flex;gap:8px;align-items:flex-start}
 .week li .ico{color:var(--green2);font-weight:800}
-/* Pomodoro */
-.pomo{display:flex;flex-direction:column;align-items:center;gap:14px;background:var(--card);
-  border:1px solid var(--line);border-radius:16px;padding:28px;box-shadow:var(--shadow);max-width:360px;margin:0 auto}
+.pomo{display:flex;flex-direction:column;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px;box-shadow:var(--shadow);max-width:360px;margin:0 auto}
 .pomo .clock{font-size:58px;font-weight:800;color:var(--navy);font-variant-numeric:tabular-nums}
 .pomo .mode{font-size:14px;color:var(--muted);font-weight:700;letter-spacing:.5px}
 .note{background:#fff8e6;border:1px solid #f3e3b0;color:#7a6500;border-radius:10px;padding:12px 14px;font-size:13px;margin-bottom:16px}
+.streak{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:16px}
+.streak .s{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 18px;box-shadow:var(--shadow);flex:1;min-width:200px;text-align:center}
+.streak .s .num{font-size:34px;font-weight:800;color:var(--navy)}
+.streak .s .lbl{font-size:12px;color:var(--muted)}
+.sharebox{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:var(--shadow);margin-bottom:18px}
+.sharebox textarea{width:100%;min-height:80px;font-family:monospace;font-size:12px;padding:10px;border:1px solid var(--line);border-radius:8px;resize:vertical;color:var(--txt)}
+.sharebox .row{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
 footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-top:1px solid var(--line)}
-@media(max-width:640px){
-  nav.tabs{top:118px}
-  .cargos-sel .cs{min-width:100%}
-}
+.leitner{font-size:12px;padding:2px 8px;border-radius:999px;background:var(--bg);border:1px solid var(--line);color:var(--muted);font-weight:700}
+@media(max-width:640px){nav.tabs{top:118px}.cargos-sel .cs{min-width:100%}}
 </style>
 </head>
 <body>
@@ -127,93 +111,107 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-t
     <div class="students">
       <span class="lbl">Quem estuda:</span>
       <div class="chip active" data-stu="A" id="chipA">👩 Você (A)</div>
-      <div class="chip" data-stu="B" id="chipB">👩 Sua amiga (B)</div>
+      <div class="chip" data-stu="B" id="chipB">👩 Amiga (B)</div>
     </div>
   </div>
 </header>
-<nav class="tabs">
-  <div class="wrap" id="tabs">
-    <button class="active" data-view="dash">📊 Painel</button>
-    <button data-view="check">✅ Tópicos</button>
-    <button data-view="flash">🃏 Flashcards</button>
-    <button data-view="quiz">📝 Simulado</button>
-    <button data-view="plan">🗓️ Cronograma</button>
-    <button data-view="pomo">⏱️ Foco</button>
-    <button data-view="sobre">ℹ️ Edital</button>
-  </div>
-</nav>
+<nav class="tabs"><div class="wrap" id="tabs">
+  <button class="active" data-view="dash">📊 Painel</button>
+  <button data-view="check">✅ Tópicos</button>
+  <button data-view="flash">🃏 Flashcards</button>
+  <button data-view="quiz">📝 Simulado</button>
+  <button data-view="share">🔗 Sincronizar</button>
+  <button data-view="plan">🗓️ Cronograma</button>
+  <button data-view="pomo">⏱️ Foco</button>
+  <button data-view="sobre">ℹ️ Edital</button>
+</div></nav>
 <main class="wrap">
-  <!-- DASHBOARD -->
   <section class="view active" id="view-dash">
     <h2 class="sec">Painel de estudos</h2>
-    <p class="sub">Acompanhe o progresso de vocês dois, por matéria. Os dados ficam salvos neste navegador.</p>
-    <div class="note">💡 Este é um app <b>offline</b>. Para compartilhar o progresso entre celular e PC, use o botão <b>Exportar</b> no final e importe no outro aparelho.</div>
+    <p class="sub">Progresso de vocês duas, por matéria. Os dados ficam salvos neste navegador.</p>
+    <div class="note">💡 App <b>offline</b>. Para unir o progresso das duas, use a aba <b>🔗 Sincronizar</b> (gera um link com tudo codificado — a amiga abre e junta).</div>
+    <div class="streak" id="streakBox"></div>
     <div class="cargos-sel" id="cargosSel"></div>
     <div class="grid cards3" id="dashGrid"></div>
     <div style="margin-top:18px" class="btn-row">
-      <button class="btn ghost" id="exportBtn">⬇️ Exportar progresso</button>
+      <button class="btn ghost" id="exportBtn">⬇️ Exportar JSON</button>
       <button class="btn ghost" id="importBtn">⬆️ Importar</button>
       <button class="btn ghost" id="resetBtn">🗑️ Resetar tudo</button>
       <input type="file" id="importFile" accept="application/json" style="display:none">
     </div>
   </section>
-
-  <!-- CHECKLIST -->
   <section class="view" id="view-check">
     <h2 class="sec">Checklist de tópicos do edital</h2>
     <p class="sub">Marque o que já estudou. Azul = Você (A), Laranja = Amiga (B).</p>
     <div class="cargos-sel" id="cargosSel2"></div>
     <div id="checkList"></div>
   </section>
-
-  <!-- FLASHCARDS -->
   <section class="view" id="view-flash">
-    <h2 class="sec">Flashcards</h2>
-    <p class="sub">Clique para virar. Marque se você (A) e sua amiga (B) já sabem o conteúdo.</p>
+    <h2 class="sec">Flashcards — Revisão Espaçada</h2>
+    <p class="sub">Sistema Leitner: errou → volta em breve (caixa 1); acertou → sobe de caixa e só reaparece depois de dias. Clique para virar.</p>
     <div class="flash-stage">
       <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:center">
         <select id="flashMat" style="max-width:320px"></select>
+        <select id="flashMode" style="max-width:230px">
+          <option value="due">🔥 Só os que estão na hora (revisão)</option>
+          <option value="all">📚 Todos os cards</option>
+          <option value="hard">💢 Só os que mais erra (caixa 1)</option>
+        </select>
         <span class="pill" id="flashCount"></span>
       </div>
       <div class="flip" id="flip"><div class="inner">
-        <div class="face front"><div class="q-tag">PERGUNTA</div><div class="q" id="fq"></div><div class="hint">clique para ver a resposta</div></div>
+        <div class="face front"><div class="q-tag">PERGUNTA <span class="leitner" id="leitnerTag">C1</span></div><div class="q" id="fq"></div><div class="hint">clique para ver a resposta</div></div>
         <div class="face back"><div class="q-tag">RESPOSTA</div><div class="a" id="fa"></div></div>
       </div></div>
       <div class="btn-row">
-        <button class="btn ghost" id="prevCard">⟵ Anterior</button>
-        <button class="btn bad" id="notA">A não sabe</button>
-        <button class="btn bad" id="notB">B não sabe</button>
-        <button class="btn green" id="okA">A sabe ✓</button>
-        <button class="btn green" id="okB">B sabe ✓</button>
-        <button class="btn ghost" id="nextCard">Próximo ⟶</button>
+        <button class="btn ghost" id="prevCard">⟵ Ant</button>
+        <button class="btn bad" id="notA">A errou</button>
+        <button class="btn bad" id="notB">B errou</button>
+        <button class="btn green" id="okA">A acertou ✓</button>
+        <button class="btn green" id="okB">B acertou ✓</button>
+        <button class="btn ghost" id="nextCard">Próx ⟶</button>
       </div>
     </div>
   </section>
-
-  <!-- SIMULADO -->
   <section class="view" id="view-quiz">
     <h2 class="sec">Simulado</h2>
-    <p class="sub">Questões de múltipla escolha montadas a partir dos flashcards. Acertos contam para o painel.</p>
+    <p class="sub">Múltipla escolha montada a partir dos flashcards. Acertos marcam o card como dominado.</p>
     <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:16px">
       <select id="quizMat" style="max-width:320px"></select>
+      <select id="quizMode" style="max-width:230px">
+        <option value="all">Todos</option>
+        <option value="hard">Só os que mais erram</option>
+      </select>
       <button class="btn primary" id="startQuiz">▶️ Iniciar</button>
       <span class="pill" id="quizInfo"></span>
     </div>
     <div id="quizBox"></div>
   </section>
-
-  <!-- CRONOGRAMA -->
+  <section class="view" id="view-share">
+    <h2 class="sec">Sincronizar progresso das duas</h2>
+    <p class="sub">Gere um link com TUDO que vocês estudaram, envie pra amiga, e ela junta com o dela num clique. Sem servidor, sem cadastro.</p>
+    <div class="sharebox">
+      <label style="font-size:13px;color:var(--muted);font-weight:700">1) Gere o link de envio:</label>
+      <div class="row"><button class="btn primary" id="genLink">🔗 Gerar link de progresso</button></div>
+      <textarea id="shareOut" placeholder="O link aparece aqui. Copie e envie (WhatsApp, e-mail...)"></textarea>
+      <div class="row"><button class="btn ghost" id="copyLink">📋 Copiar</button></div>
+    </div>
+    <div class="sharebox">
+      <label style="font-size:13px;color:var(--muted);font-weight:700">2) Cole o link recebido da sua amiga e junte:</label>
+      <textarea id="shareIn" placeholder="Cole aqui o link (ou texto) gerado pela sua amiga..."></textarea>
+      <div class="row"><button class="btn green" id="mergeBtn">🤝 Juntar progressos</button><span class="pill" id="mergeMsg"></span></div>
+    </div>
+    <div class="note">📌 O link é só dados de progresso (o que cada uma marcou), nada de pessoal. Funciona melhor quando uma manda pra outra e vice-versa, aí juntam tudo.</div>
+  </section>
   <section class="view" id="view-plan">
     <h2 class="sec">Cronograma sugerido</h2>
-    <p class="sub">Plano de 8 semanas. Ajuste as datas conforme a prova. Conteúdo filtrado pelo cargo selecionado de quem está estudando agora.</p>
+    <p class="sub">Plano de 8 semanas. Ajuste as datas conforme a prova.</p>
     <div class="cargos-sel" id="cargosSel3"></div>
     <div id="planBox"></div>
   </section>
-
-  <!-- POMODORO -->
   <section class="view" id="view-pomo">
     <h2 class="sec">Timer de foco (Pomodoro)</h2>
-    <p class="sub">25 min de estudo, 5 min de pausa. Toque uma música de fundo se quiser.</p>
+    <p class="sub">25 min de estudo, 5 min de pausa.</p>
     <div class="pomo">
       <div class="mode" id="pomoMode">FOCO · 25:00</div>
       <div class="clock" id="pomoClock">25:00</div>
@@ -224,322 +222,256 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-t
       <div style="font-size:12px;color:var(--muted)">Ciclos de foco hoje: <b id="pomoCycles">0</b></div>
     </div>
   </section>
-
-  <!-- SOBRE -->
   <section class="view" id="view-sobre">
     <h2 class="sec">Sobre o concurso</h2>
     <p class="sub">Resumo extraído dos editais anexos VI e VII.</p>
-    <div class="card" id="sobreCard"></div>
+    <div id="sobreCard"></div>
   </section>
 </main>
-<footer>
-  App de estudo feito sob medida para o Concurso Câmara de Palhoça/SC 01/2026 · FUNDATEC ·
-  Progresso salvo localmente no navegador.
-</footer>
-
+<footer>App de estudo feito sob medida para o Concurso Câmara de Palhoça/SC 01/2026 · FUNDATEC · Progresso salvo localmente.</footer>
 <script>
-const DADOS = {"concurso": "Câmara Municipal de Palhoça/SC - Concurso Público nº 01/2026 (FUNDATEC)", "cargos": {"adm": "01 - Administrador de Sistemas (Sup)", "cont": "02 - Contador Legislativo (Sup)", "ctrl": "03 - Controlador Interno (Sup)", "jor": "04 - Jornalista (Sup)", "tec": "05 - Técnico Legislativo (Méd/Téc)"}, "materias": [{"id": "port", "nome": "Língua Portuguesa", "cargos": ["todos"], "area": "Conhecimentos Gerais", "topicos": ["Leitura, interpretação e relação entre as ideias de textos de gêneros diversos", "Fato e opinião; intencionalidade discursiva (Fiorin e Savioli)", "Implícitos, subentendidos e efeitos de sentido (Fiorin e Savioli)", "Ideias principais/secundárias e recursos de argumentação (Orlandi, Guimarães, Koch)", "Situação comunicativa e variações linguísticas", "Gêneros e tipos textuais; intertextualidade (Marcuschi)", "Coesão e coerência textuais (Ingedore Villaça Koch)", "Léxico: sinônimos, antônimos, parônimos e homônimos", "Ortografia: letras, hífen, acentuação (Acordo Ortográfico, Dec. 6.583/12, Aulete)", "Figuras de linguagem (Bechara, Cegalla, Cunha e Cintra)", "Fonologia: relações entre fonemas e grafias", "Morfologia: classes, flexões, formação de palavras, vozes verbais", "Sintaxe: colocação, regência nominal/verbal, concordância (Bechara, Cegalla, Luft, Cunha/Cintra)", "Coordenação e subordinação; conjunções e pronomes relativos", "Pontuação e implicações de sentido"], "cards": [["O que é crase?", "Fusão da preposição 'a' com o artigo 'a' (ou 'aquela'). Indica-se com acento grave (`). Ocorre antes de palavra feminina que admite artigo."], ["Quando usar crase antes de palavra masculina?", "Só em locuções fixas: à moda de, à vista, à noite, às vezes, à brasileira, às claras, à vontade, às pressas, àquilo."], ["Qual a diferença entre coesão e coerência?", "Coesão = articulação gramatical (conectivos, pronomes, substituições). Coerência = compatibilidade lógica e sentido das ideias."], ["O que são efeitos de sentido?", "Mudanças de sentido provocadas por escolhas linguísticas (pontuação, ordem, palavras). Ex: 'Não comam os convidados' x 'Não, comam os convidados'."], ["Metáfora x metonímia?", "Metáfora: substituição por semelhança (o tempo voa). Metonímia: substituição por contiguidade - parte/todo, causa/efeito (bebi um copo, o Brasil ganhou)."], ["O que é paronímia?", "Palavras de sonoridade semelhante mas sentidos diferentes: complacência x complascência; cributo x tributo; iminente x eminente."], ["Regra geral de acentuação de oxítonas?", "Levam acento: terminadas em Á/ÁS, É/ÉS, Ó/ÓS, e também Í/ÍS, Ú/ÚS. Ex: café, herói, juri, público, bambu."], ["Hífen com prefixo terminado em vogal + palavra iniciada em vogal igual?", "Emprega-se: anti-inflamatório, micro-ondas, semi-interno. (Regra geral do Acordo Ortográfico.)"], ["Sintaxe de colocação: próclise, mesóclise e ênclise?", "Próclise: pronome ANTES do verbo (com palavra atrativa: negação, advérbio). Mesóclise: NO MEIO do verbo no futuro (amar-te-ei). Ênclise: APÓS o verbo (início de frase)."], ["Regência nominal x verbal?", "Nominal: o nome (substantivo/adj) exige preposição (a fidelidade AO partido). Verbal: o verbo exige complemento com certa preposição (gostar DE, assistir A)."], ["Concordância nominal - regra básica?", "O adjetivo/artigo concorda em gênero e número com o substantivo a que se refere. Ex: 'as duas belas casas'."], ["Gêneros textuais segundo Marcuschi?", "São tipos sociocomunicativos situados historicamente (conversacionais, jornalísticos, literários, acadêmicos...), definidos pelo contexto e propósito."], ["O que estuda Evanildo Bechara neste edital?", "Referência para ortografia, fonologia, morfologia, sintaxe de colocação, regência, concordância e pontuação."], ["Intertextualidade?", "Relação de um texto com outros textos (citação, paródia, alusão). O sentido se constrói na rede de textos."]]}, {"id": "mat", "nome": "Matemática e Raciocínio Lógico", "cargos": ["todos"], "area": "Conhecimentos Gerais", "topicos": ["Teoria dos conjuntos e conjuntos numéricos (N, Z, Q, Irracionais, R)", "Operações fundamentais e propriedades; múltiplos/divisores; primos; MMC; MDC", "Razões e proporções; divisão em partes proporcionais", "Regra de três simples e composta", "Sistema de medidas (comprimento, capacidade, massa, tempo) e monetário", "Cálculo algébrico: monômios e polinômios", "Funções: 1º e 2º grau (máx/mín), gráficos, domínio/imagem", "Equações e sistemas de 1º grau; PA e PG", "Análise combinatória (Superior: matrizes/determinantes, função exponencial)", "Matemática financeira: porcentagem, juro simples (Sup: juro composto)", "Estatística: média simples/ponderada (Sup: moda, mediana, dispersão)", "Lógica: proposições, conectivos, operações, tabela-verdade, De Morgan (Sup+)"], "cards": [["O que é uma Progressão Aritmética (PA)?", "Sequência em que a diferença entre termos consecutivos é constante (razão r). Termo geral: a_n = a_1 + (n-1).r."], ["Fórmula da soma dos n primeiros termos da PA?", "S = n.(a_1 + a_n) / 2  (ou S = n/2 . [2a_1 + (n-1).r] )."], ["O que é uma Progressão Geométrica (PG)?", "Razão q constante entre termos. a_n = a_1 . q^(n-1). Soma finita: S = a_1(1 - q^n)/(1 - q)."], ["Juros simples - fórmula do montante?", "J = C . i . n ; M = C . (1 + i.n). Os juros incidem sempre sobre o capital inicial."], ["Regra de três composta - como resolver?", "Relaciona 3 ou mais grandezas; usa-se o método de cancelamento (frações) ou comparação de razões."], ["MMC x MDC - quando usar cada um?", "MMC (mínimo múltiplo comum): somar frações com denominadores diferentes. MDC (máximo divisor comum): simplificar frações."], ["Proposição condicional p→q é falsa quando?", "Somente quando p=Verdadeiro e q=Falso. Qualquer outro caso é Verdadeira."], ["Leis de De Morgan?", "¬(p ∧ q) ≡ ¬p ∨ ¬q    e    ¬(p ∨ q) ≡ ¬p ∧ ¬q. Negar um E vira OU; negar um OU vira E."], ["Bicondicional p↔q é verdadeiro quando?", "Quando p e q têm o MESMO valor-verdade (ambos V ou ambos F)."], ["Negação de 'todos os x são P' (∀x P(x))?", "∃x ¬P(x) → 'existe ao menos um x que não é P'. Quantificador universal vira existencial na negação."], ["Aumento de 20% seguido de desconto de 20% volta ao preço original?", "NÃO. 1,20 × 0,80 = 0,96 → perda de 4% em relação ao original."], ["Média ponderada?", "Soma de (valor × peso) dividida pela soma dos pesos. Usa-se quando os valores têm pesos diferentes."]]}, {"id": "inf", "nome": "Informática", "cargos": ["todos"], "area": "Conhecimentos Gerais", "topicos": ["Windows 10 Pro / 11 Pro: área de trabalho, arquivos, painel de controle", "Word 365: formatação, estilos, revisão (Sup: sumário, mala direta)", "Excel 365: fórmulas básicas (SOMA, MÉDIA, SE), gráficos (Sup+)", "PowerPoint 365 (Nível Superior)", "Navegadores: Chrome, Firefox, Edge (guias, favoritos, histórico)", "E-mail: Outlook e Gmail (envio, anexos, CC, filtros)", "Segurança digital: senhas, phishing, malware, redes sociais", "Inteligência Artificial: conceitos, generativa, Copilot, ética, deepfakes, LGPD"], "cards": [["DNS, DHCP e NAT - o que faz cada um?", "DNS: traduz nomes (google.com) em IP. DHCP: atribui endereços IP automaticamente na rede. NAT: converte IP privado em público no roteador."], ["SMTP, POP3 e IMAP - diferenças?", "SMTP: envio de e-mails. POP3: recebe e BAIXA (geralmente apaga do servidor). IMAP: recebe sincronizado (fica no servidor)."], ["O que é phishing?", "Técnica de fraude que se passa por entidade confiável para roubar senhas/dados. Exige atenção a links e remetentes suspeitos."], ["O que é um deepfake?", "Conteúdo (vídeo/áudio) falsificado por IA que imita uma pessoa real. Exige verificação de fontes."], ["LGPD (Lei 13.709/2018) - princípios principais?", "Finalidade, adequação, necessidade, livre acesso, qualidade, transparência, segurança, prevenção, não discriminação e responsabilização."], ["O que é IA generativa?", "Modelos de IA que criam conteúdo NOVO (texto, imagem, áudio) a partir de treino em grandes bases de dados."], ["Copilot no Microsoft 365?", "Assistente de IA integrado ao Word/Excel/PowerPoint que ajuda a escrever, resumir e criar conteúdo."], ["Firewall x antivírus?", "Firewall: controla o tráfego de rede (entrada/saída). Antivírus: detecta e remove malware em arquivos do sistema."], ["Referência absoluta no Excel (ex: $A$1)?", "O cifrão fixa a coluna e/ou linha ao copiar fórmulas. $A$1 = absoluta; $A1 = coluna fixa; A$1 = linha fixa."], ["Boas práticas de senhas?", "Senhas longas, únicas por serviço, com mix de caracteres; usar gerenciador de senhas; ativar 2FA onde possível."], ["Crimpagem (informática)?", "Confecção do conector RJ45 no cabo de rede seguindo padrões T568A ou T568B."], ["Backup 3-2-1?", "3 cópias dos dados, em 2 mídias diferentes, sendo 1 offsite (fora do local). Estratégia de resiliência."]]}, {"id": "leg", "nome": "Atualidades, Legislação e Direito", "cargos": ["todos"], "area": "Conhecimentos Gerais", "topicos": ["Tópicos atuais (política, economia, sociedade, meio ambiente, tecnologia, saúde, etc.)", "Direitos humanos e cidadania", "Lei Orgânica do Município de Palhoça", "Estatuto dos Servidores de Palhoça (Lei Complementar nº 96/2010)", "Regimento Interno da Câmara Municipal de Palhoça", "Direito Penal Admin: crimes de funcionário público (Art. 312 a 326 CP)", "Crimes de particular contra a Administração", "Crimes em licitações e contratos (Art. 337-A CP)", "Crimes contra as finanças públicas (Art. 359-A a 359-H CP)", "LINDB - Lei de Introdução às Normas do Direito Brasileiro (Decreto-Lei 4.657/1942)"], "cards": [["Quais são os crimes de funcionário público mais cobrados?", "Peculato (Art. 312), Concussão (Art. 316), Corrupção passiva (Art. 317), Prevaricação (Art. 319), Advocacia administrativa (Art. 321)."], ["O que é peculato?", "Art. 312 CP: apropriar-se o funcionário de dinheiro/valor público ou confiado a ele. Se devolve, pena atenua."], ["Crime de licitação (Art. 337-A CP)?", "Frustrar ou fraudar processo licitatório ou dispensa, ou turbá-lo, em prejuízo da administração."], ["LINDB (Decreto-Lei 4.657/1942)?", "Lei de Introdução às Normas do Direito Brasileiro: trata da vigência, aplicação e conflito das leis no tempo e espaço."], ["Lei Orgânica de Palhoça?", "É a 'Constituição' do município - norma máxima local. Prevê organização dos poderes e competências do município."], ["Estatuto dos Servidores (LC 96/2010)?", "Lei Complementar que fixa o regime jurídico dos servidores públicos do município de Palhoça."], ["Regimento Interno da Câmara?", "Norma que disciplina a organização, o funcionamento e os trabalhos da Câmara Municipal de Palhoça."], ["Crimes contra as finanças públicas (Art. 359-A a H)?", "Incluem: não recolher tributo, desvio de finalidade de recurso, ordem de pagamento sem lei, etc."], ["Direitos humanos e cidadania - eixo do edital?", "Tópicos atuais incluem cidadania, direitos humanos, consciência ambiental e desenvolvimento sustentável."]]}, {"id": "eadm", "nome": "Específico - Administrador de Sistemas", "cargos": ["adm"], "area": "Conhecimentos Específicos", "topicos": ["Microinformática e hardware; arquitetura de computadores", "Sistemas Operacionais: Windows 10/11 Pro, Server, Active Directory, GPO", "Microsoft Office 365 (Word, Excel) e integração", "Redes: modelo OSI/TCP-IP, LAN, cabeamento, IPv4/IPv6, DNS/DHCP/NAT, VLAN", "Correio eletrônico: SMTP/POP3/IMAP; Mikrotik LDAP", "Segurança da Informação: CIA, criptografia, firewall, LGPD", "Suporte técnico e ITIL; Banco de dados e SQL", "Virtualização; Web e Internet; rotinas de TI no setor público"], "cards": [["Quantas camadas tem o modelo OSI?", "7 camadas: Física, Enlace, Rede, Transporte, Sessão, Apresentação e Aplicação (da base para o topo)."], ["Modelo TCP/IP - quantas camadas?", "4 camadas: Acesso à Rede, Internet, Transporte e Aplicação (alguns autores usam 5)."], ["Endereçamento IPv4?", "Endereços de 32 bits em 4 octetos (ex: 192.168.0.1), com máscara de sub-rede que define rede e hosts."], ["Active Directory e GPO?", "AD: serviço de diretório da Microsoft para gerenciar usuários/grupos em rede Windows. GPO: Políticas de Grupo que aplicam configurações."], ["Triade da Segurança da Informação (CIA)?", "Confidencialidade (sigilo), Integridade (não alteração) e Disponibilidade (acesso quando necessário)."], ["ITIL?", "Conjunto de boas práticas para gestão de serviços de TI (foco em valor ao cliente e melhoria contínua)."], ["Consulta SQL básica?", "SELECT coluna FROM tabela WHERE condição; ex.: SELECT nome FROM funcionarios WHERE idade > 30."], ["Noções de virtualização?", "Criação de máquinas virtuais sobre um hipervisor (Ex.: VMware, Hyper-V), permitindo vários SOs num mesmo hardware."]]}, {"id": "ect", "nome": "Específico - Contador Legislativo", "cargos": ["cont"], "area": "Conhecimentos Específicos", "topicos": ["Direito Constitucional e Direito Administrativo (LC 14.133/21)", "Contabilidade Geral e Aplicada ao Setor Público (NBCASP, MCASP, PCASP)", "Sistemas contábeis: orçamentário, patrimonial, financeiro, compensação", "Receita/despesa pública; estágios; restos a pagar; dívida pública", "Demonstrações Contábeis do Setor Público (Balanços)", "Orçamento: PPA, LDO, LOA; créditos adicionais", "Lei de Responsabilidade Fiscal (LC 101/2000); Lei 4.320/64; LAI", "Auditoria Governamental; Gestão Patrimonial; Matemática Financeira"], "cards": [["NBCASP, MCASP e PCASP?", "NBCASP: Normas Brasileiras de Contabilidade Aplicadas ao Setor Público. MCASP: Manual. PCASP: Plano de Contas Aplicado ao Setor Público."], ["Lei de Responsabilidade Fiscal (LC 101/2000)?", "Dispõe sobre limites de despesa com pessoal, transparência, controle e responsabilidade na gestão fiscal."], ["Lei 4.320/1964?", "Estabelece normas gerais de direito financeiro para elaboração e controle dos orçamentos e balanços da União, Estados e Municípios."], ["Estágios da despesa pública?", "Empenho (reserva), Liquidação (verifica a execução) e Pagamento (libera o valor)."], ["PPA, LDO e LOA?", "PPA: Plano Plurianual (4 anos). LDO: Lei de Diretrizes Orçamentárias (orienta). LOA: Lei Orçamentária Anual (execução)."], ["Balanço Patrimonial no setor público?", "Evidencia Ativo, Passivo e Saldo Patrimonial (VPA e PPA), demonstrando a situação patrimonial do ente."], ["Lei de Acesso à Informação (12.527/2011)?", "Garante o acesso a informações públicas; prevê transparência ativa e passiva e hierarquia de sigilo."], ["Receita pública: estágios?", "Previsão, lançamento, arrecadação e recolhimento. (No setor público, a receita tem fases próprias.)"]]}, {"id": "ectr", "nome": "Específico - Controlador Interno", "cargos": ["ctrl"], "area": "Conhecimentos Específicos", "topicos": ["Direito Constitucional/Administrativo; atos administrativos", "Controle Interno: preventivo, concomitante, posterior", "Contabilidade Aplicada ao Setor Público e Orçamento", "Direito Financeiro; LRF; Relatórios RREO e RGF", "Licitações (LC 14.133/21); Controle Externo e TCE", "Governança, Compliance, Integridade, Accountability", "Lei de Acesso à Informação; LGPD; Anticorrupção (12.846/13)", "Improbidade (8.429/92); Decreto-Lei 201/67"], "cards": [["Tipos de controle interno?", "Preventivo (antes), Concomitante (durante) e Posterior (depois) - avaliam legalidade, economicidade, eficiência."], ["RREO e RGF?", "RREO: Relatório Resumo de Execução Orçamentária. RGF: Relatório de Gestão Fiscal (ambos previstos na LRF)."], ["Tomada de contas especial?", "Procedimento quando há dano ao erário por agente público que não presta contas ou as presta irregularmente."], ["Controle externo - quem exerce?", "Exercido pelo Poder Legislativo com auxílio do Tribunal de Contas (TCE/SC, neste caso)."], ["Governança e Compliance?", "Governança: sistema de liderança/direção/controle. Compliance: conformidade com leis e regulamentos. Integridade: prevenção à corrupção."], ["Lei 14.133/2021?", "Nova Lei de Licitações e Contratos Administrativos: princípios, modalidades (concurso, leilão, pregão, etc.) e fases."], ["Improbidade Administrativa (Lei 8.429/92)?", "São atos que violam princípios da administração (enriquecimento ilícito, prejuízo ao erário, concessão de vantagem)."], ["Decreto-Lei 201/1967?", "Define os crimes de responsabilidade dos prefitos e vereadores (responsabilização política/criminal no âmbito municipal)."]]}, {"id": "ejor", "nome": "Específico - Jornalista", "cargos": ["jor"], "area": "Conhecimentos Específicos", "topicos": ["Direito Constitucional; Poder Legislativo municipal", "Comunicação Pública, Institucional e Governamental", "Assessoria de Imprensa e relacionamento com a mídia", "Jornalismo: redação, pirâmide invertida, checagem, desinformação", "Produção Audiovisual e Mídias Digitais (SEO, métricas)", "Teorias da Comunicação e do Jornalismo; História da imprensa", "Ética e Legislação: Código FENAJ, liberdade de imprensa, sigilo da fonte", "Processo Legislativo; Planejamento de Comunicação"], "cards": [["Pirâmide invertida?", "Estrutura de notícia que coloca as informações mais importantes (quem, o quê, quando, onde, por quê) no início."], ["Lead e sublead?", "Lead (lide): primeiro parágrafo com o essencial. Sublead: parágrafo seguinte que complementa a informação-base."], ["Código de Ética dos Jornalistas?", "Código da FENAJ: princípios de verdade, apuração, respeito à fonte e responsabilidade social."], ["Lei de Acesso à Informação (12.527/2011)?", "Garante acesso a dados públicos; ferramenta essencial para o jornalismo de interesse público."], ["Política Nacional de Linguagem Simples?", "Diretriz para o Estado comunicar-se de forma clara, acessível e centrada no cidadão."], ["Liberdade de imprensa e sigilo da fonte?", "Direitos fundamentais do jornalismo: livre divulgação e dever de proteger a identidade da fonte."], ["Vedação à promoção pessoal?", "No uso de comunicação pública, é vedado promover imagem de autoridade (princípio da impessoalidade)."], ["Combate à desinformação?", "Apuração, checagem e verificação de fatos antes da publicação; uso de fontes confiáveis."]]}, {"id": "etec", "nome": "Específico - Técnico Legislativo", "cargos": ["tec"], "area": "Conhecimentos Específicos", "topicos": ["Direito Constitucional e Administrativo", "Processo legislativo: iniciativa, tramitação, deliberação, sanção, veto", "Atos administrativos: requisitos, atributos, classificação", "Agentes públicos: classificação e regimes jurídicos", "Orçamento e Contabilidade Pública (noções); LRF", "Licitações (LC 14.133/21); Gestão de Materiais e Patrimônio", "Gestão de Pessoas; Rotinas Administrativas e Legislativas", "Gestão documental; Ouvidoria (Lei 13.460/17); Manual de Redação"], "cards": [["Fases do processo legislativo?", "Iniciativa, tramitação (comissões e plenário), deliberação (votação), sanção/veto e promulgação."], ["Espécies normativas municipais?", "Emenda à Lei Orgânica, lei complementar, lei ordinária, decreto legislativo e resolução."], ["Atributos do ato administrativo?", "Presunção de legitimidade, imperatividade, autoexecutoriedade e tipicidade."], ["Regimes jurídicos dos agentes públicos?", "Estatutário, celetista (CLT), temporário e voluntário (ex.: não remunerado)."], ["Lei 14.133/2021 - princípios?", "Planejamento, transparência, eficiência, segurança jurídica, igualdade, competitividade, proporcionalidade, celeridade, entre outros."], ["Lei de Ouvidoria (13.460/2017)?", "Código de Defesa do Usuário do Serviço Público: regula reclamações, denúncias, sugestões e elogios."], ["Manual de Redação da Presidência?", "Referência oficial de redação para o padrão de linguagem do Estado brasileiro."], ["Tombamento e depreciação de bens públicos?", "Tombamento: registro patrimonial do bem. Depreciação: redução do valor por desgaste (controle patrimonial)."]]}]};
-const LSKEY = 'palhoca_study_v1';
-let STATE = loadState();
-
-function loadState(){
-  try{const s=JSON.parse(localStorage.getItem(LSKEY));if(s)return s;}catch(e){}
-  return {stu:'A', cargoA:'adm', cargoB:'cont',
-    cards:{}, topics:{}, quiz:[], pomoCycles:0};
-}
+const DADOS={"concurso": "Câmara Municipal de Palhoça/SC - Concurso Público nº 01/2026 (FUNDATEC)", "cargos": {"adm": "01 - Administrador de Sistemas (Sup)", "cont": "02 - Contador Legislativo (Sup)", "ctrl": "03 - Controlador Interno (Sup)", "jor": "04 - Jornalista (Sup)", "tec": "05 - Técnico Legislativo (Méd/Téc)"}, "materias": [{"id": "port", "nome": "Língua Portuguesa", "cargos": ["todos"], "area": "Conhecimentos Gerais", "topicos": ["Leitura, interpretação e relação entre as ideias de textos de gêneros diversos", "Fato e opinião; intencionalidade discursiva (Fiorin e Savioli)", "Implícitos, subentendidos e efeitos de sentido (Fiorin e Savioli)", "Ideias principais/secundárias e recursos de argumentação (Orlandi, Guimarães, Koch)", "Situação comunicativa e variações linguísticas", "Gêneros e tipos textuais; intertextualidade (Marcuschi)", "Coesão e coerência textuais (Ingedore Villaça Koch)", "Léxico: sinônimos, antônimos, parônimos e homônimos", "Ortografia: letras, hífen, acentuação (Acordo Ortográfico, Dec. 6.583/12, Aulete)", "Figuras de linguagem (Bechara, Cegalla, Cunha e Cintra)", "Fonologia: relações entre fonemas e grafias", "Morfologia: classes, flexões, formação de palavras, vozes verbais", "Sintaxe: colocação, regência nominal/verbal, concordância (Bechara, Cegalla, Luft, Cunha/Cintra)", "Coordenação e subordinação; conjunções e pronomes relativos", "Pontuação e implicações de sentido"], "cards": [["O que é crase?", "Fusão da preposição 'a' com o artigo 'a' (ou 'aquela'). Indica-se com acento grave (`). Ocorre antes de palavra feminina que admite artigo."], ["Quando usar crase antes de palavra masculina?", "Só em locuções fixas: à moda de, à vista, à noite, às vezes, à brasileira, às claras, à vontade, às pressas, àquilo."], ["Qual a diferença entre coesão e coerência?", "Coesão = articulação gramatical (conectivos, pronomes, substituições). Coerência = compatibilidade lógica e sentido das ideias."], ["O que são efeitos de sentido?", "Mudanças de sentido provocadas por escolhas linguísticas (pontuação, ordem, palavras). Ex: 'Não comam os convidados' x 'Não, comam os convidados'."], ["Metáfora x metonímia?", "Metáfora: substituição por semelhança (o tempo voa). Metonímia: substituição por contiguidade - parte/todo, causa/efeito (bebi um copo, o Brasil ganhou)."], ["O que é paronímia?", "Palavras de sonoridade semelhante mas sentidos diferentes: complacência x complascência; cributo x tributo; iminente x eminente."], ["Regra geral de acentuação de oxítonas?", "Levam acento: terminadas em Á/ÁS, É/ÉS, Ó/ÓS, e também Í/ÍS, Ú/ÚS. Ex: café, herói, juri, público, bambu."], ["Hífen com prefixo terminado em vogal + palavra iniciada em vogal igual?", "Emprega-se: anti-inflamatório, micro-ondas, semi-interno. (Regra geral do Acordo Ortográfico.)"], ["Sintaxe de colocação: próclise, mesóclise e ênclise?", "Próclise: pronome ANTES do verbo (com palavra atrativa: negação, advérbio). Mesóclise: NO MEIO do verbo no futuro (amar-te-ei). Ênclise: APÓS o verbo (início de frase)."], ["Regência nominal x verbal?", "Nominal: o nome (substantivo/adj) exige preposição (a fidelidade AO partido). Verbal: o verbo exige complemento com certa preposição (gostar DE, assistir A)."], ["Concordância nominal - regra básica?", "O adjetivo/artigo concorda em gênero e número com o substantivo a que se refere. Ex: 'as duas belas casas'."], ["Gêneros textuais segundo Marcuschi?", "São tipos sociocomunicativos situados historicamente (conversacionais, jornalísticos, literários, acadêmicos...), definidos pelo contexto e propósito."], ["O que estuda Evanildo Bechara neste edital?", "Referência para ortografia, fonologia, morfologia, sintaxe de colocação, regência, concordância e pontuação."], ["Intertextualidade?", "Relação de um texto com outros textos (citação, paródia, alusão). O sentido se constrói na rede de textos."], ["Quais as vozes verbais?", "Voz ativa (o sujeito pratica a ação), passiva (o sujeito sofre - analítica com auxiliar ou sintética com pronome apassivador) e reflexiva (a ação recai sobre o sujeito)."], ["Regra de acentuação das proparoxítonas?", "TODAS as proparoxítonas são acentuadas graficamente: física, árvore, lâmpada, cortiça, utopia."], ["Hífen em contra-, entre-, para-, sobre- antes de vogal?", "NÃO usam hífen antes de vogal (contraataque, entravar, paraquedas, sobressair). Usam hífen só antes de h ou mesma consoante (contra-humano, contra-regra)."], ["O que é polissemia?", "Palavra com mais de um sentido: 'ponte' (construção) e 'ponte' (no jogo de sinuca) são polissêmicas."]]}, {"id": "mat", "nome": "Matemática e Raciocínio Lógico", "cargos": ["todos"], "area": "Conhecimentos Gerais", "topicos": ["Teoria dos conjuntos e conjuntos numéricos (N, Z, Q, Irracionais, R)", "Operações fundamentais e propriedades; múltiplos/divisores; primos; MMC; MDC", "Razões e proporções; divisão em partes proporcionais", "Regra de três simples e composta", "Sistema de medidas (comprimento, capacidade, massa, tempo) e monetário", "Cálculo algébrico: monômios e polinômios", "Funções: 1º e 2º grau (máx/mín), gráficos, domínio/imagem", "Equações e sistemas de 1º grau; PA e PG", "Análise combinatória (Superior: matrizes/determinantes, função exponencial)", "Matemática financeira: porcentagem, juro simples (Sup: juro composto)", "Estatística: média simples/ponderada (Sup: moda, mediana, dispersão)", "Lógica: proposições, conectivos, operações, tabela-verdade, De Morgan (Sup+)"], "cards": [["O que é uma Progressão Aritmética (PA)?", "Sequência em que a diferença entre termos consecutivos é constante (razão r). Termo geral: a_n = a_1 + (n-1).r."], ["Fórmula da soma dos n primeiros termos da PA?", "S = n.(a_1 + a_n) / 2  (ou S = n/2 . [2a_1 + (n-1).r] )."], ["O que é uma Progressão Geométrica (PG)?", "Razão q constante entre termos. a_n = a_1 . q^(n-1). Soma finita: S = a_1(1 - q^n)/(1 - q)."], ["Juros simples - fórmula do montante?", "J = C . i . n ; M = C . (1 + i.n). Os juros incidem sempre sobre o capital inicial."], ["Regra de três composta - como resolver?", "Relaciona 3 ou mais grandezas; usa-se o método de cancelamento (frações) ou comparação de razões."], ["MMC x MDC - quando usar cada um?", "MMC (mínimo múltiplo comum): somar frações com denominadores diferentes. MDC (máximo divisor comum): simplificar frações."], ["Proposição condicional p→q é falsa quando?", "Somente quando p=Verdadeiro e q=Falso. Qualquer outro caso é Verdadeira."], ["Leis de De Morgan?", "¬(p ∧ q) ≡ ¬p ∨ ¬q    e    ¬(p ∨ q) ≡ ¬p ∧ ¬q. Negar um E vira OU; negar um OU vira E."], ["Bicondicional p↔q é verdadeiro quando?", "Quando p e q têm o MESMO valor-verdade (ambos V ou ambos F)."], ["Negação de 'todos os x são P' (∀x P(x))?", "∃x ¬P(x) → 'existe ao menos um x que não é P'. Quantificador universal vira existencial na negação."], ["Aumento de 20% seguido de desconto de 20% volta ao preço original?", "NÃO. 1,20 × 0,80 = 0,96 → perda de 4% em relação ao original."], ["Média ponderada?", "Soma de (valor × peso) dividida pela soma dos pesos. Usa-se quando os valores têm pesos diferentes."], ["Determinante de uma matriz 2x2 [[a,b],[c,d]]?", "det = a.d − b.c."], ["O que é matriz transposta?", "Obtida trocando linhas por colunas: a matriz A^T tem elemento (i,j) = elemento (j,i) de A."], ["Função exponencial?", "f(x) = a^x, com a > 0 e a ≠ 1. Se a>1 cresce; se 0<a<1 decai. Ex: 2^x."]]}, {"id": "inf", "nome": "Informática", "cargos": ["todos"], "area": "Conhecimentos Gerais", "topicos": ["Windows 10 Pro / 11 Pro: área de trabalho, arquivos, painel de controle", "Word 365: formatação, estilos, revisão (Sup: sumário, mala direta)", "Excel 365: fórmulas básicas (SOMA, MÉDIA, SE), gráficos (Sup+)", "PowerPoint 365 (Nível Superior)", "Navegadores: Chrome, Firefox, Edge (guias, favoritos, histórico)", "E-mail: Outlook e Gmail (envio, anexos, CC, filtros)", "Segurança digital: senhas, phishing, malware, redes sociais", "Inteligência Artificial: conceitos, generativa, Copilot, ética, deepfakes, LGPD"], "cards": [["DNS, DHCP e NAT - o que faz cada um?", "DNS: traduz nomes (google.com) em IP. DHCP: atribui endereços IP automaticamente na rede. NAT: converte IP privado em público no roteador."], ["SMTP, POP3 e IMAP - diferenças?", "SMTP: envio de e-mails. POP3: recebe e BAIXA (geralmente apaga do servidor). IMAP: recebe sincronizado (fica no servidor)."], ["O que é phishing?", "Técnica de fraude que se passa por entidade confiável para roubar senhas/dados. Exige atenção a links e remetentes suspeitos."], ["O que é um deepfake?", "Conteúdo (vídeo/áudio) falsificado por IA que imita uma pessoa real. Exige verificação de fontes."], ["LGPD (Lei 13.709/2018) - princípios principais?", "Finalidade, adequação, necessidade, livre acesso, qualidade, transparência, segurança, prevenção, não discriminação e responsabilização."], ["O que é IA generativa?", "Modelos de IA que criam conteúdo NOVO (texto, imagem, áudio) a partir de treino em grandes bases de dados."], ["Copilot no Microsoft 365?", "Assistente de IA integrado ao Word/Excel/PowerPoint que ajuda a escrever, resumir e criar conteúdo."], ["Firewall x antivírus?", "Firewall: controla o tráfego de rede (entrada/saída). Antivírus: detecta e remove malware em arquivos do sistema."], ["Referência absoluta no Excel (ex: $A$1)?", "O cifrão fixa a coluna e/ou linha ao copiar fórmulas. $A$1 = absoluta; $A1 = coluna fixa; A$1 = linha fixa."], ["Boas práticas de senhas?", "Senhas longas, únicas por serviço, com mix de caracteres; usar gerenciador de senhas; ativar 2FA onde possível."], ["Crimpagem (informática)?", "Confecção do conector RJ45 no cabo de rede seguindo padrões T568A ou T568B."], ["Backup 3-2-1?", "3 cópias dos dados, em 2 mídias diferentes, sendo 1 offsite (fora do local). Estratégia de resiliência."], ["Máscara /24 significa o quê?", "255.255.255.0 — 24 bits de rede, restando 8 para hosts (até 254 dispositivos na sub-rede)."], ["O que é uma VLAN?", "Rede local VIRTUAL: segmenta logicamente uma mesma infraestrutura física em redes distintas, isolando tráfego."], ["O que é HTTPS?", "HTTP sobre TLS/SSL — tráfego web criptografado entre navegador e servidor (cadeado na barra)."], ["Para que serve o cache do navegador?", "Armazena recursos (css, js, imagens) localmente para acelerar recarregamentos e reduzir consumo de rede."]]}, {"id": "leg", "nome": "Atualidades, Legislação e Direito", "cargos": ["todos"], "area": "Conhecimentos Gerais", "topicos": ["Tópicos atuais (política, economia, sociedade, meio ambiente, tecnologia, saúde, etc.)", "Direitos humanos e cidadania", "Lei Orgânica do Município de Palhoça", "Estatuto dos Servidores de Palhoça (Lei Complementar nº 96/2010)", "Regimento Interno da Câmara Municipal de Palhoça", "Direito Penal Admin: crimes de funcionário público (Art. 312 a 326 CP)", "Crimes de particular contra a Administração", "Crimes em licitações e contratos (Art. 337-A CP)", "Crimes contra as finanças públicas (Art. 359-A a 359-H CP)", "LINDB - Lei de Introdução às Normas do Direito Brasileiro (Decreto-Lei 4.657/1942)"], "cards": [["Quais são os crimes de funcionário público mais cobrados?", "Peculato (Art. 312), Concussão (Art. 316), Corrupção passiva (Art. 317), Prevaricação (Art. 319), Advocacia administrativa (Art. 321)."], ["O que é peculato?", "Art. 312 CP: apropriar-se o funcionário de dinheiro/valor público ou confiado a ele. Se devolve, pena atenua."], ["Crime de licitação (Art. 337-A CP)?", "Frustrar ou fraudar processo licitatório ou dispensa, ou turbá-lo, em prejuízo da administração."], ["LINDB (Decreto-Lei 4.657/1942)?", "Lei de Introdução às Normas do Direito Brasileiro: trata da vigência, aplicação e conflito das leis no tempo e espaço."], ["Lei Orgânica de Palhoça?", "É a 'Constituição' do município - norma máxima local. Prevê organização dos poderes e competências do município."], ["Estatuto dos Servidores (LC 96/2010)?", "Lei Complementar que fixa o regime jurídico dos servidores públicos do município de Palhoça."], ["Regimento Interno da Câmara?", "Norma que disciplina a organização, o funcionamento e os trabalhos da Câmara Municipal de Palhoça."], ["Crimes contra as finanças públicas (Art. 359-A a H)?", "Incluem: não recolher tributo, desvio de finalidade de recurso, ordem de pagamento sem lei, etc."], ["Direitos humanos e cidadania - eixo do edital?", "Tópicos atuais incluem cidadania, direitos humanos, consciência ambiental e desenvolvimento sustentável."], ["Princípios da Administração Pública (art. 37, CF)?", "Legalidade, impessoalidade, moralidade, publicidade e eficiência. (Mais: vedação ao nepotismo.)"], ["Lei de Acesso à Informação (12.527/2011) - prazo de resposta?", "Órgão tem 20 dias para responder (prorrogável por mais 10), contados da protocolização do pedido."], ["Lei 13.460/2017?", "Código de Defesa do Usuário do Serviço Público: prevê direitos do cidadão na relação com os serviços públicos."], ["O que é improbidade administrativa (Lei 8.429/92)?", "Ato de agente público que viola deveres de honestidade, probidade e decoro no exercício do cargo (enriquecimento ilícito, prejuízo ao erário, vantagem indevida)."]]}, {"id": "eadm", "nome": "Específico - Administrador de Sistemas", "cargos": ["adm"], "area": "Conhecimentos Específicos", "topicos": ["Microinformática e hardware; arquitetura de computadores", "Sistemas Operacionais: Windows 10/11 Pro, Server, Active Directory, GPO", "Microsoft Office 365 (Word, Excel) e integração", "Redes: modelo OSI/TCP-IP, LAN, cabeamento, IPv4/IPv6, DNS/DHCP/NAT, VLAN", "Correio eletrônico: SMTP/POP3/IMAP; Mikrotik LDAP", "Segurança da Informação: CIA, criptografia, firewall, LGPD", "Suporte técnico e ITIL; Banco de dados e SQL", "Virtualização; Web e Internet; rotinas de TI no setor público"], "cards": [["Quantas camadas tem o modelo OSI?", "7 camadas: Física, Enlace, Rede, Transporte, Sessão, Apresentação e Aplicação (da base para o topo)."], ["Modelo TCP/IP - quantas camadas?", "4 camadas: Acesso à Rede, Internet, Transporte e Aplicação (alguns autores usam 5)."], ["Endereçamento IPv4?", "Endereços de 32 bits em 4 octetos (ex: 192.168.0.1), com máscara de sub-rede que define rede e hosts."], ["Active Directory e GPO?", "AD: serviço de diretório da Microsoft para gerenciar usuários/grupos em rede Windows. GPO: Políticas de Grupo que aplicam configurações."], ["Triade da Segurança da Informação (CIA)?", "Confidencialidade (sigilo), Integridade (não alteração) e Disponibilidade (acesso quando necessário)."], ["ITIL?", "Conjunto de boas práticas para gestão de serviços de TI (foco em valor ao cliente e melhoria contínua)."], ["Consulta SQL básica?", "SELECT coluna FROM tabela WHERE condição; ex.: SELECT nome FROM funcionarios WHERE idade > 30."], ["Noções de virtualização?", "Criação de máquinas virtuais sobre um hipervisor (Ex.: VMware, Hyper-V), permitindo vários SOs num mesmo hardware."], ["TCP x UDP?", "TCP: orientado à conexão e confiável (confirma entrega). UDP: não orientado, mais rápido, sem garantia de entrega (streaming, DNS)."], ["Tipos de NAT?", "Estático (1:1), Dinâmico (pool) e PAT/Overload (vários internos compartilham 1 IP externo por portas)."], ["Criptografia simétrica x assimétrica?", "Simétrica: mesma chave para cifrar e decifrar. Assimétrica: par de chaves pública/privada (mais segura para troca)."], ["Firewall e sua função?", "Controla o tráfego de rede com regras de permissão/bloqueio (entrada e saída), protegendo a rede interna."]]}, {"id": "ect", "nome": "Específico - Contador Legislativo", "cargos": ["cont"], "area": "Conhecimentos Específicos", "topicos": ["Direito Constitucional e Direito Administrativo (LC 14.133/21)", "Contabilidade Geral e Aplicada ao Setor Público (NBCASP, MCASP, PCASP)", "Sistemas contábeis: orçamentário, patrimonial, financeiro, compensação", "Receita/despesa pública; estágios; restos a pagar; dívida pública", "Demonstrações Contábeis do Setor Público (Balanços)", "Orçamento: PPA, LDO, LOA; créditos adicionais", "Lei de Responsabilidade Fiscal (LC 101/2000); Lei 4.320/64; LAI", "Auditoria Governamental; Gestão Patrimonial; Matemática Financeira"], "cards": [["NBCASP, MCASP e PCASP?", "NBCASP: Normas Brasileiras de Contabilidade Aplicadas ao Setor Público. MCASP: Manual. PCASP: Plano de Contas Aplicado ao Setor Público."], ["Lei de Responsabilidade Fiscal (LC 101/2000)?", "Dispõe sobre limites de despesa com pessoal, transparência, controle e responsabilidade na gestão fiscal."], ["Lei 4.320/1964?", "Estabelece normas gerais de direito financeiro para elaboração e controle dos orçamentos e balanços da União, Estados e Municípios."], ["Estágios da despesa pública?", "Empenho (reserva), Liquidação (verifica a execução) e Pagamento (libera o valor)."], ["PPA, LDO e LOA?", "PPA: Plano Plurianual (4 anos). LDO: Lei de Diretrizes Orçamentárias (orienta). LOA: Lei Orçamentária Anual (execução)."], ["Balanço Patrimonial no setor público?", "Evidencia Ativo, Passivo e Saldo Patrimonial (VPA e PPA), demonstrando a situação patrimonial do ente."], ["Lei de Acesso à Informação (12.527/2011)?", "Garante o acesso a informações públicas; prevê transparência ativa e passiva e hierarquia de sigilo."], ["Receita pública: estágios?", "Previsão, lançamento, arrecadação e recolhimento."], ["Princípio da entidade (NBCASP)?", "Cada ente da federação tem patrimônio próprio e separado; o patrimônio público não se confunde com o dos seus gestores."], ["Restos a pagar?", "Despesas empenhadas e não pagas até o encerramento do exercício; inscritas como de exercícios anteriores."], ["Suprimento de fundos?", "Adiantamento concedido a servidor para pequenas despesas de pronto pagamento (tipo 'verba de gabinete'), com prestação de contas."]]}, {"id": "ectr", "nome": "Específico - Controlador Interno", "cargos": ["ctrl"], "area": "Conhecimentos Específicos", "topicos": ["Direito Constitucional/Administrativo; atos administrativos", "Controle Interno: preventivo, concomitante, posterior", "Contabilidade Aplicada ao Setor Público e Orçamento", "Direito Financeiro; LRF; Relatórios RREO e RGF", "Licitações (LC 14.133/21); Controle Externo e TCE", "Governança, Compliance, Integridade, Accountability", "Lei de Acesso à Informação; LGPD; Anticorrupção (12.846/13)", "Improbidade (8.429/92); Decreto-Lei 201/67"], "cards": [["Tipos de controle interno?", "Preventivo (antes), Concomitante (durante) e Posterior (depois) - avaliam legalidade, economicidade, eficiência."], ["RREO e RGF?", "RREO: Relatório Resumo de Execução Orçamentária. RGF: Relatório de Gestão Fiscal (ambos previstos na LRF)."], ["Tomada de contas especial?", "Procedimento quando há dano ao erário por agente público que não presta contas ou as presta irregularmente."], ["Controle externo - quem exerce?", "Exercido pelo Poder Legislativo com auxílio do Tribunal de Contas (TCE/SC, neste caso)."], ["Governança e Compliance?", "Governança: sistema de liderança/direção/controle. Compliance: conformidade com leis e regulamentos. Integridade: prevenção à corrupção."], ["Lei 14.133/2021?", "Nova Lei de Licitações e Contratos Administrativos: princípios, modalidades (concurso, leilão, pregão, etc.) e fases."], ["Improbidade Administrativa (Lei 8.429/92)?", "São atos que violam princípios da administração (enriquecimento ilícito, prejuízo ao erário, concessão de vantagem)."], ["Decreto-Lei 201/1967?", "Define os crimes de responsabilidade dos prefeitos e vereadores (responsabilização política/criminal no âmbito municipal)."], ["Fases da licitação (LC 14.133/21)?", "Planejamento, divulgação, recebimento de propostas, julgamento e adjudicação/homologação (com recursos entre elas)."], ["O que é accountability?", "Prestação de contas e obrigação de responder pelos atos praticados; transparência e responsabilização do gestor público."]]}, {"id": "ejor", "nome": "Específico - Jornalista", "cargos": ["jor"], "area": "Conhecimentos Específicos", "topicos": ["Direito Constitucional; Poder Legislativo municipal", "Comunicação Pública, Institucional e Governamental", "Assessoria de Imprensa e relacionamento com a mídia", "Jornalismo: redação, pirâmide invertida, checagem, desinformação", "Produção Audiovisual e Mídias Digitais (SEO, métricas)", "Teorias da Comunicação e do Jornalismo; História da imprensa", "Ética e Legislação: Código FENAJ, liberdade de imprensa, sigilo da fonte", "Processo Legislativo; Planejamento de Comunicação"], "cards": [["Pirâmide invertida?", "Estrutura de notícia que coloca as informações mais importantes (quem, o quê, quando, onde, por quê) no início."], ["Lead e sublead?", "Lead (lide): primeiro parágrafo com o essencial. Sublead: parágrafo seguinte que complementa a informação-base."], ["Código de Ética dos Jornalistas?", "Código da FENAJ: princípios de verdade, apuração, respeito à fonte e responsabilidade social."], ["Lei de Acesso à Informação (12.527/2011)?", "Garante acesso a dados públicos; ferramenta essencial para o jornalismo de interesse público."], ["Política Nacional de Linguagem Simples?", "Diretriz para o Estado comunicar-se de forma clara, acessível e centrada no cidadão."], ["Liberdade de imprensa e sigilo da fonte?", "Direitos fundamentais do jornalismo: livre divulgação e dever de proteger a identidade da fonte."], ["Vedação à promoção pessoal?", "No uso de comunicação pública, é vedado promover imagem de autoridade (princípio da impessoalidade)."], ["Combate à desinformação?", "Apuração, checagem e verificação de fatos antes da publicação; uso de fontes confiáveis."], ["Espécies normativas no âmbito da Câmara?", "Resolução, decreto legislativo, emenda à Lei Orgânica e leis (ordinária/complementar) votadas pelo município."], ["O que é desinformação?", "Informação falsa ou enganosa disseminada deliberadamente para induzir erro ou manipular a opinião pública."]]}, {"id": "etec", "nome": "Específico - Técnico Legislativo", "cargos": ["tec"], "area": "Conhecimentos Específicos", "topicos": ["Direito Constitucional e Administrativo", "Processo legislativo: iniciativa, tramitação, deliberação, sanção, veto", "Atos administrativos: requisitos, atributos, classificação", "Agentes públicos: classificação e regimes jurídicos", "Orçamento e Contabilidade Pública (noções); LRF", "Licitações (LC 14.133/21); Gestão de Materiais e Patrimônio", "Gestão de Pessoas; Rotinas Administrativas e Legislativas", "Gestão documental; Ouvidoria (Lei 13.460/17); Manual de Redação"], "cards": [["Fases do processo legislativo?", "Iniciativa, tramitação (comissões e plenário), deliberação (votação), sanção/veto e promulgação."], ["Espécies normativas municipais?", "Emenda à Lei Orgânica, lei complementar, lei ordinária, decreto legislativo e resolução."], ["Atributos do ato administrativo?", "Presunção de legitimidade, imperatividade, autoexecutoriedade e tipicidade."], ["Regimes jurídicos dos agentes públicos?", "Estatutário, celetista (CLT), temporário e voluntário (ex.: não remunerado)."], ["Lei 14.133/2021 - princípios?", "Planejamento, transparência, eficiência, segurança jurídica, igualdade, competitividade, proporcionalidade, celeridade, entre outros."], ["Lei de Ouvidoria (13.460/2017)?", "Código de Defesa do Usuário do Serviço Público: regula reclamações, denúncias, sugestões e elogios."], ["Manual de Redação da Presidência?", "Referência oficial de redação para o padrão de linguagem do Estado brasileiro."], ["Tombamento e depreciação de bens públicos?", "Tombamento: registro patrimonial do bem. Depreciação: redução do valor por desgaste (controle patrimonial)."], ["Contratação direta (LC 14.133/21)?", "Dispensa de licitação e inexigibilidade — hipóteses legais em que se contrata sem certame."], ["O que é protocolo (gestão documental)?", "Registro de entrada e saída de documentos, garantindo controle, prazos e rastreabilidade."]]}]};
+const LSKEY='palhoca_study_v2';
+let STATE=loadState();
+function loadState(){try{const s=JSON.parse(localStorage.getItem(LSKEY));if(s)return s;}catch(e){}
+  return {stu:'A',cargoA:'adm',cargoB:'cont',cards:{},topics:{},quiz:[],pomoCycles:0,streak:{A:0,B:0},lastDay:{A:'',B:''},leitner:{}};}
 function save(){localStorage.setItem(LSKEY,JSON.stringify(STATE));}
-function cargosDisponiveis(cargoId){
-  // retorna true se a matéria se aplica ao cargo
-  return DADOS.materias.filter(m=>m.cargos.includes('todos')||m.cargos.includes(cargoId));
-}
+function today(){return new Date().toISOString().slice(0,10);}
 function matForCargo(cargoId){return DADOS.materias.filter(m=>m.cargos.includes('todos')||m.cargos.includes(cargoId));}
+function pct(d,t){return t?Math.round(d/t*100):0;}
 
-// ----- Navigation
-document.querySelectorAll('nav.tabs button').forEach(b=>{
-  b.onclick=()=>{
-    document.querySelectorAll('nav.tabs button').forEach(x=>x.classList.remove('active'));
-    document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));
-    b.classList.add('active');
-    document.getElementById('view-'+b.dataset.view).classList.add('active');
-    if(b.dataset.view==='dash')renderDash();
-    if(b.dataset.view==='check')renderCheck();
-    if(b.dataset.view==='flash')renderFlashSetup();
-    if(b.dataset.view==='quiz')renderQuizSetup();
-    if(b.dataset.view==='plan')renderPlan();
-    if(b.dataset.view==='sobre')renderSobre();
-  };
-});
-// student chips
+// navigation
+document.querySelectorAll('nav.tabs button').forEach(b=>{b.onclick=()=>{
+  document.querySelectorAll('nav.tabs button').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');document.getElementById('view-'+b.dataset.view).classList.add('active');
+  if(b.dataset.view==='dash')renderDash();
+  if(b.dataset.view==='check')renderCheck();
+  if(b.dataset.view==='flash')renderFlashSetup();
+  if(b.dataset.view==='quiz')renderQuizSetup();
+  if(b.dataset.view==='plan')renderPlan();
+  if(b.dataset.view==='sobre')renderSobre();
+};});
 document.getElementById('chipA').onclick=()=>setStu('A');
 document.getElementById('chipB').onclick=()=>setStu('B');
-function setStu(s){
-  STATE.stu=s;save();
+function setStu(s){STATE.stu=s;save();
   document.getElementById('chipA').classList.toggle('active',s==='A');
-  document.getElementById('chipB').classList.toggle('active',s==='B');
-  renderDash();
+  document.getElementById('chipB').classList.toggle('active',s==='B');renderDash();}
+
+function buildCargoSel(c,who){
+  const cur=who==='A'?STATE.cargoA:STATE.cargoB;
+  c.innerHTML=`<div class="cs"><label>Cargo de ${who==='A'?'Você (A)':'Amiga (B)'}</label><select id="sel${who}">`+
+    Object.entries(DADOS.cargos).map(([k,v])=>`<option value="${k}" ${k===cur?'selected':''}>${v}</option>`).join('')+
+    `</select></div>`;
+  document.getElementById('sel'+who).onchange=e=>{if(who==='A')STATE.cargoA=e.target.value;else STATE.cargoB=e.target.value;save();renderDash();renderCheck();renderPlan();};
 }
 
-// ----- Cargo selectors
-function buildCargoSel(containerId, who){
-  const c=document.getElementById(containerId);
-  const cur = who==='A'?STATE.cargoA:STATE.cargoB;
-  let html=`<div class="cs"><label>Cargo de ${who==='A'?'Você (A)':'Amiga (B)'}</label><select id="sel${who}">`;
-  for(const [k,v] of Object.entries(DADOS.cargos)){
-    html+=`<option value="${k}" ${k===cur?'selected':''}>${v}</option>`;
-  }
-  html+=`</select></div>`;
-  c.innerHTML=html;
-  document.getElementById('sel'+who).onchange=e=>{
-    if(who==='A')STATE.cargoA=e.target.value;else STATE.cargoB=e.target.value;
-    save();renderDash();renderCheck();renderPlan();
-  };
-}
-
-// ----- DASHBOARD
-function pct(done,total){return total?Math.round(done/total*100):0;}
+// DASHBOARD
 function renderDash(){
-  buildCargoSel('cargosSel','A');
-  buildCargoSel('cargosSel','B');
-  const stu=STATE.stu;
-  const cargo = stu==='A'?STATE.cargoA:STATE.cargoB;
-  const mats=matForCargo(cargo);
-  let html='';
-  let totTop=0,totTopD=0,totCard=0,totCardK=0;
+  buildCargoSel(document.getElementById('cargosSel'),'A');
+  buildCargoSel(document.getElementById('cargosSel'),'B');
+  const stu=STATE.stu,cargo=stu==='A'?STATE.cargoA:STATE.cargoB,mats=matForCargo(cargo);
+  // streak box
+  document.getElementById('streakBox').innerHTML=`
+    <div class="s"><div class="num">🔥 ${STATE.streak.A||0}</div><div class="lbl">Sequência de Você (A)</div></div>
+    <div class="s"><div class="num">🔥 ${STATE.streak.B||0}</div><div class="lbl">Sequência da Amiga (B)</div></div>`;
+  let html='',tt=0,ttd=0,tc=0,tck=0;
   mats.forEach(m=>{
-    const tkey='t_'+m.id;
-    let td=0; m.topicos.forEach((_,i)=>{if(STATE.topics[tkey+'_'+i+'_'+stu])td++;});
-    const ckey='c_'+m.id;
-    let ck=0; m.cards.forEach((_,i)=>{if(STATE.cards[ckey+'_'+i+'_'+stu]==='known')ck++;});
-    totTop+=m.topicos.length;totTopD+=td;totCard+=m.cards.length;totCardK+=ck;
-    const pt=pct(td,m.topicos.length), pc=pct(ck,m.cards.length);
-    html+=`<div class="card">
-      <h3>${m.nome} <span class="badge">${m.area}</span></h3>
-      <div class="stat-row"><span>Tópicos</span><span>${td}/${m.topicos.length}</span></div>
-      <div class="bar"><i style="width:${pt}%"></i></div>
-      <div class="stat-row"><span>Flashcards</span><span>${ck}/${m.cards.length}</span></div>
-      <div class="bar"><i style="width:${pc}%"></i></div>
-    </div>`;
+    const tk='t_'+m.id;let td=0;m.topicos.forEach((_,i)=>{if(STATE.topics[tk+'_'+i+'_'+stu])td++;});
+    const ck='c_'+m.id;let ck2=0;m.cards.forEach((_,i)=>{if(STATE.cards[ck+'_'+i+'_'+stu]==='known')ck2++;});
+    tt+=m.topicos.length;ttd+=td;tc+=m.cards.length;tck+=ck2;
+    html+=`<div class="card"><h3>${m.nome} <span class="badge">${m.area}</span></h3>
+      <div class="stat-row"><span>Tópicos</span><span>${td}/${m.topicos.length}</span></div><div class="bar"><i style="width:${pct(td,m.topicos.length)}%"></i></div>
+      <div class="stat-row"><span>Flashcards</span><span>${ck2}/${m.cards.length}</span></div><div class="bar"><i style="width:${pct(ck2,m.cards.length)}%"></i></div></div>`;
   });
-  html=`<div class="card" style="grid-column:1/-1">
-      <h3>Resumo geral — <span class="student-tag s${stu}"></span> ${stu==='A'?'Você':'Sua amiga'} (${DADOS.cargos[cargo]})</h3>
-      <div class="stat-row"><span>Tópicos estudados</span><span>${totTopD}/${totTop} (${pct(totTopD,totTop)}%)</span></div>
-      <div class="bar"><i style="width:${pct(totTopD,totTop)}%"></i></div>
-      <div class="stat-row"><span>Flashcards dominados</span><span>${totCardK}/${totCard} (${pct(totCardK,totCard)}%)</span></div>
-      <div class="bar"><i style="width:${pct(totCardK,totCard)}%"></i></div>
-    </div>`+html;
+  html=`<div class="card" style="grid-column:1/-1"><h3>Resumo — <span class="student-tag s${stu}"></span> ${stu==='A'?'Você':'Amiga'} (${DADOS.cargos[cargo]})</h3>
+    <div class="stat-row"><span>Tópicos</span><span>${ttd}/${tt} (${pct(ttd,tt)}%)</span></div><div class="bar"><i style="width:${pct(ttd,tt)}%"></i></div>
+    <div class="stat-row"><span>Flashcards</span><span>${tck}/${tc} (${pct(tck,tc)}%)</span></div><div class="bar"><i style="width:${pct(tck,tc)}%"></i></div></div>`+html;
   document.getElementById('dashGrid').innerHTML=html;
 }
 
-// ----- CHECKLIST
+// CHECKLIST
 function renderCheck(){
-  buildCargoSel('cargosSel2','A');buildCargoSel('cargosSel2','B');
-  const stu=STATE.stu, cargo=stu==='A'?STATE.cargoA:STATE.cargoB;
-  const mats=matForCargo(cargo);
-  let html='';
-  mats.forEach(m=>{
-    const tkey='t_'+m.id;
-    html+=`<div class="subj-block"><div class="head"><h3>${m.nome}</h3>
-      <span class="student-tag sA"></span>${m.topicos.length} tópicos
-      <span class="student-tag sB"></span></div>`;
+  buildCargoSel(document.getElementById('cargosSel2'),'A');buildCargoSel(document.getElementById('cargosSel2'),'B');
+  const stu=STATE.stu,cargo=stu==='A'?STATE.cargoA:STATE.cargoB;
+  let html='';matForCargo(cargo).forEach(m=>{
+    const tk='t_'+m.id;
+    html+=`<div class="subj-block"><div class="head"><h3>${m.nome}</h3><span class="student-tag sA"></span>${m.topicos.length} tópicos<span class="student-tag sB"></span></div>`;
     m.topicos.forEach((t,i)=>{
-      const a=STATE.topics[tkey+'_'+i+'_A']?'on':'';
-      const b=STATE.topics[tkey+'_'+i+'_B']?'on':'';
-      html+=`<div class="topic"><div class="txt">${t}</div>
-        <div class="cb-stu">
-          <div class="cb A ${a}" data-t="${tkey}_${i}_A">A</div>
-          <div class="cb B ${b}" data-t="${tkey}_${i}_B">B</div>
-        </div></div>`;
-    });
-    html+=`</div>`;
+      const a=STATE.topics[tk+'_'+i+'_A']?'on':'',b=STATE.topics[tk+'_'+i+'_B']?'on':'';
+      html+=`<div class="topic"><div class="txt">${t}</div><div style="display:flex;gap:6px">
+        <div class="cb A ${a}" data-t="${tk}_${i}_A">A</div><div class="cb B ${b}" data-t="${tk}_${i}_B">B</div></div></div>`;
+    });html+=`</div>`;
   });
   document.getElementById('checkList').innerHTML=html;
-  document.querySelectorAll('#checkList .cb').forEach(el=>{
-    el.onclick=()=>{
-      const k=el.dataset.t;STATE.topics[k]=!STATE.topics[k];save();
-      el.classList.toggle('on',STATE.topics[k]);
-    };
-  });
+  document.querySelectorAll('#checkList .cb').forEach(el=>{el.onclick=()=>{
+    const k=el.dataset.t;STATE.topics[k]=!STATE.topics[k];save();el.classList.toggle('on',STATE.topics[k]);};});
 }
 
-// ----- FLASHCARDS
-let flashDeck=[],flashIdx=0,flashMat='';
+// FLASHCARDS + LEITNER
+let flashDeck=[],flashIdx=0;
+function boxFor(k,stu){return STATE.leitner[k+'_'+stu]||1;}
+const BOX_DAYS=[0,1,3,7,16,30]; // dias até rever conforme a caixa
+function dueCards(matId,stu,mode){
+  const m=DADOS.materias.find(x=>x.id===matId);
+  let arr=m.cards.map((c,i)=>({q:c[0],a:c[1],k:'c_'+matId+'_'+i}));
+  const now=Date.now();
+  if(mode==='due'){
+    arr=arr.filter(c=>{
+      const L=STATE.leitner[c.k+'_'+stu];
+      if(!L)return true; // nunca visto -> due
+      const ts=STATE.leitner[c.k+'_'+stu+'_ts']||0;
+      const wait=BOX_DAYS[Math.min(L,5)]*864e5;
+      return now-ts>=wait;
+    });
+    if(arr.length===0)arr=m.cards.map((c,i)=>({q:c[0],a:c[1],k:'c_'+matId+'_'+i})); // fallback
+  }else if(mode==='hard'){
+    arr=arr.filter(c=>boxFor(c.k,stu)<=1);
+  }
+  return arr;
+}
 function renderFlashSetup(){
-  const sel=document.getElementById('flashMat');
-  const cargo=STATE.stu==='A'?STATE.cargoA:STATE.cargoB;
-  const mats=matForCargo(cargo);
-  sel.innerHTML=mats.map(m=>`<option value="${m.id}">${m.nome}</option>`).join('');
-  sel.onchange=()=>buildDeck(sel.value);
-  buildDeck(mats[0].id);
+  const sel=document.getElementById('flashMat');const cargo=STATE.stu==='A'?STATE.cargoA:STATE.cargoB;
+  sel.innerHTML=matForCargo(cargo).map(m=>`<option value="${m.id}">${m.nome}</option>`).join('');
+  sel.onchange=()=>buildDeck(sel.value);buildDeck(matForCargo(cargo)[0].id);
 }
 function buildDeck(matId){
-  const m=DADOS.materias.find(x=>x.id===matId);
-  flashDeck=m.cards.map((c,i)=>({q:c[0],a:c[1],k:'c_'+matId+'_'+i}));
-  flashMat=matId;flashIdx=0;showCard();
+  const stu=STATE.stu;flashDeck=dueCards(matId,stu,document.getElementById('flashMode').value);
+  if(flashDeck.length===0)flashDeck=dueCards(matId,stu,'all');
+  flashIdx=0;showCard();
 }
+document.getElementById('flashMode').onchange=()=>buildDeck(document.getElementById('flashMat').value);
+function touchStreak(stu){const t=today();if(STATE.lastDay[stu]!==t){if(STATE.lastDay[stu]){const d=(Date.now()-new Date(STATE.lastDay[stu]).getTime())/864e5;STATE.streak[stu]=(d<=1.5?(STATE.streak[stu]||0)+1:1);}else STATE.streak[stu]=1;STATE.lastDay[stu]=t;save();}}
 function showCard(){
-  const flip=document.getElementById('flip');
-  flip.classList.remove('flipped');
-  const c=flashDeck[flashIdx];
-  document.getElementById('fq').textContent=c.q;
-  document.getElementById('fa').textContent=c.a;
+  const flip=document.getElementById('flip');flip.classList.remove('flipped');
+  const c=flashDeck[flashIdx];if(!c){document.getElementById('fq').textContent='🎉 Tudo revisado por enquanto!';document.getElementById('fa').textContent='Volte depois ou mude o filtro.';document.getElementById('flashCount').textContent='0/0';document.getElementById('leitnerTag').textContent='-';return;}
+  document.getElementById('fq').textContent=c.q;document.getElementById('fa').textContent=c.a;
   document.getElementById('flashCount').textContent=`${flashIdx+1} / ${flashDeck.length}`;
-  // estados A/B
-  const a=(STATE.cards[c.k+'_A']==='known');
-  const b=(STATE.cards[c.k+'_B']==='known');
-  document.getElementById('okA').textContent=a?'A sabe ✓':'A sabe ✓';
-  document.getElementById('okB').textContent=b?'B sabe ✓':'B sabe ✓';
+  document.getElementById('leitnerTag').textContent='C'+boxFor(c.k,STATE.stu);
 }
 document.getElementById('flip').onclick=()=>document.getElementById('flip').classList.toggle('flipped');
 document.getElementById('prevCard').onclick=()=>{if(flashIdx>0){flashIdx--;showCard();}};
 document.getElementById('nextCard').onclick=()=>{if(flashIdx<flashDeck.length-1){flashIdx++;showCard();}};
-function markCard(stu,val){
-  const c=flashDeck[flashIdx];
-  STATE.cards[c.k+'_'+stu]=val;save();
+function markFlash(stu,known){
+  const c=flashDeck[flashIdx];if(!c)return;const k=c.k;const L=boxFor(k,stu);
+  if(known){STATE.cards[k+'_'+stu]='known';STATE.leitner[k+'_'+stu]=Math.min(L+1,5);}
+  else{STATE.cards[k+'_'+stu]='unknown';STATE.leitner[k+'_'+stu]=1;}
+  STATE.leitner[k+'_'+stu+'_ts']=Date.now();touchStreak(stu);save();
 }
-document.getElementById('okA').onclick=()=>markCard('A','known');
-document.getElementById('okB').onclick=()=>markCard('B','known');
-document.getElementById('notA').onclick=()=>markCard('A','unknown');
-document.getElementById('notB').onclick=()=>markCard('B','unknown');
+document.getElementById('okA').onclick=()=>markFlash('A',true);
+document.getElementById('okB').onclick=()=>markFlash('B',true);
+document.getElementById('notA').onclick=()=>markFlash('A',false);
+document.getElementById('notB').onclick=()=>markFlash('B',false);
 
-// ----- SIMULADO
+// SIMULADO
 let quizDeck=[],quizIdx=0,quizScore=0,quizAnswered=false;
 function renderQuizSetup(){
-  const sel=document.getElementById('quizMat');
-  const cargo=STATE.stu==='A'?STATE.cargoA:STATE.cargoB;
-  const mats=matForCargo(cargo);
-  sel.innerHTML=mats.map(m=>`<option value="${m.id}">${m.nome}</option>`).join('');
+  const sel=document.getElementById('quizMat');const cargo=STATE.stu==='A'?STATE.cargoA:STATE.cargoB;
+  sel.innerHTML=matForCargo(cargo).map(m=>`<option value="${m.id}">${m.nome}</option>`).join('');
   document.getElementById('quizInfo').textContent='';
-  document.getElementById('quizBox').innerHTML='<p class="sub">Escolha uma matéria e clique em Iniciar para gerar 10 questões.</p>';
+  document.getElementById('quizBox').innerHTML='<p class="sub">Escolha matéria e clique em Iniciar (10 questões).</p>';
 }
 document.getElementById('startQuiz').onclick=()=>{
   const m=DADOS.materias.find(x=>x.id===document.getElementById('quizMat').value);
-  quizDeck=m.cards.map((c,i)=>({q:c[0],a:c[1],k:'c_'+m.id+'_'+i,matId:m.id})).sort(()=>Math.random()-0.5).slice(0,Math.min(10,m.cards.length));
+  let pool=m.cards.map((c,i)=>({q:c[0],a:c[1],k:'c_'+m.id+'_'+i,matId:m.id}));
+  if(document.getElementById('quizMode').value==='hard'){
+    const stu=STATE.stu;pool=pool.filter(c=>boxFor(c.k,stu)<=1);
+    if(pool.length===0)pool=m.cards.map((c,i)=>({q:c[0],a:c[1],k:'c_'+m.id+'_'+i,matId:m.id}));
+  }
+  quizDeck=pool.sort(()=>Math.random()-0.5).slice(0,Math.min(10,pool.length));
   quizIdx=0;quizScore=0;showQuiz();
 };
 function showQuiz(){
-  const q=quizDeck[quizIdx];
-  if(!q){finishQuiz();return;}
-  // monta alternativas: a resposta correta + 3 aleatórias de outras matérias
-  let opts=[q.a];
-  const pool=[];
-  DADOS.materias.forEach(m=>m.cards.forEach(c=>{if(c[1]!==q.a)pool.push(c[1]);}));
-  pool.sort(()=>Math.random()-0.5);
-  for(let i=0;i<3 && i<pool.length;i++)opts.push(pool[i]);
-  opts.sort(()=>Math.random()-0.5);
-  document.getElementById('quizInfo').textContent=`Questão ${quizIdx+1}/${quizDeck.length} · Acertos: ${quizScore}`;
+  const q=quizDeck[quizIdx];if(!q){finishQuiz();return;}
+  let opts=[q.a];const all=[];DADOS.materias.forEach(m=>m.cards.forEach(c=>{if(c[1]!==q.a)all.push(c[1]);}));
+  all.sort(()=>Math.random()-0.5);for(let i=0;i<3&&i<all.length;i++)opts.push(all[i]);opts.sort(()=>Math.random()-0.5);
+  document.getElementById('quizInfo').textContent=`Q ${quizIdx+1}/${quizDeck.length} · Acertos: ${quizScore}`;
   let html=`<div class="quiz-q"><div class="q-tag" style="font-size:12px;color:var(--muted);font-weight:700;margin-bottom:8px">${DADOS.materias.find(x=>x.id===q.matId).nome}</div>
     <div class="q" style="font-size:16px;font-weight:700;margin-bottom:14px">${q.q}</div>`;
-  opts.forEach(o=>{html+=`<button class="quiz-opt" data-o="${o.replace(/"/g,'&quot;')}">${o}</button>`;});
-  html+=`<div class="feedback" id="fb" style="display:none"></div>
-    <div class="btn-row" style="margin-top:14px"><button class="btn primary" id="nextQuiz">Próxima ⟶</button></div></div>`;
-  document.getElementById('quizBox').innerHTML=html;
-  quizAnswered=false;
-  document.querySelectorAll('.quiz-opt').forEach(btn=>{
-    btn.onclick=()=>{
-      if(quizAnswered)return;quizAnswered=true;
-      const correct=(btn.dataset.o===q.a);
-      document.querySelectorAll('.quiz-opt').forEach(b=>{
-        if(b.dataset.o===q.a)b.classList.add('correct');
-        else if(b===btn)b.classList.add('wrong');
-        else b.classList.add('dim');
-      });
-      const fb=document.getElementById('fb');
-      fb.style.display='block';
-      fb.innerHTML=correct?`✅ <b>Correto!</b> ${q.a}`:`❌ <b>Errado.</b> Resposta: ${q.a}`;
-      if(correct)quizScore++;
-      // marca flashcard como known para o estudante atual
-      const stu=STATE.stu;STATE.cards[q.k+'_'+stu]='known';save();
-      document.getElementById('nextQuiz').onclick=()=>{quizIdx++;showQuiz();};
-    };
-  });
+  opts.forEach(o=>html+=`<button class="quiz-opt" data-o="${o.replace(/"/g,'&quot;')}">${o}</button>`);
+  html+=`<div class="feedback" id="fb" style="display:none"></div><div class="btn-row" style="margin-top:14px"><button class="btn primary" id="nextQuiz">Próxima ⟶</button></div></div>`;
+  document.getElementById('quizBox').innerHTML=html;quizAnswered=false;
+  document.querySelectorAll('.quiz-opt').forEach(btn=>{btn.onclick=()=>{
+    if(quizAnswered)return;quizAnswered=true;const correct=(btn.dataset.o===q.a);
+    document.querySelectorAll('.quiz-opt').forEach(b=>{if(b.dataset.o===q.a)b.classList.add('correct');else if(b===btn)b.classList.add('wrong');else b.classList.add('dim');});
+    const fb=document.getElementById('fb');fb.style.display='block';
+    fb.innerHTML=correct?`✅ <b>Correto!</b> ${q.a}`:`❌ <b>Errado.</b> ${q.a}`;
+    if(correct)quizScore++;const stu=STATE.stu;
+    STATE.cards[q.k+'_'+stu]='known';STATE.leitner[q.k+'_'+stu+'_ts']=Date.now();
+    STATE.leitner[q.k+'_'+stu]=Math.min((boxFor(q.k,stu)+1),5);touchStreak(stu);save();
+    document.getElementById('nextQuiz').onclick=()=>{quizIdx++;showQuiz();};
+  };});
 }
 function finishQuiz(){
   document.getElementById('quizInfo').textContent='';
-  document.getElementById('quizBox').innerHTML=`<div class="quiz-q" style="text-align:center">
-    <h3 style="color:var(--navy);font-size:20px">Simulado concluído! 🎉</h3>
-    <p style="font-size:18px;margin:14px 0">Você (${STATE.stu}) acertou <b>${quizScore}</b> de <b>${quizDeck.length}</b>.</p>
-    <div class="btn-row" style="justify-content:center"><button class="btn green" onclick="document.getElementById('startQuiz').click()">🔁 Refazer</button></div>
-  </div>`;
+  document.getElementById('quizBox').innerHTML=`<div class="quiz-q" style="text-align:center"><h3 style="color:var(--navy);font-size:20px">Concluído! 🎉</h3>
+    <p style="font-size:18px;margin:14px 0">${STATE.stu} acertou <b>${quizScore}</b> de <b>${quizDeck.length}</b>.</p>
+    <div class="btn-row" style="justify-content:center"><button class="btn green" onclick="document.getElementById('startQuiz').click()">🔁 Refazer</button></div></div>`;
 }
 
-// ----- CRONOGRAMA
+// SHARE / SYNC
+function packShare(){
+  const payload={t:STATE.topics,c:STATE.cards,l:STATE.leitner,st:STATE.streak,ld:STATE.lastDay,cy:STATE.pomoCycles};
+  return 'https://leonardolauriquer.github.io/estuda-palhoca/#d='+btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
+}
+document.getElementById('genLink').onclick=()=>{document.getElementById('shareOut').value=packShare();};
+document.getElementById('copyLink').onclick=()=>{const o=document.getElementById('shareOut');o.select();document.execCommand('copy');
+  document.getElementById('copyLink').textContent='✅ Copiado!';setTimeout(()=>document.getElementById('copyLink').textContent='📋 Copiar',1500);};
+document.getElementById('mergeBtn').onclick=()=>{
+  const raw=document.getElementById('shareIn').value.trim();const mm=raw.match(/#d=([^&\s]+)/);if(!mm){document.getElementById('mergeMsg').textContent='❌ Link inválido.';return;}
+  try{
+    const inc=JSON.parse(decodeURIComponent(escape(atob(mm[1]))));
+    let n=0;
+    const merge=(recv,cur)=>{for(const k in recv){if(recv[k]&&recv[k]!=='unknown'){if(!(k in cur)||cur[k]==='unknown'||recv[k]==='known'){cur[k]=recv[k];n++;}}}};
+    merge(inc.t,STATE.topics);merge(inc.c,STATE.cards);merge(inc.l,STATE.leitner);
+    for(const k in inc.st)STATE.streak[k]=Math.max(STATE.streak[k]||0,inc.st[k]||0);
+    for(const k in inc.ld)if(!STATE.lastDay[k]||inc.ld[k]>STATE.lastDay[k])STATE.lastDay[k]=inc.ld[k];
+    STATE.pomoCycles=Math.max(STATE.pomoCycles||0,inc.cy||0);
+    save();document.getElementById('mergeMsg').textContent=`✅ Unidos! ${n} itens atualizados.`;renderDash();
+  }catch(e){document.getElementById('mergeMsg').textContent='❌ Erro ao ler.';}
+};
+// auto-import if opened with #d=
+if(location.hash.startsWith('#d=')){document.getElementById('shareIn').value=location.href;document.getElementById('mergeBtn').click();location.hash='';}
+
+// CRONOGRAMA
 function renderPlan(){
-  buildCargoSel('cargosSel3','A');buildCargoSel('cargosSel3','B');
-  const cargo=STATE.stu==='A'?STATE.cargoA:STATE.cargoB;
-  const mats=matForCargo(cargo);
-  // distribui matérias em 8 semanas (gerais nas 4 primeiras, específicas nas 4)
-  const gerais=mats.filter(m=>m.area==='Conhecimentos Gerais');
-  const esp=mats.filter(m=>m.area==='Conhecimentos Específicos');
-  const weeks=[];
-  // semanas 1-4: gerais (2 por semana)
-  let gi=0;
-  for(let w=1;w<=4;w++){
-    const items=gerais.slice(gi,gi+ (gerais.length>=4?Math.ceil(gerais.length/4):1));
-    gi+=items.length;
-    weeks.push({w,title:`Semana ${w} — Base comum`,items:items.map(m=>m.nome)});
-  }
+  buildCargoSel(document.getElementById('cargosSel3'),'A');buildCargoSel(document.getElementById('cargosSel3'),'B');
+  const cargo=STATE.stu==='A'?STATE.cargoA:STATE.cargoB,mats=matForCargo(cargo);
+  const gerais=mats.filter(m=>m.area==='Conhecimentos Gerais'),esp=mats.filter(m=>m.area==='Conhecimentos Específicos');
+  const weeks=[];let gi=0;const perG=Math.max(1,Math.ceil(gerais.length/4));
+  for(let w=1;w<=4;w++){const items=gerais.slice(gi,gi+perG);gi+=items.length;weeks.push({w,title:`Semana ${w} — Base comum`,items:items.map(m=>m.nome)});}
   let ei=0;const perW=Math.max(1,Math.ceil(esp.length/4));
-  for(let w=5;w<=8;w++){
-    const items=esp.slice(ei,ei+perW);ei+=items.length;
-    weeks.push({w,title:`Semana ${w} — Conhecimentos específicos`,items:items.length?items.map(m=>m.nome):['Revisão geral e simulados']});
-  }
-  let html='';
-  weeks.forEach(wk=>{
-    html+=`<div class="week"><h4>${wk.title}</h4><ul>`;
-    wk.items.forEach(it=>html+=`<li><span class="ico">▸</span><span>${it}</span></li>`);
-    html+=`</ul></div>`;
-  });
-  html+=`<div class="note" style="margin-top:8px">📌 Dica: revezem sessões de flashcards e quizzes. Nos finais de semana, façam um simulado juntas e revisem os erros.</div>`;
+  for(let w=5;w<=8;w++){const items=esp.slice(ei,ei+perW);ei+=items.length;weeks.push({w,title:`Semana ${w} — Específicos`,items:items.length?items.map(m=>m.nome):['Revisão e simulados']});}
+  let html='';weeks.forEach(wk=>{html+=`<div class="week"><h4>${wk.title}</h4><ul>`;wk.items.forEach(it=>html+=`<li><span class="ico">▸</span><span>${it}</span></li>`);html+=`</ul></div>`;});
+  html+=`<div class="note" style="margin-top:8px">📌 Dica: revezem flashcards e quizzes. Nos fins de semana, simulado juntas e revisa os erros.</div>`;
   document.getElementById('planBox').innerHTML=html;
 }
 
-// ----- POMODORO
+// POMODORO
 let pomoTimer=null,pomoTleft=25*60,pomoMode='Foco',pomoRun=false;
-function pomoRender(){
-  const m=Math.floor(pomoTleft/60),s=pomoTleft%60;
+function pomoRender(){const m=Math.floor(pomoTleft/60),s=pomoTleft%60;
   document.getElementById('pomoClock').textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-  document.getElementById('pomoMode').textContent=`${pomoMode.toUpperCase()} · ${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-}
-document.getElementById('pomoStart').onclick=()=>{
-  if(pomoRun){clearInterval(pomoTimer);pomoRun=false;document.getElementById('pomoStart').textContent='▶️ Iniciar';return;}
+  document.getElementById('pomoMode').textContent=`${pomoMode.toUpperCase()} · ${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;}
+document.getElementById('pomoStart').onclick=()=>{if(pomoRun){clearInterval(pomoTimer);pomoRun=false;document.getElementById('pomoStart').textContent='▶️ Iniciar';return;}
   pomoRun=true;document.getElementById('pomoStart').textContent='⏸️ Pausar';
-  pomoTimer=setInterval(()=>{
-    if(pomoTleft>0){pomoTleft--;pomoRender();}
-    else{
-      clearInterval(pomoTimer);pomoRun=false;
-      if(pomoMode==='Foco'){STATE.pomoCycles++;localStorage.setItem(LSKEY,JSON.stringify(STATE));document.getElementById('pomoCycles').textContent=STATE.pomoCycles;pomoMode='Pausa';pomoTleft=5*60;}
-      else{pomoMode='Foco';pomoTleft=25*60;}
-      document.getElementById('pomoStart').textContent='▶️ Iniciar';pomoRender();
-    }
-  },1000);
-};
+  pomoTimer=setInterval(()=>{if(pomoTleft>0){pomoTleft--;pomoRender();}else{clearInterval(pomoTimer);pomoRun=false;
+    if(pomoMode==='Foco'){STATE.pomoCycles++;touchStreak(STATE.stu);save();document.getElementById('pomoCycles').textContent=STATE.pomoCycles;pomoMode='Pausa';pomoTleft=5*60;}else{pomoMode='Foco';pomoTleft=25*60;}
+    document.getElementById('pomoStart').textContent='▶️ Iniciar';pomoRender();}},1000);};
 document.getElementById('pomoReset').onclick=()=>{clearInterval(pomoTimer);pomoRun=false;pomoMode='Foco';pomoTleft=25*60;document.getElementById('pomoStart').textContent='▶️ Iniciar';pomoRender();};
 document.getElementById('pomoCycles').textContent=STATE.pomoCycles;
 
-// ----- SOBRE
-function renderSobre(){
-  let html=`<p style="margin-bottom:10px"><b>Concurso:</b> ${DADOS.concurso}</p>
-  <p style="margin-bottom:14px"><b>Cargos disponíveis:</b></p><ul style="list-style:none;display:grid;gap:6px;margin-bottom:16px">`;
-  for(const [k,v] of Object.entries(DADOS.cargos))html+=`<li>▸ ${v}</li>`;
-  html+=`</ul><p style="font-size:13px;color:var(--muted)">Este app cobre os Anexos VI (Conhecimentos Gerais) e VII (Conhecimentos Específicos) dos editais em anexo. Conteúdo didático gerado a partir do programa oficial — não substitui a leitura das leis citadas.</p>`;
-  document.getElementById('sobreCard').innerHTML=html;
-}
+// SOBRE
+function renderSobre(){let html=`<p style="margin-bottom:10px"><b>Concurso:</b> ${DADOS.concurso}</p><p style="margin-bottom:14px"><b>Cargos:</b></p><ul style="list-style:none;display:grid;gap:6px;margin-bottom:16px">`;
+  for(const[k,v]of Object.entries(DADOS.cargos))html+=`<li>▸ ${v}</li>`;
+  html+=`</ul><p style="font-size:13px;color:var(--muted)">App cobre Anexos VI (Gerais) e VII (Específicos). Conteúdo didático a partir do programa oficial.</p>`;
+  document.getElementById('sobreCard').innerHTML=html;}
 
-// ----- Export/Import/Reset
-document.getElementById('exportBtn').onclick=()=>{
-  const blob=new Blob([JSON.stringify(STATE)],{type:'application/json'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
-  a.download='progresso-palhoca.json';a.click();
-};
+// EXPORT/IMPORT/RESET
+document.getElementById('exportBtn').onclick=()=>{const b=new Blob([JSON.stringify(STATE)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='progresso-palhoca.json';a.click();};
 document.getElementById('importBtn').onclick=()=>document.getElementById('importFile').click();
-document.getElementById('importFile').onchange=e=>{
-  const f=e.target.files[0];if(!f)return;
-  const r=new FileReader();r.onload=()=>{try{STATE=JSON.parse(r.result);save();location.reload();}catch(err){alert('Arquivo inválido.');}};
-  r.readAsText(f);
-};
-document.getElementById('resetBtn').onclick=()=>{if(confirm('Apagar TODO o progresso salvo?')){localStorage.removeItem(LSKEY);STATE=loadState();location.reload();}};
+document.getElementById('importFile').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{STATE=JSON.parse(r.result);save();location.reload();}catch(err){alert('Arquivo inválido.');}};r.readAsText(f);};
+document.getElementById('resetBtn').onclick=()=>{if(confirm('Apagar TODO o progresso?')){localStorage.removeItem(LSKEY);STATE=loadState();location.reload();}};
 
-// init
 renderDash();renderSobre();pomoRender();
 </script>
 </body>

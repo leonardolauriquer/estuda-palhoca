@@ -88,6 +88,22 @@
         [
           "Intertextualidade?",
           "Relação de um texto com outros textos (citação, paródia, alusão). O sentido se constrói na rede de textos."
+        ],
+        [
+          "Quais as vozes verbais?",
+          "Voz ativa (o sujeito pratica a ação), passiva (o sujeito sofre - analítica com auxiliar ou sintética com pronome apassivador) e reflexiva (a ação recai sobre o sujeito)."
+        ],
+        [
+          "Regra de acentuação das proparoxítonas?",
+          "TODAS as proparoxítonas são acentuadas graficamente: física, árvore, lâmpada, cortiça, utopia."
+        ],
+        [
+          "Hífen em contra-, entre-, para-, sobre- antes de vogal?",
+          "NÃO usam hífen antes de vogal (contraataque, entravar, paraquedas, sobressair). Usam hífen só antes de h ou mesma consoante (contra-humano, contra-regra)."
+        ],
+        [
+          "O que é polissemia?",
+          "Palavra com mais de um sentido: 'ponte' (construção) e 'ponte' (no jogo de sinuca) são polissêmicas."
         ]
       ]
     },
@@ -160,6 +176,18 @@
         [
           "Média ponderada?",
           "Soma de (valor × peso) dividida pela soma dos pesos. Usa-se quando os valores têm pesos diferentes."
+        ],
+        [
+          "Determinante de uma matriz 2x2 [[a,b],[c,d]]?",
+          "det = a.d − b.c."
+        ],
+        [
+          "O que é matriz transposta?",
+          "Obtida trocando linhas por colunas: a matriz A^T tem elemento (i,j) = elemento (j,i) de A."
+        ],
+        [
+          "Função exponencial?",
+          "f(x) = a^x, com a > 0 e a ≠ 1. Se a>1 cresce; se 0<a<1 decai. Ex: 2^x."
         ]
       ]
     },
@@ -228,6 +256,22 @@
         [
           "Backup 3-2-1?",
           "3 cópias dos dados, em 2 mídias diferentes, sendo 1 offsite (fora do local). Estratégia de resiliência."
+        ],
+        [
+          "Máscara /24 significa o quê?",
+          "255.255.255.0 — 24 bits de rede, restando 8 para hosts (até 254 dispositivos na sub-rede)."
+        ],
+        [
+          "O que é uma VLAN?",
+          "Rede local VIRTUAL: segmenta logicamente uma mesma infraestrutura física em redes distintas, isolando tráfego."
+        ],
+        [
+          "O que é HTTPS?",
+          "HTTP sobre TLS/SSL — tráfego web criptografado entre navegador e servidor (cadeado na barra)."
+        ],
+        [
+          "Para que serve o cache do navegador?",
+          "Armazena recursos (css, js, imagens) localmente para acelerar recarregamentos e reduzir consumo de rede."
         ]
       ]
     },
@@ -286,6 +330,22 @@
         [
           "Direitos humanos e cidadania - eixo do edital?",
           "Tópicos atuais incluem cidadania, direitos humanos, consciência ambiental e desenvolvimento sustentável."
+        ],
+        [
+          "Princípios da Administração Pública (art. 37, CF)?",
+          "Legalidade, impessoalidade, moralidade, publicidade e eficiência. (Mais: vedação ao nepotismo.)"
+        ],
+        [
+          "Lei de Acesso à Informação (12.527/2011) - prazo de resposta?",
+          "Órgão tem 20 dias para responder (prorrogável por mais 10), contados da protocolização do pedido."
+        ],
+        [
+          "Lei 13.460/2017?",
+          "Código de Defesa do Usuário do Serviço Público: prevê direitos do cidadão na relação com os serviços públicos."
+        ],
+        [
+          "O que é improbidade administrativa (Lei 8.429/92)?",
+          "Ato de agente público que viola deveres de honestidade, probidade e decoro no exercício do cargo (enriquecimento ilícito, prejuízo ao erário, vantagem indevida)."
         ]
       ]
     },
@@ -338,6 +398,22 @@
         [
           "Noções de virtualização?",
           "Criação de máquinas virtuais sobre um hipervisor (Ex.: VMware, Hyper-V), permitindo vários SOs num mesmo hardware."
+        ],
+        [
+          "TCP x UDP?",
+          "TCP: orientado à conexão e confiável (confirma entrega). UDP: não orientado, mais rápido, sem garantia de entrega (streaming, DNS)."
+        ],
+        [
+          "Tipos de NAT?",
+          "Estático (1:1), Dinâmico (pool) e PAT/Overload (vários internos compartilham 1 IP externo por portas)."
+        ],
+        [
+          "Criptografia simétrica x assimétrica?",
+          "Simétrica: mesma chave para cifrar e decifrar. Assimétrica: par de chaves pública/privada (mais segura para troca)."
+        ],
+        [
+          "Firewall e sua função?",
+          "Controla o tráfego de rede com regras de permissão/bloqueio (entrada e saída), protegendo a rede interna."
         ]
       ]
     },
@@ -389,7 +465,19 @@
         ],
         [
           "Receita pública: estágios?",
-          "Previsão, lançamento, arrecadação e recolhimento. (No setor público, a receita tem fases próprias.)"
+          "Previsão, lançamento, arrecadação e recolhimento."
+        ],
+        [
+          "Princípio da entidade (NBCASP)?",
+          "Cada ente da federação tem patrimônio próprio e separado; o patrimônio público não se confunde com o dos seus gestores."
+        ],
+        [
+          "Restos a pagar?",
+          "Despesas empenhadas e não pagas até o encerramento do exercício; inscritas como de exercícios anteriores."
+        ],
+        [
+          "Suprimento de fundos?",
+          "Adiantamento concedido a servidor para pequenas despesas de pronto pagamento (tipo 'verba de gabinete'), com prestação de contas."
         ]
       ]
     },
@@ -441,7 +529,15 @@
         ],
         [
           "Decreto-Lei 201/1967?",
-          "Define os crimes de responsabilidade dos prefitos e vereadores (responsabilização política/criminal no âmbito municipal)."
+          "Define os crimes de responsabilidade dos prefeitos e vereadores (responsabilização política/criminal no âmbito municipal)."
+        ],
+        [
+          "Fases da licitação (LC 14.133/21)?",
+          "Planejamento, divulgação, recebimento de propostas, julgamento e adjudicação/homologação (com recursos entre elas)."
+        ],
+        [
+          "O que é accountability?",
+          "Prestação de contas e obrigação de responder pelos atos praticados; transparência e responsabilização do gestor público."
         ]
       ]
     },
@@ -494,6 +590,14 @@
         [
           "Combate à desinformação?",
           "Apuração, checagem e verificação de fatos antes da publicação; uso de fontes confiáveis."
+        ],
+        [
+          "Espécies normativas no âmbito da Câmara?",
+          "Resolução, decreto legislativo, emenda à Lei Orgânica e leis (ordinária/complementar) votadas pelo município."
+        ],
+        [
+          "O que é desinformação?",
+          "Informação falsa ou enganosa disseminada deliberadamente para induzir erro ou manipular a opinião pública."
         ]
       ]
     },
@@ -546,6 +650,14 @@
         [
           "Tombamento e depreciação de bens públicos?",
           "Tombamento: registro patrimonial do bem. Depreciação: redução do valor por desgaste (controle patrimonial)."
+        ],
+        [
+          "Contratação direta (LC 14.133/21)?",
+          "Dispensa de licitação e inexigibilidade — hipóteses legais em que se contrata sem certame."
+        ],
+        [
+          "O que é protocolo (gestão documental)?",
+          "Registro de entrada e saída de documentos, garantindo controle, prazos e rastreabilidade."
         ]
       ]
     }
