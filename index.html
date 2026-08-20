@@ -230,6 +230,12 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-t
   .setup-edit-card:hover{border-color:var(--navy)}
   .setup-edit-card.sel.A{border-color:var(--navy);background:var(--navy);color:#fff}
   .setup-edit-card.sel.B{border-color:var(--green);background:var(--green);color:#0c2a17}
+  .setup-label{font-size:12px;font-weight:800;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.4px}
+  .setup-edit-cards{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .setup-edit-card{border:2px solid var(--line);border-radius:10px;padding:10px 12px;cursor:pointer;font-size:13px;color:var(--navy);background:#fff;transition:.15s;text-align:left;line-height:1.25}
+  .setup-edit-card:hover{border-color:var(--navy);box-shadow:0 3px 10px rgba(24,52,84,.1)}
+  .setup-edit-card.sel.A{border-color:var(--navy);background:var(--navy);color:#fff}
+  .setup-edit-card.sel.B{border-color:var(--green);background:var(--green);color:#0c2a17}
 </style>
 </head>
 <body>
@@ -241,21 +247,26 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-t
 <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
 <div class="modal-overlay" id="setupModal">
   <div class="modal">
-    <h2 class="sec" style="text-align:center;margin-bottom:4px">&#127919; Qual cargo voces vao fazer?</h2>
-    <p class="sub" style="text-align:center">Escolham abaixo. O app mostra flashcards, simulados, leis e plano so do cargo de cada uma.</p>
+    <h2 class="sec" style="text-align:center;margin-bottom:4px">&#127919; Escolha o edital de voces</h2>
+    <p class="sub" style="text-align:center">Cada uma escolhe o edital que vai usar. Depois o app mostra tudo (flashcards, simulados, leis e plano) daquele edital.</p>
     <div class="setup-grid">
       <div class="setup-col">
         <div class="setup-who">&#128089; Voce (A)</div>
-        <div class="setup-edit-cards" id="editalCardsA" style="margin-bottom:10px"></div>
+        <div class="setup-label">1) Edital:</div>
+        <div class="setup-edit-cards" id="editalCardsA" style="margin-bottom:14px"></div>
+        <div class="setup-label">2) Cargo:</div>
         <div class="setup-cards" id="setupA"></div>
       </div>
       <div class="setup-col">
         <div class="setup-who">&#128089; Amiga (B)</div>
-        <div class="setup-edit-cards" id="editalCardsB" style="margin-bottom:10px"></div>
+        <div class="setup-label">1) Edital:</div>
+        <div class="setup-edit-cards" id="editalCardsB" style="margin-bottom:14px"></div>
+        <div class="setup-label">2) Cargo:</div>
         <div class="setup-cards" id="setupB"></div>
       </div>
     </div>
-    <div class="btn-row" style="justify-content:center;margin-top:18px"><button class="btn primary" id="setupConfirm">&#9989; Comecar a estudar</button></div>
+    <div class="note" style="margin:14px 0 4px">&#128161; <b>Original</b> = versao de 05/06 (so Nivel Superior). <b>Retificado</b> = versao de 19/08 (adicionou Nivel Medio + IA no programa).</div>
+    <div class="btn-row" style="justify-content:center;margin-top:14px"><button class="btn primary" id="setupConfirm">&#9989; Comecar a estudar</button></div>
   </div>
 </div>
 <div class="ctx-banner" id="ctxBanner" style="display:none"><span id="ctxText"></span><button class="btn ghost" id="ctxChange" style="padding:6px 14px;font-size:12px">&#128260; Trocar cargo</button></div>
@@ -450,7 +461,7 @@ const LEIS=[
   ]}
 ];
 const LSKEY='palhoca_study_v2';
-const APP_VER='v14';
+const APP_VER='v15';
 let STATE=loadState();
 function loadState(){try{const s=JSON.parse(localStorage.getItem(LSKEY));if(s)return s;}catch(e){}
   return {stu:'A',cargoA:'adm',cargoB:'cont',editalA:'10896a22e9f36131a',editalB:'10896a860906ced7b',cards:{},topics:{},quiz:[],pomoCycles:0,streak:{A:0,B:0},lastDay:{A:'',B:''},leitner:{},xp:{A:0,B:0},badges:{A:[],B:[]},conf:{},setupDone:false};}
@@ -852,8 +863,8 @@ function buildSetup(){
   ['A','B'].forEach(who=>{
     const box=document.getElementById('editalCards'+who);
     const cur=who==='A'?STATE.editalA:STATE.editalB;
-    const opts=[['10896a22e9f36131a','Edital Original','05/06/2026 · Anexo VI (Gerais)'],['10896a860906ced7b','Edital Retificado','19/08/2026 · Nivel Medio + IA']];
-    box.innerHTML=opts.map(o=>`<div class="setup-edit-card ${o[0]===cur?'sel '+who:''}" data-who="${who}" data-ed="${o[0]}"><div style="font-weight:800">${o[1]}</div><div style="font-size:11px;opacity:.8">${o[2]}</div></div>`).join('');
+    const opts=[['10896a22e9f36131a','Edital Original','Versao de 05/06 - so Nivel Superior'],['10896a860906ced7b','Edital Retificado','Versao de 19/08 - acrescentou Nivel Medio + IA']];
+    box.innerHTML=opts.map(o=>`<div class="setup-edit-card ${o[0]===cur?'sel '+who:''}" data-who="${who}" data-ed="${o[0]}"><div style="font-weight:800">${o[1]}</div><div style="font-size:11px;opacity:.85;margin-top:2px">${o[2]}</div></div>`).join('');
     box.querySelectorAll('.setup-edit-card').forEach(el=>el.onclick=()=>{
       const w=el.dataset.who,ed=el.dataset.ed;
       if(w==='A')STATE.editalA=ed;else STATE.editalB=ed;

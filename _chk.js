@@ -43,7 +43,7 @@ const LEIS=[
   ]}
 ];
 const LSKEY='palhoca_study_v2';
-const APP_VER='v13';
+const APP_VER='v14';
 let STATE=loadState();
 function loadState(){try{const s=JSON.parse(localStorage.getItem(LSKEY));if(s)return s;}catch(e){}
   return {stu:'A',cargoA:'adm',cargoB:'cont',editalA:'10896a22e9f36131a',editalB:'10896a860906ced7b',cards:{},topics:{},quiz:[],pomoCycles:0,streak:{A:0,B:0},lastDay:{A:'',B:''},leitner:{},xp:{A:0,B:0},badges:{A:[],B:[]},conf:{},setupDone:false};}
@@ -445,8 +445,8 @@ function buildSetup(){
   ['A','B'].forEach(who=>{
     const box=document.getElementById('editalCards'+who);
     const cur=who==='A'?STATE.editalA:STATE.editalB;
-    const opts=[['10896a22e9f36131a','Edital Original','05/06/2026 · Anexo VI (Gerais)'],['10896a860906ced7b','Edital Retificado','19/08/2026 · Nivel Medio + IA']];
-    box.innerHTML=opts.map(o=>`<div class="setup-edit-card ${o[0]===cur?'sel '+who:''}" data-who="${who}" data-ed="${o[0]}"><div style="font-weight:800">${o[1]}</div><div style="font-size:11px;opacity:.8">${o[2]}</div></div>`).join('');
+    const opts=[['10896a22e9f36131a','Edital Original','Versao de 05/06 - so Nivel Superior'],['10896a860906ced7b','Edital Retificado','Versao de 19/08 - acrescentou Nivel Medio + IA']];
+    box.innerHTML=opts.map(o=>`<div class="setup-edit-card ${o[0]===cur?'sel '+who:''}" data-who="${who}" data-ed="${o[0]}"><div style="font-weight:800">${o[1]}</div><div style="font-size:11px;opacity:.85;margin-top:2px">${o[2]}</div></div>`).join('');
     box.querySelectorAll('.setup-edit-card').forEach(el=>el.onclick=()=>{
       const w=el.dataset.who,ed=el.dataset.ed;
       if(w==='A')STATE.editalA=ed;else STATE.editalB=ed;
