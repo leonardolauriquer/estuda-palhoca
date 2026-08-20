@@ -445,7 +445,7 @@ const LEIS=[
   ]}
 ];
 const LSKEY='palhoca_study_v2';
-const APP_VER='v11';
+const APP_VER='v12';
 let STATE=loadState();
 function loadState(){try{const s=JSON.parse(localStorage.getItem(LSKEY));if(s)return s;}catch(e){}
   return {stu:'A',cargoA:'adm',cargoB:'cont',editalA:'10896a22e9f36131a',editalB:'10896a860906ced7b',cards:{},topics:{},quiz:[],pomoCycles:0,streak:{A:0,B:0},lastDay:{A:'',B:''},leitner:{},xp:{A:0,B:0},badges:{A:[],B:[]},conf:{},setupDone:false};}
@@ -866,11 +866,17 @@ document.getElementById('setupConfirm').onclick=()=>{STATE.setupDone=true;save()
 document.getElementById('ctxChange').onclick=()=>showSetup(true);
 renderDash();renderSobre();pomoRender();
 (function(){
-  const seen=localStorage.getItem('appver');
-  if(seen&&seen!==APP_VER){location.reload(true);return;}
-  localStorage.setItem('appver',APP_VER);
   const sp=document.getElementById('splash');
-  if(sp){sp.style.opacity='0';sp.style.transition='opacity .4s';setTimeout(()=>sp.remove(),420);}
+  const hideSplash=()=>{if(sp){sp.style.opacity='0';sp.style.transition='opacity .4s';setTimeout(()=>sp.remove(),420);}};
+  // Version busting: always fetch version.json with no-store so we get the REAL server version
+  fetch('version.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{
+    if(d&&d.version&&d.version!==APP_VER){
+      if(sp){const t=sp.querySelector('div:last-child');if(t)t.textContent='nova versão disponível — atualizando…';}
+      setTimeout(()=>location.reload(true),600);
+    }else{
+      localStorage.setItem('appver',APP_VER);hideSplash();
+    }
+  }).catch(()=>{hideSplash();}); // offline: just show app
 })();
 showSetup(false);
 </script>
