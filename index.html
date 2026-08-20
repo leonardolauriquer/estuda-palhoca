@@ -53,11 +53,12 @@ select{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8p
 .flip .inner{position:relative;width:100%;height:100%;min-height:240px;transition:transform .5s;transform-style:preserve-3d}
 .flip.flipped .inner{transform:rotateY(180deg)}
 .face{position:absolute;inset:0;backface-visibility:hidden;border-radius:16px;padding:26px;display:flex;flex-direction:column;justify-content:center;box-shadow:var(--shadow)}
-.face.front{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff}
-.face.back{background:#fff;border:1px solid var(--line);color:var(--txt);transform:rotateY(180deg)}
+face.front{background:#183454!important;color:#fff!important}
+.face.back{background:#fff;border:2px solid var(--green);color:#1d2735;transform:rotateY(180deg)}
 .face .q-tag{font-size:12px;opacity:.75;margin-bottom:10px;letter-spacing:.4px}
-.face .q{font-size:17px;font-weight:700}
-.face .a{font-size:15px;line-height:1.6}
+.face.front .q{font-size:19px;font-weight:800;color:#fff!important;line-height:1.5;text-shadow:0 1px 3px rgba(0,0,0,.4)}
+  .face .q{font-size:17px;font-weight:700;color:#1d2735}
+.face .a{font-size:16px;line-height:1.65;color:#1d2735}
 .face .hint{margin-top:14px;font-size:12px;color:var(--muted)}
 .box-opt{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .btn-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
@@ -143,10 +144,10 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-t
   /* === DESIGN SYSTEM UNIFICADO (v7) === */
   .card{border:1px solid var(--line);border-radius:16px;padding:16px;background:var(--card);box-shadow:0 2px 10px rgba(24,52,84,.05)}
   .sec{font-size:22px;color:var(--navy);margin:0 0 4px;font-weight:800;letter-spacing:-.3px}
-  .sub{color:var(--muted);font-size:14px;margin:0 0 14px}
-  .note{background:#fff8e6;border:1px solid #f3e3b0;color:#7a6500;border-radius:12px;padding:12px 14px;font-size:13px;margin:12px 0;line-height:1.5}
-  .note b{color:#5c4a00}
-  .badge{font-size:11px;background:#eef4fa;color:var(--navy);border:1px solid #d4e0ee;padding:2px 8px;border-radius:20px;font-weight:700;white-space:nowrap}
+  sub{color:#3a4a5e;font-size:14px;margin:0 0 14px}
+  .note{background:#fff8e6;border:1px solid #e8d28a;color:#5c4a00;border-radius:12px;padding:12px 14px;font-size:14px;margin:12px 0;line-height:1.55;font-weight:600}
+  .note b{color:#3d3100}
+  .badge{font-size:12px;background:#e3ecf7;color:#14304f;border:1px solid #b9cde6;padding:3px 9px;border-radius:20px;font-weight:800;white-space:nowrap}
   .badge.g{background:#e8f0fa;color:var(--navy)}
   .badge.e{background:#eaf6ef;color:var(--green)}
   .pill{font-size:13px;color:var(--muted);background:var(--card);border:1px solid var(--line);padding:5px 12px;border-radius:20px;font-weight:600}
@@ -176,7 +177,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-t
   .flip .inner{position:relative;width:100%;min-height:240px;transition:transform .5s;transform-style:preserve-3d}
   .flip.flipped .inner{transform:rotateY(180deg)}
   .face{position:absolute;inset:0;backface-visibility:hidden;background:var(--card);border:2px solid var(--line);border-radius:18px;padding:26px;display:flex;flex-direction:column;justify-content:center;box-shadow:0 10px 30px rgba(24,52,84,.10)}
-  .face.front{border-left:6px solid var(--navy)}
+  .face.front{background:#183454!important;color:#fff!important;border-left:6px solid var(--green)}
   .face.back{border-left:6px solid var(--green);transform:rotateY(180deg)}
   .q-tag{font-size:11px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
   .q{font-size:18px;font-weight:700;color:var(--navy);line-height:1.45}
@@ -187,7 +188,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-t
 
   /* SIMULADO */
   .quiz-q{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:0 2px 10px rgba(24,52,84,.05)}
-  .quiz-opt{display:block;width:100%;text-align:left;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:13px 16px;margin:9px 0;font-size:14px;cursor:pointer;transition:.15s;color:#37475a;font-family:inherit}
+  .quiz-opt{display:block;width:100%;text-align:left;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:13px 16px;margin:9px 0;font-size:15px;font-weight:600;cursor:pointer;transition:.15s;color:#1d2735;font-family:inherit}
   .quiz-opt:hover{border-color:var(--navy);background:#f5f9fd}
   .quiz-opt.correct{background:var(--green);color:#fff;border-color:var(--green)}
   .quiz-opt.wrong{background:#e74c3c;color:#fff;border-color:#e74c3c}
@@ -457,7 +458,7 @@ const LEIS=[
   ]}
 ];
 const LSKEY='palhoca_study_v2';
-const APP_VER='v24';
+const APP_VER='v25';
 let STATE=loadState();
 function loadState(){try{const s=JSON.parse(localStorage.getItem(LSKEY));if(s)return s;}catch(e){}
   return {edital:'10896a860906ced7b',cards:{},topics:{},quiz:[],pomoCycles:0,streak:0,lastDay:'',leitner:{},xp:0,badges:[],conf:{},setupDone:false};}
