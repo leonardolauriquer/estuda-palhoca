@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>Estuda Palhoça 01/2026</title>
 <style>
 :root{--navy:#183454;--navy2:#22466e;--green:#9CCB8F;--green2:#7fb87a;--bg:#f4f7fb;
@@ -225,6 +228,12 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-t
 </style>
 </head>
 <body>
+<div id="splash" style="position:fixed;inset:0;z-index:2000;background:linear-gradient(135deg,#183454,#22466e);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;color:#fff;font-family:Segoe UI,system-ui,sans-serif">
+  <div style="display:flex;align-items:center;gap:12px;font-size:22px;font-weight:800"><span style="width:14px;height:14px;border-radius:50%;background:#9CCB8F;box-shadow:0 0 0 5px rgba(156,203,143,.25)"></span> Estuda Palhoça 01/2026</div>
+  <div style="width:46px;height:46px;border:4px solid rgba(255,255,255,.25);border-top-color:#9CCB8F;border-radius:50%;animation:spin .8s linear infinite"></div>
+  <div style="font-size:13px;opacity:.8">carregando seu plano de estudos…</div>
+</div>
+<style>@keyframes spin{to{transform:rotate(360deg)}}</style>
 <div class="modal-overlay" id="setupModal">
   <div class="modal">
     <h2 class="sec" style="text-align:center;margin-bottom:4px">&#127919; Qual cargo voces vao fazer?</h2>
@@ -436,6 +445,7 @@ const LEIS=[
   ]}
 ];
 const LSKEY='palhoca_study_v2';
+const APP_VER='v11';
 let STATE=loadState();
 function loadState(){try{const s=JSON.parse(localStorage.getItem(LSKEY));if(s)return s;}catch(e){}
   return {stu:'A',cargoA:'adm',cargoB:'cont',editalA:'10896a22e9f36131a',editalB:'10896a860906ced7b',cards:{},topics:{},quiz:[],pomoCycles:0,streak:{A:0,B:0},lastDay:{A:'',B:''},leitner:{},xp:{A:0,B:0},badges:{A:[],B:[]},conf:{},setupDone:false};}
@@ -854,7 +864,15 @@ function updateCtx(){
 }
 document.getElementById('setupConfirm').onclick=()=>{STATE.setupDone=true;save();document.getElementById('setupModal').style.display='none';updateCtx();renderDash();};
 document.getElementById('ctxChange').onclick=()=>showSetup(true);
-renderDash();renderSobre();pomoRender();showSetup(false);
+renderDash();renderSobre();pomoRender();
+(function(){
+  const seen=localStorage.getItem('appver');
+  if(seen&&seen!==APP_VER){location.reload(true);return;}
+  localStorage.setItem('appver',APP_VER);
+  const sp=document.getElementById('splash');
+  if(sp){sp.style.opacity='0';sp.style.transition='opacity .4s';setTimeout(()=>sp.remove(),420);}
+})();
+showSetup(false);
 </script>
 </body>
 </html>
