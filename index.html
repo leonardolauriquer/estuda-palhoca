@@ -457,7 +457,7 @@ const LEIS=[
   ]}
 ];
 const LSKEY='palhoca_study_v2';
-const APP_VER='v22';
+const APP_VER='v23';
 let STATE=loadState();
 function loadState(){try{const s=JSON.parse(localStorage.getItem(LSKEY));if(s)return s;}catch(e){}
   return {edital:'10896a860906ced7b',cards:{},topics:{},quiz:[],pomoCycles:0,streak:0,lastDay:'',leitner:{},xp:0,badges:[],conf:{},setupDone:false};}
@@ -486,6 +486,12 @@ function matsDoEdital(){
   if(STATE.edital==='10896a22e9f36131a') return DADOS.materias.filter(m=>!m.id.startsWith('etec'));
   return DADOS.materias;
 }
+function ctxLine(){
+  const isRet=STATE.edital==='10896a860906ced7b';
+  const nome=isRet?'Retificado (19/08)':'Original (05/06)';
+  const vagas=isRet?'Nível Médio · IA · + 5 vagas de Superior (ADM, Contador, Controlador, Jornalista, Técnico)':'Administrador de Sistemas · Contador Legislativo · Controlador Interno · Jornalista · Técnico Legislativo';
+  return '<div class="note ctx-edital" style="margin:0 0 14px"><b>📑 Edital '+nome+'</b> — vagas: '+vagas+'</div>';
+}
 function goView(v){document.querySelectorAll('nav.tabs button').forEach(b=>{if(b.dataset.view===v)b.click();});}
 function renderHome(){
   const edName=STATE.edital==='10896a860906ced7b'?'Retificado (19/08)':'Original (05/06)';
@@ -508,7 +514,7 @@ function renderHome(){
 function renderDash(){renderHome();}
 
 // CHECKLIST
-function renderCheck(){
+function renderCheck(){var _c=document.getElementById('view-check');var _o=_c.querySelector('.ctx-edital');if(_o)_o.remove();_c.insertAdjacentHTML('afterbegin',ctxLine());
   let html='';matsDoEdital().forEach(m=>{
     const tk='t_'+m.id;
     const areaCls=m.area==='Conhecimentos Gerais'?'g':'e';
@@ -547,7 +553,7 @@ function dueCards(matId,mode){
   }
   return arr;
 }
-function renderFlashSetup(){
+function renderFlashSetup(){var _f=document.getElementById('view-flash');var _o=_f.querySelector('.ctx-edital');if(_o)_o.remove();_f.insertAdjacentHTML('afterbegin',ctxLine());
   const sel=document.getElementById('flashMat');const cargo=STATE.edital==='10896a860906ced7b'?'tec':'adm';
   sel.innerHTML=matsDoEdital().map(m=>`<option value="${m.id}">${m.nome}</option>`).join('');
   sel.onchange=()=>buildDeck(sel.value);buildDeck(matsDoEdital()[0].id);
@@ -583,7 +589,7 @@ document.getElementById('notCard').onclick=()=>markFlash(false);
 
 // SIMULADO
 let quizDeck=[],quizIdx=0,quizScore=0,quizAnswered=false,quizLog=[];
-function renderQuizSetup(){
+function renderQuizSetup(){var _q=document.getElementById('view-quiz');var _o=_q.querySelector('.ctx-edital');if(_o)_o.remove();_q.insertAdjacentHTML('afterbegin',ctxLine());
   const sel=document.getElementById('quizMat');const cargo=STATE.edital==='10896a860906ced7b'?'tec':'adm';
   sel.innerHTML=matsDoEdital().map(m=>`<option value="${m.id}">${m.nome}</option>`).join('');
   document.getElementById('quizInfo').textContent='';
@@ -697,7 +703,7 @@ document.getElementById('mergeBtn').onclick=()=>{
 if(location.hash.startsWith('#d=')){document.getElementById('shareIn').value=location.href;document.getElementById('mergeBtn').click();location.hash='';}
 
 // CRONOGRAMA
-function renderPlan(){
+function renderPlan(){var _p=document.getElementById('view-plan');var _o=_p.querySelector('.ctx-edital');if(_o)_o.remove();_p.insertAdjacentHTML('afterbegin',ctxLine());
   const cargo=STATE.edital==='10896a860906ced7b'?'tec':'adm';
   const isMed=['tec'].includes(cargo);
   const sprint=[
@@ -748,7 +754,7 @@ function checkBadges(){
   if(masteryPct(cargo)>=50)add('b5','Meio caminho 🎯');
   if(masteryPct(cargo)>=90)add('b6','Quase lá 🏆');
 }
-function renderTrophy(){
+function renderTrophy(){var _t=document.getElementById('view-trophy');var _o=_t.querySelector('.ctx-edital');if(_o)_o.remove();_t.insertAdjacentHTML('afterbegin',ctxLine());
   const lv=xpForLevel(STATE.xp||0);
   const badges=(STATE.badges&&STATE.badges.length)?STATE.badges.map(b=>'<span class="badge-pill">'+b+'</span>').join(''):'<span style="font-size:11px;color:var(--muted)">sem medalhas ainda</span>';
   let html='<div class="rank-card"><div class="player A"><div class="lvl">Nv '+lv.lvl+'</div><div class="nm">Você</div><div class="xp">⭐ '+(STATE.xp||0)+' XP</div><div class="xpbar"><i style="width:'+Math.round(lv.cur/lv.need*100)+'%"></i></div><div style="margin-top:8px">'+badges+'</div></div></div>';
@@ -759,7 +765,7 @@ function renderTrophy(){
   document.getElementById('trophyBox').innerHTML=html;
 }
 
-function renderLeis(){
+function renderLeis(){var _l=document.getElementById('view-leis');var _o=_l.querySelector('.ctx-edital');if(_o)_o.remove();_l.insertAdjacentHTML('afterbegin',ctxLine());
   let html='';
   LEIS.forEach((L,idx)=>{
     html+=`<div class="lei" data-i="${idx}" style="border-left-color:${L.cor}"><h3>${L.lei}</h3><div class="body">`;
@@ -769,7 +775,7 @@ function renderLeis(){
   document.getElementById('leisBox').innerHTML=html;
   document.querySelectorAll('#leisBox .lei').forEach(el=>el.onclick=()=>el.classList.toggle('open'));
 }
-function renderAtaque(){
+function renderAtaque(){var _a=document.getElementById('view-ataque');var _o=_a.querySelector('.ctx-edital');if(_o)_o.remove();_a.insertAdjacentHTML('afterbegin',ctxLine());
   const sup=[['Língua Portuguesa','10 q','1,20','Maior fatia dos Gerais — prioridade'],['Matemática/Raciocínio Lógico','05 q','1,20',''],['Informática','05 q','1,20','IA, Copilot, LGPD, segurança'],['Legislação','06 q','1,20','LO Palhoça, LC 96/2010, CP Admin'],['Conhecimentos Gerais','04 q','1,20','Atualidades + Direitos Humanos'],['Conhecimentos Específicos','50 q','1,28','VALOR MÁXIMO — foco pesado']];
   const med=[['Língua Portuguesa','10 q','1,20',''],['Matemática/Raciocínio Lógico','05 q','1,20',''],['Informática','05 q','1,20',''],['Legislação','06 q','1,20',''],['Conhecimentos Gerais','04 q','1,20',''],['Conhecimentos Específicos','40 q','1,60','VALOR MÁXIMO']];
   const mk=(rows)=>{let h='';rows.forEach(r=>{h+='<div class="topic" style="padding:6px 0"><div class="txt" style="font-size:13px">'+r[0]+(r[3]?' <b style="color:var(--ok)">'+r[3]+'</b>':'')+'</div><div class="box-opt"><span class="leitner">'+r[1]+'</span><span class="leitner">'+r[2]+'</span></div></div>';});return h;};
