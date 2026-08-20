@@ -54,9 +54,9 @@ select{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8p
 .flip.flipped .inner{transform:rotateY(180deg)}
 .face{position:absolute;inset:0;backface-visibility:hidden;border-radius:16px;padding:26px;display:flex;flex-direction:column;justify-content:center;box-shadow:var(--shadow)}
 face.front{background:#183454!important;color:#fff!important}
-.face.back{background:#fff;border:2px solid var(--green);color:#1d2735;transform:rotateY(180deg)}
+.face.back{background:linear-gradient(160deg,#ffffff 0%,#f3f8f4 100%);border:2px solid var(--green);color:#1d2735;transform:rotateY(180deg);box-shadow:0 10px 30px rgba(24,52,84,.18)}
 .face .q-tag{font-size:12px;opacity:.75;margin-bottom:10px;letter-spacing:.4px}
-.face.front .q{font-size:19px;font-weight:800;color:#fff!important;line-height:1.5;text-shadow:0 1px 3px rgba(0,0,0,.4)}
+.face.front .q{font-size:20px;font-weight:800;color:#fff!important;line-height:1.55;text-shadow:0 1px 4px rgba(0,0,0,.45);letter-spacing:.2px}
   .face .q{font-size:17px;font-weight:700;color:#1d2735}
 .face .a{font-size:16px;line-height:1.65;color:#1d2735}
 .face .hint{margin-top:14px;font-size:12px;color:var(--muted)}
@@ -97,6 +97,19 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-t
 .red-result{padding:10px 12px;border-radius:10px;margin-top:10px;font-size:14px}
 .red-result.ok{background:#e8f6ec;color:#1d5c34}
 .red-result.no{background:#fdeaea;color:#8a2b29}
+
+.show-wrap{max-width:680px;margin:0 auto}
+.show-board{display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;margin:10px 0;padding:12px;border-radius:14px;background:linear-gradient(135deg,#183454,#22466e);color:#fff}
+.show-level{font-weight:800;font-size:16px;background:rgba(156,203,143,.9);color:#183454;padding:4px 12px;border-radius:20px}
+.show-prize{font-size:15px}
+.show-accum{font-size:14px;opacity:.9}
+.show-q{background:#fff;border:2px solid var(--green);border-radius:16px;padding:22px;font-size:18px;font-weight:700;color:var(--navy);margin:14px 0;box-shadow:0 8px 24px rgba(24,52,84,.12)}
+.show-mat{font-size:12px;font-weight:700;color:var(--green2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.show-opts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.show-opt{padding:16px;border-radius:14px;border:2px solid var(--navy);background:#fff;color:var(--navy);font-size:15px;font-weight:600;cursor:pointer;transition:.15s}
+.show-opt:hover{background:var(--navy);color:#fff;transform:translateY(-2px)}
+.show-finish{text-align:center;padding:30px;background:linear-gradient(160deg,#fff,#f3f8f4);border:2px solid var(--green);border-radius:18px;margin-top:14px}
+.show-big{font-size:34px;font-weight:800;color:var(--navy);margin:10px 0}
 
   .player{padding:16px;border-radius:14px;background:linear-gradient(135deg,#fff,#f3f7fb);border:2px solid #e3eaf2;text-align:center}
   .player.A{border-color:var(--navy)}
@@ -194,7 +207,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-t
   .flip .inner{position:relative;width:100%;min-height:240px;transition:transform .5s;transform-style:preserve-3d}
   .flip.flipped .inner{transform:rotateY(180deg)}
   .face{position:absolute;inset:0;backface-visibility:hidden;background:var(--card);border:2px solid var(--line);border-radius:18px;padding:26px;display:flex;flex-direction:column;justify-content:center;box-shadow:0 10px 30px rgba(24,52,84,.10)}
-  .face.front{background:#183454!important;color:#fff!important;border-left:6px solid var(--green)}
+  .face.front{background:linear-gradient(135deg,#1d3c63 0%,#183454 55%,#122742 100%)!important;color:#fff!important;border:1px solid rgba(156,203,143,.5);border-left:6px solid var(--green);box-shadow:0 10px 30px rgba(24,52,84,.28),inset 0 1px 0 rgba(255,255,255,.08)}
   .face.back{border-left:6px solid var(--green);transform:rotateY(180deg)}
   .q-tag{font-size:11px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
   .q{font-size:18px;font-weight:700;color:var(--navy);line-height:1.45}
@@ -333,6 +346,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-t
   <button data-view="fontes">🔗 Fontes Oficiais</button>
   <button data-view="exer">📝 Exercícios</button>
   <button data-view="red">✍️ Redação</button>
+  <button data-view="show">🎰 Show</button>
   <button data-view="trophy">🏆 Gamificação</button>
   <button data-view="pomo">⏱️ Foco</button>
   <button data-view="sobre">ℹ️ Edital</button>
@@ -437,6 +451,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-t
     <p class="sub">Problemas de Matemática e Contabilidade com resolução passo a passo. Estude o raciocínio.</p>
     <div id="exerBox"></div>
   </section>
+  <section class="view" id="view-show"></section>
   <section class="view" id="view-red">
     <h2 class="sec">✍️ Redação Oficial e Escrita — Câmara de Palhoça</h2>
     <p class="dash-sub">A prova discursiva/prática de Câmara exige domínio dos <b>gêneros da redação oficial</b> (ofício, memorando, ata, parecer, expediente) e clareza na escrita. Aqui você aprende a estrutura, o padrão SLIM e treina com modelos.</p>
@@ -827,7 +842,7 @@ const LEIS_ART=[
 ];
 
 const LSKEY='palhoca_study_v2';
-const APP_VER='v41';
+const APP_VER='v42';
 let STATE=loadState();
 function loadState(){try{const s=JSON.parse(localStorage.getItem(LSKEY));if(s)return s;}catch(e){}
   return {edital:'10896a860906ced7b',cards:{},topics:{},quiz:[],pomoCycles:0,streak:0,lastDay:'',leitner:{},xp:0,badges:[],conf:{},setupDone:false};}
@@ -853,6 +868,7 @@ document.querySelectorAll('nav.tabs button').forEach(b=>{b.onclick=()=>{
   if(b.dataset.view==='fontes')renderFontes();
   if(b.dataset.view==='exer')renderExercicios();
   if(b.dataset.view==='red')renderRed();
+  if(b.dataset.view==='show')renderShow();
 };});
 
 function matsDoEdital(){
@@ -1861,6 +1877,73 @@ function renderExercicios(){
 }
 
 function renderRed(){/* conteudo estatico na section #view-red */}
+var showDeck=[],showIdx=0,showPrize=0,showAward=0,showActive=false;
+var SHOW_PRIZES=[1000,2000,3000,5000,10000,20000,30000,50000,100000,200000,300000,400000,500000,750000,1000000];
+function renderShow(){var _s=document.getElementById('view-show');if(_s){} renderShowBox();}
+function renderShowBox(){
+  const box=document.getElementById('view-show');
+  box.innerHTML='<h2 class="sec">🎰 Show do Milhão de Estudo</h2>'
+   +'<p class="dash-sub">Suba os 15 níveis respondendo questões de todas as matérias. Cada acerto vale créditos e XP. Errou? O jogo termina — mas o aprendizado fica.</p>'
+   +'<div id="showBox" class="show-wrap"></div>';
+  showStart();
+}
+function showStart(){
+  showDeck=[];showIdx=0;showPrize=0;showAward=0;showActive=true;
+  const all=[];matsDoEdital().forEach(m=>m.cards.forEach((c,i)=>{if(c[0]&&c[1])all.push({q:c[0],a:c[1],mat:m.nome});}));
+  all.sort(()=>Math.random()-0.5);
+  const pool=all.slice(0,15);
+  const answers=all.map(x=>x.a);
+  showDeck=pool.map((p,idx)=>{
+    const others=answers.filter(a=>a!==p.a).sort(()=>Math.random()-0.5).slice(0,3);
+    const opts=[p.a,...others].sort(()=>Math.random()-0.5);
+    return {q:p.q,a:p.a,opts:opts,mat:p.mat,lvl:idx+1};
+  });
+  showRender();
+}
+function showRender(){
+  const box=document.getElementById('showBox');if(!box)return;
+  if(showIdx>=showDeck.length||!showActive){
+    showFinish();
+    return;
+  }
+  const q=showDeck[showIdx];
+  const prize=SHOW_PRIZES[showIdx];
+  let optsHtml=q.opts.map((o,i)=>'<button class="show-opt" onclick="showAnswer(\''+o.replace(/'/g,"\'")+'\')">'+o+'</button>').join('');
+  box.innerHTML='<div class="show-board">'
+    +'<div class="show-level">NÍVEL '+q.lvl+'/15</div>'
+    +'<div class="show-prize">🏆 Créditos no nível: <b>'+prize.toLocaleString('pt-BR')+'</b></div>'
+    +'<div class="show-accum">Acumulado: '+(showPrize?showPrize.toLocaleString('pt-BR'):'0')+'</div>'
+    +'</div>'
+    +'<div class="show-q"><div class="show-mat">'+q.mat+'</div>'+q.q+'</div>'
+    +'<div class="show-opts">'+optsHtml+'</div>'
+    +'<div id="showFeedback"></div>';
+}
+function showAnswer(ans){
+  if(!showActive)return;
+  const q=showDeck[showIdx];
+  const fb=document.getElementById('showFeedback');
+  if(ans===q.a){
+    showPrize+=SHOW_PRIZES[showIdx];
+    const xp=10+showIdx*2;
+    STATE.xp=(STATE.xp||0)+xp;save();
+    fb.innerHTML='<div class="red-result ok">✅ Correto! +'+xp+' XP · créditos: '+showPrize.toLocaleString('pt-BR')+'</div>';
+    showIdx++;
+    setTimeout(()=>{showActive&&showRender();},900);
+  }else{
+    showActive=false;
+    fb.innerHTML='<div class="red-result no">❌ Errado. Resposta: '+q.a+'</div>';
+    setTimeout(showFinish,1200);
+  }
+}
+function showFinish(){
+  const box=document.getElementById('showBox');if(!box)return;
+  box.innerHTML='<div class="show-finish">'
+    +'<h3>🎰 Fim de jogo</h3>'
+    +'<p class="show-big">'+showPrize.toLocaleString('pt-BR')+' créditos</p>'
+    +'<p>'+(showPrize>=1000000?'🏆 VOCÊ É O DONO DO MILHÃO!':'Parabéns! Continue estudando para chegar ao milhão.')+'</p>'
+    +'<button class="btn" onclick="showStart()">🔄 Jogar de novo</button></div>';
+}
+
 function checkRedacao(){
   const t=document.getElementById('redText').value.trim();
   const low=t.toLowerCase();
