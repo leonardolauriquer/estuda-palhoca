@@ -230,8 +230,16 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-t
     <h2 class="sec" style="text-align:center;margin-bottom:4px">&#127919; Qual cargo voces vao fazer?</h2>
     <p class="sub" style="text-align:center">Escolham abaixo. O app mostra flashcards, simulados, leis e plano so do cargo de cada uma.</p>
     <div class="setup-grid">
-      <div class="setup-col"><div class="setup-who">&#128089; Voce (A)</div><div class="setup-cards" id="setupA"></div></div>
-      <div class="setup-col"><div class="setup-who">&#128089; Amiga (B)</div><div class="setup-cards" id="setupB"></div></div>
+      <div class="setup-col">
+        <div class="setup-who">&#128089; Voce (A)</div>
+        <select class="setup-edit" id="editalA" style="width:100%;margin-bottom:10px;padding:8px;border-radius:8px;border:1.5px solid var(--line);font-weight:600"></select>
+        <div class="setup-cards" id="setupA"></div>
+      </div>
+      <div class="setup-col">
+        <div class="setup-who">&#128089; Amiga (B)</div>
+        <select class="setup-edit" id="editalB" style="width:100%;margin-bottom:10px;padding:8px;border-radius:8px;border:1.5px solid var(--line);font-weight:600"></select>
+        <div class="setup-cards" id="setupB"></div>
+      </div>
     </div>
     <div class="btn-row" style="justify-content:center;margin-top:18px"><button class="btn primary" id="setupConfirm">&#9989; Comecar a estudar</button></div>
   </div>
@@ -430,7 +438,7 @@ const LEIS=[
 const LSKEY='palhoca_study_v2';
 let STATE=loadState();
 function loadState(){try{const s=JSON.parse(localStorage.getItem(LSKEY));if(s)return s;}catch(e){}
-  return {stu:'A',cargoA:'adm',cargoB:'cont',cards:{},topics:{},quiz:[],pomoCycles:0,streak:{A:0,B:0},lastDay:{A:'',B:''},leitner:{},xp:{A:0,B:0},badges:{A:[],B:[]},conf:{},setupDone:false};}
+  return {stu:'A',cargoA:'adm',cargoB:'cont',editalA:'10896a22e9f36131a',editalB:'10896a860906ced7b',cards:{},topics:{},quiz:[],pomoCycles:0,streak:{A:0,B:0},lastDay:{A:'',B:''},leitner:{},xp:{A:0,B:0},badges:{A:[],B:[]},conf:{},setupDone:false};}
 function save(){localStorage.setItem(LSKEY,JSON.stringify(STATE));}
 function today(){return new Date().toISOString().slice(0,10);}
 function matForCargo(cargoId){return DADOS.materias.filter(m=>m.cargos.includes('todos')||m.cargos.includes(cargoId));}
@@ -792,10 +800,11 @@ function renderAtaque(){
   let html='<div class="card" style="margin-bottom:16px"><h3>📊 Estrutura da Prova (Edital 04/2026)</h3>';
   html+='<p style="font-size:13px;color:var(--muted);margin:6px 0 10px">Mínimo p/ habilitar: <b>12 pts em Conhecimentos Gerais</b> + <b>25 pts em Específicos</b> (Superior) · <b>20 pts em Específicos</b> (Médio). Foque nos Específicos (maior nº e peso).</p>';
   const ca=STATE.cargoA, cb=STATE.cargoB;
+  const ea=STATE.editalA===STATE.editalB?STATE.editalA:(STATE.editalA);const eb=STATE.editalB;
   const isMedA=['tec'].includes(ca), isMedB=['tec'].includes(cb);
   html+='<div class="grid cards3">';
-  html+=`<div class="card" style="border-left:5px solid var(--navy)"><h3>👩 Você (A)</h3><div style="font-size:12px;color:var(--muted);margin-bottom:6px;font-weight:700">${DADOS.cargos[ca]}</div>${mk(isMedA?med:sup)}</div>`;
-  html+=`<div class="card" style="border-left:5px solid var(--green)"><h3>👩 Amiga (B)</h3><div style="font-size:12px;color:var(--muted);margin-bottom:6px;font-weight:700">${DADOS.cargos[cb]}</div>${mk(isMedB?med:sup)}</div>`;
+  html+=`<div class="card" style="border-left:5px solid var(--navy)"><h3>👩 Você (A)</h3><div style="font-size:12px;color:var(--muted);margin-bottom:6px;font-weight:700">${DADOS.cargos[ca]}</div><div style="font-size:10px;color:var(--muted)">edital ${ea}</div>${mk(isMedA?med:sup)}</div>`;
+  html+=`<div class="card" style="border-left:5px solid var(--green)"><h3>👩 Amiga (B)</h3><div style="font-size:12px;color:var(--muted);margin-bottom:6px;font-weight:700">${DADOS.cargos[cb]}</div><div style="font-size:10px;color:var(--muted)">edital ${eb}</div>${mk(isMedB?med:sup)}</div>`;
   html+='</div></div>';
   html+='<div class="card"><h3>🚀 Roteiro de estudo (últimos dias)</h3><ul style="list-style:none;display:grid;gap:8px;margin-top:6px">';
   ['Dias 1-4: dominem os <b>Específicos</b> do cargo de cada uma (50/40 questões, maior peso).','Dias 5-6: Português (10 q) + Lei Orgânica de Palhoça e LC 96/2010 (caem em Legislação).','Dias 7-8: simulados diários no app + revisão dos cards da caixa 1 (os que mais erram).','Dia 29: revisão leve, consultar <b>local de prova</b> no site da FUNDATEC (a partir de 21/08).','Leve RG, comprovante e caneta preta. Chegue 1h antes.','Dica de ouro: nos Gerais, Português vale 10q — é onde dá pra garantir pontos fáceis.'].forEach(d=>html+='<li>▸ '+d+'</li>');
@@ -825,6 +834,12 @@ function buildSetup(){
       box.querySelectorAll('.setup-opt').forEach(x=>x.classList.remove('sel','A','B'));
       el.classList.add('sel',w);save();
     });
+  ['A','B'].forEach(who=>{
+    const sel=document.getElementById('edital'+who);
+    sel.innerHTML=`<option value="10896a22e9f36131a">Edital original (05/06/2026) — Anexo VI</option><option value="10896a860906ced7b">Edital retificado (19/08/2026) — Nível Médio+IA</option>`;
+    sel.value=who==='A'?STATE.editalA:STATE.editalB;
+    sel.onchange=()=>{if(who==='A')STATE.editalA=sel.value;else STATE.editalB=sel.value;save();updateCtx();};
+  });
   });
 }
 function showSetup(force){
@@ -834,7 +849,7 @@ function showSetup(force){
 }
 function updateCtx(){
   const b=document.getElementById('ctxBanner');
-  if(STATE.setupDone){b.style.display='flex';document.getElementById('ctxText').innerHTML='&#128209; Voce: <b>'+DADOS.cargos[STATE.cargoA]+'</b> &nbsp;|&nbsp; &#128209; Amiga: <b>'+DADOS.cargos[STATE.cargoB]+'</b>';}
+  if(STATE.setupDone){b.style.display='flex';document.getElementById('ctxText').innerHTML='📑 <b>'+DADOS.cargos[STATE.cargoA]+'</b> (edital '+STATE.editalA+') &nbsp;|&nbsp; 📑 <b>'+DADOS.cargos[STATE.cargoB]+'</b> (edital '+STATE.editalB+')';}
   else b.style.display='none';
 }
 document.getElementById('setupConfirm').onclick=()=>{STATE.setupDone=true;save();document.getElementById('setupModal').style.display='none';updateCtx();renderDash();};
