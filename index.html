@@ -262,21 +262,21 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-t
 <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
 <div class="modal-overlay" id="setupModal">
   <div class="modal" style="max-width:620px">
-    <h2 class="sec" style="text-align:center;margin-bottom:4px">&#127919; Qual edital voce vai estudar?</h2>
-    
+    <h2 class="sec" style="text-align:center;margin-bottom:4px">&#127919; Escolha o edital</h2>
+    <p class="sub" style="text-align:center">Um edital ou o outro. Clique para estudar as vagas dele.</p>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px">
       <div class="edital-card" data-ed="10896a22e9f36131a">
         <div class="edital-ico">&#128218;</div>
         <div class="edital-nome">Edital Original</div>
-        <div class="edital-data">05/06/2026</div>
-        <div class="edital-desc">Versao inicial. So Nivel Superior.</div>
+        <div class="edital-data">05/06/2026 · Nível Superior</div>
+        <div class="edital-desc"><b>Vagas:</b> Administrador de Sistemas · Contador Legislativo · Controlador Interno · Jornalista · Técnico Legislativo</div>
         <div class="edital-btn">Selecionar &#8594;</div>
       </div>
       <div class="edital-card" data-ed="10896a860906ced7b">
         <div class="edital-ico">&#128218;</div>
         <div class="edital-nome">Edital Retificado</div>
-        <div class="edital-data">19/08/2026</div>
-        <div class="edital-desc">Versao atualizada. Acrescentou Nivel Medio + IA.</div>
+        <div class="edital-data">19/08/2026 · Superior + Médio</div>
+        <div class="edital-desc"><b>Vagas:</b> acrescentou Nível Médio + IA (além das 5 vagas de Superior do Original)</div>
         <div class="edital-btn">Selecionar &#8594;</div>
       </div>
     </div>
@@ -457,7 +457,7 @@ const LEIS=[
   ]}
 ];
 const LSKEY='palhoca_study_v2';
-const APP_VER='v19';
+const APP_VER='v20';
 let STATE=loadState();
 function loadState(){try{const s=JSON.parse(localStorage.getItem(LSKEY));if(s)return s;}catch(e){}
   return {edital:'10896a860906ced7b',cards:{},topics:{},quiz:[],pomoCycles:0,streak:0,lastDay:'',leitner:{},xp:0,badges:[],conf:{},setupDone:false};}
