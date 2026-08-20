@@ -237,13 +237,13 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-t
   .setup-edit-card:hover{border-color:var(--navy);box-shadow:0 3px 10px rgba(24,52,84,.1)}
   .setup-edit-card.sel.A{border-color:var(--navy);background:var(--navy);color:#fff}
   .setup-edit-card.sel.B{border-color:var(--green);background:var(--green);color:#0c2a17}
-  .edital-card{border:2px solid var(--line);border-radius:16px;padding:24px 22px;text-align:left;cursor:pointer;background:#fff;transition:.18s;box-shadow:0 4px 16px rgba(24,52,84,.08);display:flex;flex-direction:column;gap:6px}
+  .edital-card{border:3px solid var(--line);border-radius:18px;padding:26px 24px;text-align:left;cursor:pointer;background:#fff;transition:.18s;box-shadow:0 6px 20px rgba(24,52,84,.10);display:flex;flex-direction:column;gap:8px}
   .edital-card:hover{border-color:var(--navy);transform:translateY(-3px);box-shadow:0 10px 28px rgba(24,52,84,.16)}
-  .edital-ico{font-size:40px;margin-bottom:4px}
-  .edital-nome{font-weight:800;font-size:22px;color:var(--navy);line-height:1.2}
-  .edital-data{font-size:14px;color:var(--green);font-weight:800;margin:0 0 8px}
-  .edital-desc{font-size:14px;color:var(--txt);line-height:1.6;margin-bottom:12px}
-  .edital-btn{display:inline-block;background:var(--navy);color:#fff;font-size:15px;font-weight:700;padding:10px 20px;border-radius:20px;align-self:flex-start}
+  .edital-ico{font-size:46px;margin-bottom:2px}
+  .edital-nome{font-weight:800;font-size:28px;color:var(--navy);line-height:1.15}
+  .edital-data{font-size:17px;color:var(--green);font-weight:800;margin:0 0 10px}
+  .edital-desc{font-size:17px;color:var(--txt);line-height:1.7;margin-bottom:14px}
+  .edital-btn{display:inline-block;background:var(--navy);color:#fff;font-size:18px;font-weight:800;padding:12px 26px;border-radius:24px;align-self:flex-start}
   .edital-card:hover .edital-btn{background:var(--green)}
   .home-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:14px}
   .home-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;cursor:pointer;transition:.15s;box-shadow:0 2px 10px rgba(24,52,84,.05)}
@@ -264,19 +264,19 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-t
   <div class="modal" style="max-width:620px">
     <h2 class="sec" style="text-align:center;margin-bottom:4px">&#127919; Escolha o edital</h2>
     <p class="sub" style="text-align:center">Um edital ou o outro. Clique para estudar as vagas dele.</p>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:18px">
+    <div style="display:grid;grid-template-columns:1fr;gap:18px;margin-top:18px;max-width:640px;margin-left:auto;margin-right:auto">
       <div class="edital-card" data-ed="10896a22e9f36131a">
         <div class="edital-ico">&#128218;</div>
         <div class="edital-nome">Edital Original</div>
         <div class="edital-data">05/06/2026 · Nível Superior</div>
-        <div class="edital-desc"><b>Vagas:</b><br>· Administrador de Sistemas<br>· Contador Legislativo<br>· Controlador Interno<br>· Jornalista<br>· Técnico Legislativo</div>
+        <div class="edital-desc"><b>Vagas:</b><ul style="margin:8px 0 0 18px;padding:0"><li>Administrador de Sistemas</li><li>Contador Legislativo</li><li>Controlador Interno</li><li>Jornalista</li><li>Técnico Legislativo</li></ul></div>
         <div class="edital-btn">Selecionar &#8594;</div>
       </div>
       <div class="edital-card" data-ed="10896a860906ced7b">
         <div class="edital-ico">&#128218;</div>
         <div class="edital-nome">Edital Retificado</div>
         <div class="edital-data">19/08/2026 · Superior + Médio</div>
-        <div class="edital-desc"><b>Vagas (acrescenta ao Original):</b><br>· Nível Médio<br>· IA (Inteligência Artificial)<br><span style="color:var(--muted);font-size:12px">+ as 5 vagas de Superior do Original</span></div>
+        <div class="edital-desc"><b>Vagas (acrescenta ao Original):</b><ul style="margin:8px 0 0 18px;padding:0"><li>Nível Médio</li><li>IA (Inteligência Artificial)</li></ul><div style="color:var(--muted);font-size:14px;margin-top:8px">+ as 5 vagas de Superior do Original</div></div>
         <div class="edital-btn">Selecionar &#8594;</div>
       </div>
     </div>
@@ -457,7 +457,7 @@ const LEIS=[
   ]}
 ];
 const LSKEY='palhoca_study_v2';
-const APP_VER='v21';
+const APP_VER='v22';
 let STATE=loadState();
 function loadState(){try{const s=JSON.parse(localStorage.getItem(LSKEY));if(s)return s;}catch(e){}
   return {edital:'10896a860906ced7b',cards:{},topics:{},quiz:[],pomoCycles:0,streak:0,lastDay:'',leitner:{},xp:0,badges:[],conf:{},setupDone:false};}
