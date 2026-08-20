@@ -263,7 +263,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-t
 <div class="modal-overlay" id="setupModal">
   <div class="modal" style="max-width:620px">
     <h2 class="sec" style="text-align:center;margin-bottom:4px">&#127919; Qual edital voce vai estudar?</h2>
-    <p class="sub" style="text-align:center">Escolha um dos dois. O app abre todo o conteudo daquele edital.</p>
+    
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px">
       <div class="edital-card" data-ed="10896a22e9f36131a">
         <div class="edital-ico">&#128218;</div>
@@ -290,7 +290,6 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-t
   </div>
 </header>
 <nav class="tabs"><div class="wrap" id="tabs">
-  <button class="active" data-view="dash">📊 Painel</button>
   <button data-view="check">✅ Tópicos</button>
   <button data-view="flash">🃏 Flashcards</button>
   <button data-view="quiz">📝 Simulado</button>
@@ -304,19 +303,19 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-t
 </div></nav>
 <main class="wrap">
   <section class="view active" id="view-dash">
-    <h2 class="sec">Como voce quer estudar hoje?</h2>
+    <h2 class="sec">📚 Como voce quer estudar?</h2>
     <p class="sub" id="dashSub">Escolha um metodo. Tudo filtrado pelo edital que voce selecionou.</p>
     <div class="home-grid" id="homeGrid"></div>
   </section>
   <section class="view" id="view-check">
     <h2 class="sec">Checklist de tópicos do edital</h2>
-    <p class="sub">Marque o que já estudou. Azul = Você (A), Laranja = Amiga (B).</p>
+    <p class="sub">Marque o que já estudou.</p>
     <div class="cargos-sel" id="cargosSel2"></div>
     <div id="checkList"></div>
   </section>
   <section class="view" id="view-flash">
     <h2 class="sec">Flashcards — Revisão Espaçada</h2>
-    <p class="sub">Sistema Leitner: errou → volta em breve (caixa 1); acertou → sobe de caixa e só reaparece depois de dias. Clique para virar.</p>
+    <p class="sub">Sistema Leitner: errou → volta em breve (caixa 1); acertou → sobe de caixa e só reaparece depois de dias. Clique para virar. (A certeza é só sua — marque Acertou/Errou.)</p>
     <div class="flash-stage">
       <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:center">
         <select id="flashMat" style="max-width:320px"></select>
@@ -333,12 +332,8 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-t
       </div></div>
       <div class="btn-row">
         <button class="btn ghost" id="prevCard">⟵ Ant</button>
-        <button class="btn bad" id="notA">A errou</button>
-        <button class="btn bad" id="notB">B errou</button>
-        <button class="btn green" id="okA">A acertou ✓</button>
-        <button class="btn green" id="okB">B acertou ✓</button>
-        <button class="btn primary" id="sureA">A tinha certeza 💡</button>
-        <button class="btn primary" id="sureB">B tinha certeza 💡</button>
+        <button class="btn bad" id="notCard">❌ Errei</button>
+        <button class="btn green" id="okCard">✅ Acertou</button>
         <button class="btn ghost" id="nextCard">Próx ⟶</button>
       </div>
     </div>
@@ -359,8 +354,8 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-t
     <div id="quizBox"></div>
   </section>
   <section class="view" id="view-share">
-    <h2 class="sec">Sincronizar progresso das duas</h2>
-    <p class="sub">Gere um link com TUDO que vocês estudaram, envie pra amiga, e ela junta com o dela num clique. Sem servidor, sem cadastro.</p>
+    <h2 class="sec">Sincronizar progresso</h2>
+    <p class="sub">Gere um link com seu progresso para continuar de outro dispositivo ou enviar para quem estuda com você.</p>
     <div class="sharebox">
       <label style="font-size:13px;color:var(--muted);font-weight:700">1) Gere o link de envio:</label>
       <div class="row"><button class="btn primary" id="genLink">🔗 Gerar link de progresso</button></div>
@@ -393,7 +388,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-t
   </section>
   <section class="view" id="view-trophy">
     <h2 class="sec">🏆 Gamificação & Desafio entre vocês</h2>
-    <p class="sub">Maestria por matéria, níveis e o Duelo diário. Baseado em evidências de aprendizagem (revisão espaçada + metacognição).</p>
+    <p class="sub">Maestria por matéria, níveis e medalhas. Baseado em evidências de aprendizagem (revisão espaçada + metacognição).</p>
     <div class="note">📌 <b>Como funciona:</b> cada acerto em flashcard/simulado dá XP. Cards na caixa 5 do Leitner = "dominado". Quem pontua mais no Duelo leva o 🥇 do dia.</div>
     <div id="trophyBox"></div>
   </section>
@@ -462,10 +457,10 @@ const LEIS=[
   ]}
 ];
 const LSKEY='palhoca_study_v2';
-const APP_VER='v18';
+const APP_VER='v19';
 let STATE=loadState();
 function loadState(){try{const s=JSON.parse(localStorage.getItem(LSKEY));if(s)return s;}catch(e){}
-  return {stu:'A',cargoA:'adm',cargoB:'cont',edital:'10896a860906ced7b',editalA:'10896a22e9f36131a',editalB:'10896a860906ced7b',cards:{},topics:{},quiz:[],pomoCycles:0,streak:{A:0,B:0},lastDay:{A:'',B:''},leitner:{},xp:{A:0,B:0},badges:{A:[],B:[]},conf:{},setupDone:false};}
+  return {edital:'10896a860906ced7b',cards:{},topics:{},quiz:[],pomoCycles:0,streak:0,lastDay:'',leitner:{},xp:0,badges:[],conf:{},setupDone:false};}
 function save(){localStorage.setItem(LSKEY,JSON.stringify(STATE));}
 function today(){return new Date().toISOString().slice(0,10);}
 function matForCargo(cargoId){return DADOS.materias.filter(m=>m.cargos.includes('todos')||m.cargos.includes(cargoId));}
@@ -476,7 +471,6 @@ document.querySelectorAll('nav.tabs button').forEach(b=>{b.onclick=()=>{
   document.querySelectorAll('nav.tabs button').forEach(x=>x.classList.remove('active'));
   document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));
   b.classList.add('active');document.getElementById('view-'+b.dataset.view).classList.add('active');
-  if(b.dataset.view==='dash')renderDash();
   if(b.dataset.view==='check')renderCheck();
   if(b.dataset.view==='flash')renderFlashSetup();
   if(b.dataset.view==='quiz')renderQuizSetup();
@@ -486,19 +480,7 @@ document.querySelectorAll('nav.tabs button').forEach(b=>{b.onclick=()=>{
   if(b.dataset.view==='trophy')renderTrophy();
   if(b.dataset.view==='leis')renderLeis();
 };});
-function setStu(s){STATE.stu=s;save();
-  
-  renderDash();}
 
-function buildCargoSel(c,who){
-  const cur=who==='A'?STATE.cargoA:STATE.cargoB;
-  c.innerHTML=`<div class="cs"><label>Cargo de ${who==='A'?'Você (A)':'Amiga (B)'}</label><select id="sel${who}">`+
-    Object.entries(DADOS.cargos).map(([k,v])=>`<option value="${k}" ${k===cur?'selected':''}>${v}</option>`).join('')+
-    `</select></div>`;
-  document.getElementById('sel'+who).onchange=e=>{if(who==='A')STATE.cargoA=e.target.value;else STATE.cargoB=e.target.value;save();renderDash();renderCheck();renderPlan();};
-}
-
-// DASHBOARD
 function matsDoEdital(){
   // Original (05/06) = so Nivel Superior; Retificado (19/08) = Superior + Medio
   if(STATE.edital==='10896a22e9f36131a') return DADOS.materias.filter(m=>!m.id.startsWith('etec'));
@@ -507,8 +489,8 @@ function matsDoEdital(){
 function goView(v){document.querySelectorAll('nav.tabs button').forEach(b=>{if(b.dataset.view===v)b.click();});}
 function renderHome(){
   const edName=STATE.edital==='10896a860906ced7b'?'Retificado (19/08)':'Original (05/06)';
-  document.getElementById('dashSub').innerHTML='Edital <b>'+edName+'</b> selecionado. Escolha um metodo de estudo abaixo. <button class="btn ghost" id="homeChange" style="padding:4px 12px;font-size:12px;margin-left:8px">🔄 Trocar</button>';
-  document.getElementById('homeChange').onclick=()=>{STATE.setupDone=false;showSetup(true);};
+  document.getElementById('dashSub').innerHTML='Edital <b>'+edName+'</b> selecionado — escolha como estudar abaixo:';
+  
   const methods=[
     {v:'flash',ico:'🃏',n:'Flashcards',d:'Revisao espacada (Leitner). Acertos e erros.',c:'#183454'},
     {v:'quiz',ico:'📝',n:'Simulado',d:'Questoes por matéria ou misto (interleaving).',c:'#22466e'},
@@ -527,42 +509,41 @@ function renderDash(){renderHome();}
 
 // CHECKLIST
 function renderCheck(){
-  buildCargoSel(document.getElementById('cargosSel2'),'A');buildCargoSel(document.getElementById('cargosSel2'),'B');
-  const stu=STATE.stu,cargo=stu==='A'?STATE.cargoA:STATE.cargoB;
   let html='';matsDoEdital().forEach(m=>{
     const tk='t_'+m.id;
     const areaCls=m.area==='Conhecimentos Gerais'?'g':'e';
-    html+=`<div class="subj-block"><div class="head"><h3>${m.nome}</h3><span class="badge ${areaCls}">${m.area==='Conhecimentos Gerais'?'Geral':'Específico'}</span><span class="legend"><span class="dotA">A</span><span class="dotB">B</span></span></div>`;
+    html+=`<div class="subj-block"><div class="head"><h3>${m.nome}</h3><span class="badge ${areaCls}">${m.area==='Conhecimentos Gerais'?'Geral':'Específico'}</span></div>`;
     m.topicos.forEach((t,i)=>{
-      const a=STATE.topics[tk+'_'+i+'_A']?'on':'',b=STATE.topics[tk+'_'+i+'_B']?'on':'';
-      html+=`<div class="topic"><div class="txt">${t}</div><div class="cb-row">
-        <div class="cb A ${a}" data-t="${tk}_${i}_A">A</div><div class="cb B ${b}" data-t="${tk}_${i}_B">B</div></div></div>`;
+      const on=STATE.topics[tk+'_'+i]?'on':'';
+      html+=`<div class="topic"><div class="txt">${t}</div><div class="cb ${on}" data-t="${tk}_${i}">✓</div></div>`;
     });html+=`</div>`;
   });
   document.getElementById('checkList').innerHTML=html;
   document.querySelectorAll('#checkList .cb').forEach(el=>{el.onclick=()=>{
-    const k=el.dataset.t;STATE.topics[k]=!STATE.topics[k];save();el.classList.toggle('on',STATE.topics[k]);};});
+    const k=el.dataset.t;STATE.topics[k]=!STATE.topics[k];save();el.classList.toggle('on',STATE.topics[k]);
+  };});
 }
 
 // FLASHCARDS + LEITNER
+// FLASHCARDS + LEITNER
 let flashDeck=[],flashIdx=0;
-function boxFor(k,stu){return STATE.leitner[k+'_'+stu]||1;}
+function boxFor(k){return STATE.leitner[k+'']||1;}
 const BOX_DAYS=[0,1,3,7,16,30]; // dias até rever conforme a caixa
-function dueCards(matId,stu,mode){
+function dueCards(matId,mode){
   const m=DADOS.materias.find(x=>x.id===matId);
   let arr=m.cards.map((c,i)=>({q:c[0],a:c[1],k:'c_'+matId+'_'+i}));
   const now=Date.now();
   if(mode==='due'){
     arr=arr.filter(c=>{
-      const L=STATE.leitner[c.k+'_'+stu];
+      const L=STATE.leitner[c.k+''];
       if(!L)return true; // nunca visto -> due
-      const ts=STATE.leitner[c.k+'_'+stu+'_ts']||0;
+      const ts=STATE.leitner[c.k+''+'_ts']||0;
       const wait=BOX_DAYS[Math.min(L,5)]*864e5;
       return now-ts>=wait;
     });
     if(arr.length===0)arr=m.cards.map((c,i)=>({q:c[0],a:c[1],k:'c_'+matId+'_'+i})); // fallback
   }else if(mode==='hard'){
-    arr=arr.filter(c=>boxFor(c.k,stu)<=1);
+    arr=arr.filter(c=>boxFor(c.k)<=1);
   }
   return arr;
 }
@@ -572,35 +553,32 @@ function renderFlashSetup(){
   sel.onchange=()=>buildDeck(sel.value);buildDeck(matsDoEdital()[0].id);
 }
 function buildDeck(matId){
-  const stu=STATE.stu;flashDeck=dueCards(matId,stu,document.getElementById('flashMode').value);
-  if(flashDeck.length===0)flashDeck=dueCards(matId,stu,'all');
+  flashDeck=dueCards(matId,document.getElementById('flashMode').value);
+  if(flashDeck.length===0)flashDeck=dueCards(matId,'all');
   flashIdx=0;showCard();
 }
 document.getElementById('flashMode').onchange=()=>buildDeck(document.getElementById('flashMat').value);
-function touchStreak(stu){const t=today();if(STATE.lastDay[stu]!==t){if(STATE.lastDay[stu]){const d=(Date.now()-new Date(STATE.lastDay[stu]).getTime())/864e5;STATE.streak[stu]=(d<=1.5?(STATE.streak[stu]||0)+1:1);}else STATE.streak[stu]=1;STATE.lastDay[stu]=t;save();}}
+function touchStreak(){const t=today();if(STATE.lastDay!==t){if(STATE.lastDay){const d=(Date.now()-new Date(STATE.lastDay).getTime())/864e5;STATE.streak=(d<=1.5?(STATE.streak||0)+1:1);}else STATE.streak=1;STATE.lastDay=t;save();}}
 function showCard(){
   const flip=document.getElementById('flip');flip.classList.remove('flipped');
   const c=flashDeck[flashIdx];if(!c){document.getElementById('fq').textContent='🎉 Tudo revisado por enquanto!';document.getElementById('fa').textContent='Volte depois ou mude o filtro.';document.getElementById('flashCount').textContent='0/0';document.getElementById('leitnerTag').textContent='-';return;}
   document.getElementById('fq').textContent=c.q;document.getElementById('fa').textContent=c.a;
   document.getElementById('flashCount').textContent=`${flashIdx+1} / ${flashDeck.length}`;
-  document.getElementById('leitnerTag').textContent='C'+boxFor(c.k,STATE.stu);
+  document.getElementById('leitnerTag').textContent='C'+boxFor(c.k);
 }
 document.getElementById('flip').onclick=()=>document.getElementById('flip').classList.toggle('flipped');
 document.getElementById('prevCard').onclick=()=>{if(flashIdx>0){flashIdx--;showCard();}};
 document.getElementById('nextCard').onclick=()=>{if(flashIdx<flashDeck.length-1){flashIdx++;showCard();}};
-function markFlash(stu,known){
-  const c=flashDeck[flashIdx];if(!c)return;const k=c.k;const L=boxFor(k,stu);
-  if(known){STATE.cards[k+'_'+stu]='known';STATE.leitner[k+'_'+stu]=Math.min(L+1,5);}
-  else{STATE.cards[k+'_'+stu]='unknown';STATE.leitner[k+'_'+stu]=1;}
-  STATE.leitner[k+'_'+stu+'_ts']=Date.now();
-  if(known)STATE.xp[stu]=(STATE.xp[stu]||0)+10; else STATE.xp[stu]=(STATE.xp[stu]||0)+2;
-  touchStreak(stu);save();checkBadges(stu);
+function markFlash(known){
+  const c=flashDeck[flashIdx];if(!c)return;const k=c.k;const L=boxFor(k);
+  if(known){STATE.cards[k+'']='known';STATE.leitner[k+'']=Math.min(L+1,5);}
+  else{STATE.cards[k+'']='unknown';STATE.leitner[k+'']=1;}
+  STATE.leitner[k+''+'_ts']=Date.now();
+  if(known)STATE.xp=(STATE.xp||0)+10; else STATE.xp=(STATE.xp||0)+2;
+  touchStreak();save();checkBadges();
 }
-document.getElementById('okA').onclick=()=>markFlash('A',true);
-document.getElementById('okB').onclick=()=>markFlash('B',true);
-document.getElementById('notA').onclick=()=>markFlash('A',false);
-document.getElementById('notB').onclick=()=>markFlash('B',false);document.getElementById('sureA').onclick=()=>{STATE.xp.A=(STATE.xp.A||0)+5;STATE.conf['c_'+'A']=(STATE.conf['c_'+'A']||0)+1;save();checkBadges('A');markFlash('A',true);};
-document.getElementById('sureB').onclick=()=>{STATE.xp.B=(STATE.xp.B||0)+5;STATE.conf['c_'+'B']=(STATE.conf['c_'+'B']||0)+1;save();checkBadges('B');markFlash('B',true);};
+document.getElementById('okCard').onclick=()=>markFlash(true);
+document.getElementById('notCard').onclick=()=>markFlash(false);
 
 
 // SIMULADO
@@ -623,7 +601,7 @@ document.getElementById('startQuiz').onclick=()=>{
     pool=m.cards.map((c,i)=>({q:c[0],a:c[1],k:'c_'+m.id+'_'+i,matId:m.id}));
   }
   if(mode==='hard'){
-    const stu=STATE.stu;pool=pool.filter(c=>boxFor(c.k,stu)<=1);
+    pool=pool.filter(c=>boxFor(c.k)<=1);
     if(pool.length===0)pool=m.cards.map((c,i)=>({q:c[0],a:c[1],k:'c_'+m.id+'_'+i,matId:m.id}));
   }
   quizDeck=pool.sort(()=>Math.random()-0.5).slice(0,Math.min(10,pool.length));
@@ -668,11 +646,11 @@ function showQuiz(examMode,aviso){
     document.querySelectorAll('.quiz-opt').forEach(b=>{if(b.dataset.o===q.a)b.classList.add('correct');else if(b===btn)b.classList.add('wrong');else b.classList.add('dim');});
     const fb=document.getElementById('fb');fb.style.display='block';
     fb.innerHTML=correct?`✅ <b>Correto!</b> ${q.a}`:`❌ <b>Errado.</b> ${q.a}`;
-    if(correct)quizScore++;quizLog.push({matId:q.matId,correct});const stu=STATE.stu;
-    STATE.cards[q.k+'_'+stu]='known';STATE.leitner[q.k+'_'+stu+'_ts']=Date.now();
-    STATE.leitner[q.k+'_'+stu]=Math.min((boxFor(q.k,stu)+1),5);
-    if(correct)STATE.xp[stu]=(STATE.xp[stu]||0)+15; else STATE.xp[stu]=(STATE.xp[stu]||0)+3;
-    touchStreak(stu);save();checkBadges(stu);
+    if(correct)quizScore++;quizLog.push({matId:q.matId,correct});
+    STATE.cards[q.k+'']='known';STATE.leitner[q.k+''+'_ts']=Date.now();
+    STATE.leitner[q.k+'']=Math.min((boxFor(q.k,stu)+1),5);
+    if(correct)STATE.xp=(STATE.xp||0)+15; else STATE.xp=(STATE.xp||0)+3;
+    touchStreak();save();checkBadges();
     document.getElementById('nextQuiz').onclick=()=>{quizIdx++;showQuiz();};
   };});
 }
@@ -680,11 +658,11 @@ function finishQuiz(){
   if(examTimer){clearInterval(examTimer);examRun=false;}
   document.getElementById('quizInfo').textContent='';
   const examOn=quizDeck.length>=30;
-  let html=`<div class="quiz-q"><h3 style="color:var(--navy);font-size:20px;text-align:center">Concluído! 🎉</h3><p style="font-size:18px;margin:14px 0;text-align:center">${STATE.stu} acertou <b>${quizScore}</b> de <b>${quizDeck.length}</b>.</p>`;
+  let html=`<div class="quiz-q"><h3 style="color:var(--navy);font-size:20px;text-align:center">Concluído! 🎉</h3><p style="font-size:18px;margin:14px 0;text-align:center">você acertou <b>${quizScore}</b> de <b>${quizDeck.length}</b>.</p>`;
   if(examOn){
     const agg={};quizLog.forEach(r=>{if(!agg[r.matId])agg[r.matId]={t:0,a:0};agg[r.matId].t++;if(r.correct)agg[r.matId].a++;});
     html+='<div class="card" style="margin-top:10px"><h3>📊 Desempenho por matéria</h3>';
-    Object.entries(agg).forEach(([mid,d])=>{const m=DADOS.materias.find(x=>x.id===mid);const p=Math.round(d.a/d.t*100);const w=m.area==='Conhecimentos Específicos'?(STATE.stu==='A'&&['tec'].includes(STATE.cargoA)?'1,60':'1,28'):'1,20';html+=`<div class="stat-row"><span>${m.nome}</span><span>${d.a}/${d.t} (${p}%) · peso ${w}</span></div><div class="bar"><i style="width:${p}%"></i></div>`;});
+    Object.entries(agg).forEach(([mid,d])=>{const m=DADOS.materias.find(x=>x.id===mid);const p=Math.round(d.a/d.t*100);const w=m.area==='Conhecimentos Específicos'?(['tec'].includes((STATE.edital==='10896a860906ced7b'?'tec':'adm'))?'1,60':'1,28'):'1,20';html+=`<div class="stat-row"><span>${m.nome}</span><span>${d.a}/${d.t} (${p}%) · peso ${w}</span></div><div class="bar"><i style="width:${p}%"></i></div>`;});
     html+='</div><p class="sub" style="text-align:center;margin-top:10px">Dica: foque nas matérias com menor % de acerto nos próximos dias.</p>';
   }
   html+='<div class="btn-row" style="justify-content:center;margin-top:14px"><button class="btn green" onclick="document.getElementById(\'startQuiz\').click()">🔁 Refazer</button></div></div>';
@@ -746,7 +724,7 @@ function pomoRender(){const m=Math.floor(pomoTleft/60),s=pomoTleft%60;
 document.getElementById('pomoStart').onclick=()=>{if(pomoRun){clearInterval(pomoTimer);pomoRun=false;document.getElementById('pomoStart').textContent='▶️ Iniciar';return;}
   pomoRun=true;document.getElementById('pomoStart').textContent='⏸️ Pausar';
   pomoTimer=setInterval(()=>{if(pomoTleft>0){pomoTleft--;pomoRender();}else{clearInterval(pomoTimer);pomoRun=false;
-    if(pomoMode==='Foco'){STATE.pomoCycles++;touchStreak(STATE.stu);save();document.getElementById('pomoCycles').textContent=STATE.pomoCycles;pomoMode='Pausa';pomoTleft=5*60;}else{pomoMode='Foco';pomoTleft=25*60;}
+    if(pomoMode==='Foco'){STATE.pomoCycles++;touchStreak();save();document.getElementById('pomoCycles').textContent=STATE.pomoCycles;pomoMode='Pausa';pomoTleft=5*60;}else{pomoMode='Foco';pomoTleft=25*60;}
     document.getElementById('pomoStart').textContent='▶️ Iniciar';pomoRender();}},1000);};
 document.getElementById('pomoReset').onclick=()=>{clearInterval(pomoTimer);pomoRun=false;pomoMode='Foco';pomoTleft=25*60;document.getElementById('pomoStart').textContent='▶️ Iniciar';pomoRender();};
 document.getElementById('pomoCycles').textContent=STATE.pomoCycles;
@@ -755,40 +733,28 @@ document.getElementById('pomoCycles').textContent=STATE.pomoCycles;
 
 
 function xpForLevel(xp){let lvl=1,need=100;while(xp>=need){xp-=need;lvl++;need=Math.round(need*1.35);}return {lvl,cur:xp,need};}
-function masteryPct(cargo,stu){
+function masteryPct(cargo){
   const mats=matsDoEdital();let dom=0,tot=0;
-  mats.forEach(m=>{m.cards.forEach((_,i)=>{const k='c_'+m.id+'_'+i+'_'+stu;tot++;if(STATE.cards[k]==='known'&&(STATE.leitner[k]||1)>=5)dom++;});});
+  mats.forEach(m=>{m.cards.forEach((_,i)=>{const k='c_'+m.id+'_'+i+'';tot++;if(STATE.cards[k]==='known'&&(STATE.leitner[k]||1)>=5)dom++;});});
   return tot?Math.round(dom/tot*100):0;
 }
-function checkBadges(stu){
-  const xp=STATE.xp[stu]||0;const b=STATE.badges[stu]||(STATE.badges[stu]=[]);
+function checkBadges(){
+  const xp=STATE.xp||0;const b=STATE.badges||(STATE.badges=[]);
   const add=(id,nm)=>{if(!b.includes(id)){b.push(id);}};
   if(xp>=100)add('b1','Iniciante 🥉');
   if(xp>=300)add('b2','Veterano 🥈');
   if(xp>=700)add('b3','Mestre 🥇');
-  if((STATE.streak[stu]||0)>=7)add('b4','Sequência 7d 🔥');
-  if(masteryPct(stu==='A'?STATE.cargoA:STATE.cargoB,stu)>=50)add('b5','Meio caminho 🎯');
-  if(masteryPct(stu==='A'?STATE.cargoA:STATE.cargoB,stu)>=90)add('b6','Quase lá 🏆');
+  if((STATE.streak||0)>=7)add('b4','Sequência 7d 🔥');
+  if(masteryPct(cargo)>=50)add('b5','Meio caminho 🎯');
+  if(masteryPct(cargo)>=90)add('b6','Quase lá 🏆');
 }
 function renderTrophy(){
-  const stu=STATE.stu;
-  const lvA=xpForLevel(STATE.xp.A||0),lvB=xpForLevel(STATE.xp.B||0);
-  let html='<div class="rank-card">';
-  const player=(who,lv,xp)=>`<div class="player ${who}"><div class="lvl">Nv ${lv.lvl}</div><div class="nm">${who==='A'?'Você (A)':'Amiga (B)'}</div><div class="xp">⭐ ${xp} XP</div><div class="xpbar"><i style="width:${Math.round(lv.cur/lv.need*100)}%"></i></div><div style="margin-top:8px">${(STATE.badges[who]||[]).map(b=>'<span class="badge-pill">'+b+'</span>').join('')||'<span style="font-size:11px;color:var(--muted)">sem medalhas ainda</span>'}</div></div>`;
-  html+=player('A',lvA,STATE.xp.A||0)+player('B',lvB,STATE.xp.B||0);
-  html+='</div>';
-  // Duelo do dia
-  const a=STATE.xp.A||0,b=STATE.xp.B||0;
-  let winner = a===b?'🤝 Empate hoje!':(a>b?'🥇 Você (A) vai na frente!':'🥇 Amiga (B) vai na frente!');
-  html+='<div class="card"><h3>⚔️ Duelo de Pontos (total acumulado)</h3><div class="duel-winner">'+winner+'</div>';
-  html+='<div class="stat-row"><span>Você (A)</span><span>'+a+' XP</span></div><div class="bar"><i style="width:'+(a+b?Math.round(a/(a+b)*100):0)+'%"></i></div>';
-  html+='<div class="stat-row"><span>Amiga (B)</span><span>'+b+' XP</span></div><div class="bar"><i style="width:'+(a+b?Math.round(b/(a+b)*100):0)+'%"></i></div></div>';
-  // Maestria por matéria (do estudante atual)
-  const cargo=stu==='A'?STATE.cargoA:STATE.cargoB;
-  html+='<div class="card"><h3>🎯 Maestria por matéria — '+(stu==='A'?'Você (A)':'Amiga (B)')+'</h3><div class="mastery">';
-  matsDoEdital().forEach(m=>{const p=masteryPct(cargo,stu);});
-  // per-matter mastery needs per-matter calc
-  matsDoEdital().forEach(m=>{let dom=0,tot=m.cards.length;m.cards.forEach((_,i)=>{const k='c_'+m.id+'_'+i+'_'+stu;if(STATE.cards[k]==='known'&&(STATE.leitner[k]||1)>=5)dom++;});const p=tot?Math.round(dom/tot*100):0;html+='<div class="ms"><div class="top"><span>'+m.nome+'</span><span class="pct">'+p+'%</span></div><div class="xpbar"><i style="width:'+p+'%"></i></div></div>';});
+  const lv=xpForLevel(STATE.xp||0);
+  const badges=(STATE.badges&&STATE.badges.length)?STATE.badges.map(b=>'<span class="badge-pill">'+b+'</span>').join(''):'<span style="font-size:11px;color:var(--muted)">sem medalhas ainda</span>';
+  let html='<div class="rank-card"><div class="player A"><div class="lvl">Nv '+lv.lvl+'</div><div class="nm">Você</div><div class="xp">⭐ '+(STATE.xp||0)+' XP</div><div class="xpbar"><i style="width:'+Math.round(lv.cur/lv.need*100)+'%"></i></div><div style="margin-top:8px">'+badges+'</div></div></div>';
+  const cargo=STATE.edital==='10896a860906ced7b'?'tec':'adm';
+  html+='<div class="card"><h3>🎯 Maestria por matéria</h3><div class="mastery">';
+  matsDoEdital().forEach(m=>{let dom=0,tot=m.cards.length;m.cards.forEach((_,i)=>{const k='c_'+m.id+'_'+i;if(STATE.cards[k]==='known'&&(STATE.leitner[k]||1)>=5)dom++;});const p=tot?Math.round(dom/tot*100):0;html+='<div class="ms"><div class="top"><span>'+m.nome+'</span><span class="pct">'+p+'%</span></div><div class="xpbar"><i style="width:'+p+'%"></i></div></div>';});
   html+='</div></div>';
   document.getElementById('trophyBox').innerHTML=html;
 }
@@ -809,13 +775,11 @@ function renderAtaque(){
   const mk=(rows)=>{let h='';rows.forEach(r=>{h+='<div class="topic" style="padding:6px 0"><div class="txt" style="font-size:13px">'+r[0]+(r[3]?' <b style="color:var(--ok)">'+r[3]+'</b>':'')+'</div><div class="box-opt"><span class="leitner">'+r[1]+'</span><span class="leitner">'+r[2]+'</span></div></div>';});return h;};
   let html='<div class="card" style="margin-bottom:16px"><h3>📊 Estrutura da Prova (Edital 04/2026)</h3>';
   html+='<p style="font-size:13px;color:var(--muted);margin:6px 0 10px">Mínimo p/ habilitar: <b>12 pts em Conhecimentos Gerais</b> + <b>25 pts em Específicos</b> (Superior) · <b>20 pts em Específicos</b> (Médio). Foque nos Específicos (maior nº e peso).</p>';
-  const ca=STATE.cargoA, cb=STATE.cargoB;
-  const ea=STATE.editalA===STATE.editalB?STATE.editalA:(STATE.editalA);const eb=STATE.editalB;
-  const isMedA=['tec'].includes(ca), isMedB=['tec'].includes(cb);
-  html+='<div class="grid cards3">';
-  html+=`<div class="card" style="border-left:5px solid var(--navy)"><h3>👩 Você (A)</h3><div style="font-size:12px;color:var(--muted);margin-bottom:6px;font-weight:700">${DADOS.cargos[ca]}</div><div style="font-size:10px;color:var(--muted)">edital ${ea}</div>${mk(isMedA?med:sup)}</div>`;
-  html+=`<div class="card" style="border-left:5px solid var(--green)"><h3>👩 Amiga (B)</h3><div style="font-size:12px;color:var(--muted);margin-bottom:6px;font-weight:700">${DADOS.cargos[cb]}</div><div style="font-size:10px;color:var(--muted)">edital ${eb}</div>${mk(isMedB?med:sup)}</div>`;
-  html+='</div></div>';
+  const cargo=STATE.edital==='10896a860906ced7b'?'tec':'adm';
+  const isMed=['tec'].includes(cargo);
+  const edName=STATE.edital==='10896a860906ced7b'?'Retificado (19/08)':'Original (05/06)';
+  html+='<div class="grid cards3">'+`<div class="card" style="border-left:5px solid var(--navy)"><h3>📑 ${edName}</h3><div style="font-size:12px;color:var(--muted);margin-bottom:6px;font-weight:700">${DADOS.cargos[cargo]}</div>${mk(isMed?med:sup)}</div>`+`</div>`;
+html+='</div></div>';
   html+='<div class="card"><h3>🚀 Roteiro de estudo (últimos dias)</h3><ul style="list-style:none;display:grid;gap:8px;margin-top:6px">';
   ['Dias 1-4: dominem os <b>Específicos</b> do cargo de cada uma (50/40 questões, maior peso).','Dias 5-6: Português (10 q) + Lei Orgânica de Palhoça e LC 96/2010 (caem em Legislação).','Dias 7-8: simulados diários no app + revisão dos cards da caixa 1 (os que mais erram).','Dia 29: revisão leve, consultar <b>local de prova</b> no site da FUNDATEC (a partir de 21/08).','Leve RG, comprovante e caneta preta. Chegue 1h antes.','Dica de ouro: nos Gerais, Português vale 10q — é onde dá pra garantir pontos fáceis.'].forEach(d=>html+='<li>▸ '+d+'</li>');
   html+='</ul></div>';
@@ -870,7 +834,7 @@ renderHome();renderSobre();pomoRender();
     }
   }).catch(()=>{hideSplash();}); // offline: just show app
 })();
-showSetup(false);
+showSetup(true);
 </script>
 </body>
 </html>
