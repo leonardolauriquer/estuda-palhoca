@@ -124,6 +124,37 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-t
   .lei .li{padding:8px 0;border-top:1px dashed #e3eaf2}
   .lei .li .q{font-weight:700;color:var(--green);font-size:13px}
   .lei .li .a{font-size:13px;color:#37475a;margin-top:3px}
+  /* === DASH PROFISSIONAL === */
+  .students-cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+  .student-card{background:#fff;border:2px solid #e3eaf2;border-radius:16px;padding:16px;cursor:pointer;transition:.18s;position:relative;overflow:hidden}
+  .student-card.A{border-left:6px solid var(--navy)}
+  .student-card.B{border-left:6px solid var(--green)}
+  .student-card.is-active{box-shadow:0 8px 24px rgba(24,52,84,.12);transform:translateY(-2px)}
+  .student-card.A.is-active{border-color:var(--navy)}
+  .student-card.B.is-active{border-color:var(--green)}
+  .student-card .sc-head{display:flex;justify-content:space-between;align-items:center}
+  .sc-name{font-weight:800;font-size:16px;color:var(--navy)}
+  .sc-lvl{background:linear-gradient(90deg,var(--navy),var(--green));color:#fff;font-size:12px;font-weight:700;padding:3px 10px;border-radius:20px}
+  .sc-cargo{font-size:13px;color:var(--muted);margin:6px 0 12px;font-weight:600}
+  .sc-metrics{display:flex;gap:10px}
+  .sc-m{flex:1;background:#f3f7fb;border-radius:10px;padding:8px;text-align:center}
+  .sc-num{font-weight:800;font-size:18px;color:var(--navy)}
+  .sc-lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+  .sc-cargo-sel{margin-top:12px}
+  .sc-cargo-sel select{width:100%;padding:8px 10px;border:1px solid #d4dde8;border-radius:8px;font-size:13px;background:#fff;color:var(--navy);font-weight:600}
+  .sec-divider{margin:22px 0 14px;border-top:1px solid #e3eaf2;padding-top:14px;font-size:14px;color:var(--muted);font-weight:700}
+  .mat-card{display:flex;flex-direction:column;gap:10px}
+  .mc-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+  .mc-top h3{margin:0;font-size:15px;color:var(--navy)}
+  .badge.g{background:#e8f0fa;color:var(--navy)}
+  .badge.e{background:#eaf6ef;color:var(--green)}
+  .dom-wrap{display:flex;align-items:center;gap:10px;margin-top:2px}
+  .dom-bar{flex:1;height:12px;border-radius:8px;background:#e9eef4;overflow:hidden}
+  .dom-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--navy),var(--green));transition:width .5s}
+  .dom-pct{font-weight:800;color:var(--green);font-size:16px;min-width:42px;text-align:right}
+  .mc-stats{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);font-weight:600;border-top:1px dashed #e3eaf2;padding-top:8px}
+  .mat-card.summary{background:linear-gradient(135deg,#f8fafc,#eef4fa);border:2px solid var(--navy)}
+  @media(max-width:640px){.students-cards{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -153,11 +184,14 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-t
 <main class="wrap">
   <section class="view active" id="view-dash">
     <h2 class="sec">Painel de estudos</h2>
-    <p class="sub">Progresso de vocês duas, por matéria. Os dados ficam salvos neste navegador.</p>
+    <p class="sub">Acompanhe a preparação de vocês duas. Os dados ficam salvos neste navegador.</p>
     <div class="note">💡 App <b>offline</b>. Para unir o progresso das duas, use a aba <b>🔗 Sincronizar</b> (gera um link com tudo codificado — a amiga abre e junta).</div>
-    <div class="streak" id="streakBox"></div>
-    <div class="cargos-sel" id="cargosSel"></div>
+
+    <div class="students-cards" id="studentsCards"></div>
+
+    <div class="sec-divider"><span>Progresso por matéria — <b id="dashWho"></b></span></div>
     <div class="grid cards3" id="dashGrid"></div>
+
     <div style="margin-top:18px" class="btn-row">
       <button class="btn ghost" id="exportBtn">⬇️ Exportar JSON</button>
       <button class="btn ghost" id="importBtn">⬆️ Importar</button>
@@ -358,25 +392,45 @@ function buildCargoSel(c,who){
 
 // DASHBOARD
 function renderDash(){
-  buildCargoSel(document.getElementById('cargosSel'),'A');
-  buildCargoSel(document.getElementById('cargosSel'),'B');
-  const stu=STATE.stu,cargo=stu==='A'?STATE.cargoA:STATE.cargoB,mats=matForCargo(cargo);
-  // streak box
-  document.getElementById('streakBox').innerHTML=`
-    <div class="s"><div class="num">🔥 ${STATE.streak.A||0}</div><div class="lbl">Sequência de Você (A)</div></div>
-    <div class="s"><div class="num">🔥 ${STATE.streak.B||0}</div><div class="lbl">Sequência da Amiga (B)</div></div>`;
+  const stu=STATE.stu;
+  // Student cards A/B (compact, professional)
+  const card=(who)=>{
+    const cargo=who==='A'?STATE.cargoA:STATE.cargoB;
+    const lv=xpForLevel(STATE.xp[who]||0);
+    const active=stu===who;
+    return `<div class="student-card ${who} ${active?'is-active':''}" data-stu="${who}">
+      <div class="sc-head"><span class="sc-name">${who==='A'?'Você (A)':'Amiga (B)'}</span><span class="sc-lvl">Nv ${lv.lvl}</span></div>
+      <div class="sc-cargo">${DADOS.cargos[cargo]}</div>
+      <div class="sc-metrics">
+        <div class="sc-m"><div class="sc-num">🔥 ${STATE.streak[who]||0}</div><div class="sc-lbl">sequência</div></div>
+        <div class="sc-m"><div class="sc-num">⭐ ${STATE.xp[who]||0}</div><div class="sc-lbl">XP total</div></div>
+      </div>
+      <div class="sc-cargo-sel"><select id="sel${who}">${Object.entries(DADOS.cargos).map(([k,v])=>`<option value="${k}" ${k===cargo?'selected':''}>${v}</option>`).join('')}</select></div>
+    </div>`;
+  };
+  document.getElementById('studentsCards').innerHTML=card('A')+card('B');
+  document.querySelectorAll('#studentsCards .student-card').forEach(el=>{
+    el.onclick=(e)=>{if(e.target.tagName!=='SELECT'){setStu(el.dataset.stu);}};
+    el.querySelector('select').onchange=(e)=>{const who=el.dataset.stu;if(who==='A')STATE.cargoA=e.target.value;else STATE.cargoB=e.target.value;save();renderDash();renderCheck();renderPlan();};
+  });
+  // Materia grid for active student
+  const cargo=stu==='A'?STATE.cargoA:STATE.cargoB,mats=matForCargo(cargo);
+  document.getElementById('dashWho').textContent=stu==='A'?'Você (A)':'Amiga (B)';
   let html='',tt=0,ttd=0,tc=0,tck=0;
   mats.forEach(m=>{
     const tk='t_'+m.id;let td=0;m.topicos.forEach((_,i)=>{if(STATE.topics[tk+'_'+i+'_'+stu])td++;});
     const ck='c_'+m.id;let ck2=0;m.cards.forEach((_,i)=>{if(STATE.cards[ck+'_'+i+'_'+stu]==='known')ck2++;});
     tt+=m.topicos.length;ttd+=td;tc+=m.cards.length;tck+=ck2;
-    html+=`<div class="card"><h3>${m.nome} <span class="badge">${m.area}</span></h3>
-      <div class="stat-row"><span>Tópicos</span><span>${td}/${m.topicos.length}</span></div><div class="bar"><i style="width:${pct(td,m.topicos.length)}%"></i></div>
-      <div class="stat-row"><span>Flashcards</span><span>${ck2}/${m.cards.length}</span></div><div class="bar"><i style="width:${pct(ck2,m.cards.length)}%"></i></div></div>`;
+    const dom=(td+ck2)/(m.topicos.length+m.cards.length);
+    html+=`<div class="card mat-card"><div class="mc-top"><h3>${m.nome}</h3><span class="badge ${m.area==='Conhecimentos Gerais'?'g':'e'}">${m.area==='Conhecimentos Gerais'?'Geral':'Específico'}</span></div>
+      <div class="dom-wrap"><div class="dom-bar"><i style="width:${Math.round(dom*100)}%"></i></div><div class="dom-pct">${Math.round(dom*100)}%</div></div>
+      <div class="mc-stats"><span>📚 ${td}/${m.topicos.length} tópicos</span><span>🃏 ${ck2}/${m.cards.length} cards</span></div></div>`;
   });
-  html=`<div class="card" style="grid-column:1/-1"><h3>Resumo — <span class="student-tag s${stu}"></span> ${stu==='A'?'Você':'Amiga'} (${DADOS.cargos[cargo]})</h3>
-    <div class="stat-row"><span>Tópicos</span><span>${ttd}/${tt} (${pct(ttd,tt)}%)</span></div><div class="bar"><i style="width:${pct(ttd,tt)}%"></i></div>
-    <div class="stat-row"><span>Flashcards</span><span>${tck}/${tc} (${pct(tck,tc)}%)</span></div><div class="bar"><i style="width:${pct(tck,tc)}%"></i></div></div>`+html;
+  // Resumo geral
+  const geral=(ttd+ (tc?tck:0))/(tt+tc);
+  html=`<div class="card mat-card summary"><div class="mc-top"><h3>Resumo geral</h3><span class="badge g">${DADOS.cargos[cargo].split(' - ')[0]}</span></div>
+    <div class="dom-wrap"><div class="dom-bar"><i style="width:${Math.round(geral*100)}%"></i></div><div class="dom-pct">${Math.round(geral*100)}%</div></div>
+    <div class="mc-stats"><span>✅ ${ttd}/${tt} tópicos</span><span>🃏 ${tck}/${tc} cards</span></div></div>`+html;
   document.getElementById('dashGrid').innerHTML=html;
 }
 
