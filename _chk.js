@@ -43,10 +43,10 @@ const LEIS=[
   ]}
 ];
 const LSKEY='palhoca_study_v2';
-const APP_VER='v14';
+const APP_VER='v15';
 let STATE=loadState();
 function loadState(){try{const s=JSON.parse(localStorage.getItem(LSKEY));if(s)return s;}catch(e){}
-  return {stu:'A',cargoA:'adm',cargoB:'cont',editalA:'10896a22e9f36131a',editalB:'10896a860906ced7b',cards:{},topics:{},quiz:[],pomoCycles:0,streak:{A:0,B:0},lastDay:{A:'',B:''},leitner:{},xp:{A:0,B:0},badges:{A:[],B:[]},conf:{},setupDone:false};}
+  return {stu:'A',cargoA:'adm',cargoB:'cont',edital:'10896a860906ced7b',editalA:'10896a22e9f36131a',editalB:'10896a860906ced7b',cards:{},topics:{},quiz:[],pomoCycles:0,streak:{A:0,B:0},lastDay:{A:'',B:''},leitner:{},xp:{A:0,B:0},badges:{A:[],B:[]},conf:{},setupDone:false};}
 function save(){localStorage.setItem(LSKEY,JSON.stringify(STATE));}
 function today(){return new Date().toISOString().slice(0,10);}
 function matForCargo(cargoId){return DADOS.materias.filter(m=>m.cargos.includes('todos')||m.cargos.includes(cargoId));}
@@ -80,54 +80,36 @@ function buildCargoSel(c,who){
 }
 
 // DASHBOARD
-function renderDash(){
-  const stu=STATE.stu;
-  // Student cards A/B (compact, professional)
-  const card=(who)=>{
-    const cargo=who==='A'?STATE.cargoA:STATE.cargoB;
-    const lv=xpForLevel(STATE.xp[who]||0);
-    const active=stu===who;
-    return `<div class="student-card ${who} ${active?'is-active':''}" data-stu="${who}">
-      <div class="sc-head"><span class="sc-name">${who==='A'?'Você (A)':'Amiga (B)'}</span><span class="sc-lvl">Nv ${lv.lvl}</span></div>
-      <div class="sc-cargo">${DADOS.cargos[cargo]}</div>
-      <div class="sc-metrics">
-        <div class="sc-m"><div class="sc-num">🔥 ${STATE.streak[who]||0}</div><div class="sc-lbl">sequência</div></div>
-        <div class="sc-m"><div class="sc-num">⭐ ${STATE.xp[who]||0}</div><div class="sc-lbl">XP total</div></div>
-      </div>
-      <div class="sc-cargo-sel"><select id="sel${who}">${Object.entries(DADOS.cargos).map(([k,v])=>`<option value="${k}" ${k===cargo?'selected':''}>${v}</option>`).join('')}</select></div>
-    </div>`;
-  };
-  document.getElementById('studentsCards').innerHTML=card('A')+card('B');
-  document.querySelectorAll('#studentsCards .student-card').forEach(el=>{
-    el.onclick=(e)=>{if(e.target.tagName!=='SELECT'){setStu(el.dataset.stu);}};
-    el.querySelector('select').onchange=(e)=>{const who=el.dataset.stu;if(who==='A')STATE.cargoA=e.target.value;else STATE.cargoB=e.target.value;save();renderDash();renderCheck();renderPlan();};
-  });
-  // Materia grid for active student
-  const cargo=stu==='A'?STATE.cargoA:STATE.cargoB,mats=matForCargo(cargo);
-  document.getElementById('dashWho').textContent=stu==='A'?'Você (A)':'Amiga (B)';
-  let html='',tt=0,ttd=0,tc=0,tck=0;
-  mats.forEach(m=>{
-    const tk='t_'+m.id;let td=0;m.topicos.forEach((_,i)=>{if(STATE.topics[tk+'_'+i+'_'+stu])td++;});
-    const ck='c_'+m.id;let ck2=0;m.cards.forEach((_,i)=>{if(STATE.cards[ck+'_'+i+'_'+stu]==='known')ck2++;});
-    tt+=m.topicos.length;ttd+=td;tc+=m.cards.length;tck+=ck2;
-    const dom=(td+ck2)/(m.topicos.length+m.cards.length);
-    html+=`<div class="card mat-card"><div class="mc-top"><h3>${m.nome}</h3><span class="badge ${m.area==='Conhecimentos Gerais'?'g':'e'}">${m.area==='Conhecimentos Gerais'?'Geral':'Específico'}</span></div>
-      <div class="dom-wrap"><div class="dom-bar"><i style="width:${Math.round(dom*100)}%"></i></div><div class="dom-pct">${Math.round(dom*100)}%</div></div>
-      <div class="mc-stats"><span>📚 ${td}/${m.topicos.length} tópicos</span><span>🃏 ${ck2}/${m.cards.length} cards</span></div></div>`;
-  });
-  // Resumo geral
-  const geral=(ttd+ (tc?tck:0))/(tt+tc);
-  html=`<div class="card mat-card summary"><div class="mc-top"><h3>Resumo geral</h3><span class="badge g">${DADOS.cargos[cargo].split(' - ')[0]}</span></div>
-    <div class="dom-wrap"><div class="dom-bar"><i style="width:${Math.round(geral*100)}%"></i></div><div class="dom-pct">${Math.round(geral*100)}%</div></div>
-    <div class="mc-stats"><span>✅ ${ttd}/${tt} tópicos</span><span>🃏 ${tck}/${tc} cards</span></div></div>`+html;
-  document.getElementById('dashGrid').innerHTML=html;
+function matsDoEdital(){
+  // Original (05/06) = so Nivel Superior; Retificado (19/08) = Superior + Medio
+  if(STATE.edital==='10896a22e9f36131a') return DADOS.materias.filter(m=>!m.id.startsWith('etec'));
+  return DADOS.materias;
 }
+function goView(v){document.querySelectorAll('nav.tabs button').forEach(b=>{if(b.dataset.view===v)b.click();});}
+function renderHome(){
+  const edName=STATE.edital==='10896a860906ced7b'?'Retificado (19/08)':'Original (05/06)';
+  document.getElementById('dashSub').textContent='Edital '+edName+' selecionado. Escolha um metodo de estudo abaixo.';
+  const methods=[
+    {v:'flash',ico:'🃏',n:'Flashcards',d:'Revisao espacada (Leitner). Acertos e erros.',c:'#183454'},
+    {v:'quiz',ico:'📝',n:'Simulado',d:'Questoes por matéria ou misto (interleaving).',c:'#22466e'},
+    {v:'leis',ico:'📜',n:'Leis Comentadas',d:'LC 14.133, LRF, LO Palhoça, CP Admin.',c:'#9CCB8F'},
+    {v:'ataque',ico:'🎯',n:'Plano de Ataque',d:'Estrutura da prova e roteiro de reta final.',c:'#183454'},
+    {v:'plan',ico:'🗓️',n:'Cronograma',d:'Plano de 10 dias focado no que pontua.',c:'#22466e'},
+    {v:'trophy',ico:'🏆',n:'Gamificação',d:'XP, niveis, medalhas e ranking.',c:'#9CCB8F'},
+    {v:'pomo',ico:'⏱️',n:'Foco (Pomodoro)',d:'Timer 25/5 para manter concentracao.',c:'#183454'},
+    {v:'share',ico:'🔗',n:'Sincronizar',d:'Gere link de progresso para a amiga.',c:'#22466e'},
+    {v:'sobre',ico:'ℹ️',n:'Sobre o Edital',d:'Resumo do concurso e fontes.',c:'#9CCB8F'}
+  ];
+  document.getElementById('homeGrid').innerHTML=methods.map(m=>`<div class="home-card" style="border-top:5px solid ${m.c}" data-v="${m.v}"><div class="hc-ico" style="color:${m.c}">${m.ico}</div><div class="hc-nome">${m.n}</div><div class="hc-desc">${m.d}</div></div>`).join('');
+  document.querySelectorAll('#homeGrid .home-card').forEach(el=>el.onclick=()=>goView(el.dataset.v));
+}
+function renderDash(){renderHome();}
 
 // CHECKLIST
 function renderCheck(){
   buildCargoSel(document.getElementById('cargosSel2'),'A');buildCargoSel(document.getElementById('cargosSel2'),'B');
   const stu=STATE.stu,cargo=stu==='A'?STATE.cargoA:STATE.cargoB;
-  let html='';matForCargo(cargo).forEach(m=>{
+  let html='';matsDoEdital().forEach(m=>{
     const tk='t_'+m.id;
     const areaCls=m.area==='Conhecimentos Gerais'?'g':'e';
     html+=`<div class="subj-block"><div class="head"><h3>${m.nome}</h3><span class="badge ${areaCls}">${m.area==='Conhecimentos Gerais'?'Geral':'Específico'}</span><span class="legend"><span class="dotA">A</span><span class="dotB">B</span></span></div>`;
@@ -165,9 +147,9 @@ function dueCards(matId,stu,mode){
   return arr;
 }
 function renderFlashSetup(){
-  const sel=document.getElementById('flashMat');const cargo=STATE.stu==='A'?STATE.cargoA:STATE.cargoB;
-  sel.innerHTML=matForCargo(cargo).map(m=>`<option value="${m.id}">${m.nome}</option>`).join('');
-  sel.onchange=()=>buildDeck(sel.value);buildDeck(matForCargo(cargo)[0].id);
+  const sel=document.getElementById('flashMat');const cargo=STATE.edital==='10896a860906ced7b'?'tec':'adm';
+  sel.innerHTML=matsDoEdital().map(m=>`<option value="${m.id}">${m.nome}</option>`).join('');
+  sel.onchange=()=>buildDeck(sel.value);buildDeck(matsDoEdital()[0].id);
 }
 function buildDeck(matId){
   const stu=STATE.stu;flashDeck=dueCards(matId,stu,document.getElementById('flashMode').value);
@@ -204,8 +186,8 @@ document.getElementById('sureB').onclick=()=>{STATE.xp.B=(STATE.xp.B||0)+5;STATE
 // SIMULADO
 let quizDeck=[],quizIdx=0,quizScore=0,quizAnswered=false,quizLog=[];
 function renderQuizSetup(){
-  const sel=document.getElementById('quizMat');const cargo=STATE.stu==='A'?STATE.cargoA:STATE.cargoB;
-  sel.innerHTML=matForCargo(cargo).map(m=>`<option value="${m.id}">${m.nome}</option>`).join('');
+  const sel=document.getElementById('quizMat');const cargo=STATE.edital==='10896a860906ced7b'?'tec':'adm';
+  sel.innerHTML=matsDoEdital().map(m=>`<option value="${m.id}">${m.nome}</option>`).join('');
   document.getElementById('quizInfo').textContent='';
   document.getElementById('quizBox').innerHTML='<p class="sub">Escolha matéria e clique em Iniciar (10 questões). Para simular o dia da prova, use o botão abaixo.</p><div class="btn-row"><button class="btn warn" id="startExam">📝 Prova Completa (oficial por cargo)</button></div>';
   document.getElementById('startExam').onclick=startExam;
@@ -214,8 +196,8 @@ document.getElementById('startQuiz').onclick=()=>{
   const mode=document.getElementById('quizMode').value;
   let pool=[];
   if(mode==='mixed'){
-    const cargo=STATE.stu==='A'?STATE.cargoA:STATE.cargoB;
-    matForCargo(cargo).forEach(m=>{m.cards.forEach((c,i)=>pool.push({q:c[0],a:c[1],k:'c_'+m.id+'_'+i,matId:m.id}));});
+    const cargo=STATE.edital==='10896a860906ced7b'?'tec':'adm';
+    matsDoEdital().forEach(m=>{m.cards.forEach((c,i)=>pool.push({q:c[0],a:c[1],k:'c_'+m.id+'_'+i,matId:m.id}));});
   }else{
     const m=DADOS.materias.find(x=>x.id===document.getElementById('quizMat').value);
     pool=m.cards.map((c,i)=>({q:c[0],a:c[1],k:'c_'+m.id+'_'+i,matId:m.id}));
@@ -233,9 +215,9 @@ let examTimer=null,examLeft=4*3600,examRun=false;
 // pesos oficiais por area tratados em finishQuiz
 function examTimeStr(){const h=Math.floor(examLeft/3600),m=Math.floor((examLeft%3600)/60),ss=examLeft%60;return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(ss).padStart(2,'0')}`;}
 function startExam(){
-  const cargo=STATE.stu==='A'?STATE.cargoA:STATE.cargoB;
+  const cargo=STATE.edital==='10896a860906ced7b'?'tec':'adm';
   const isMed=['tec'].includes(cargo);
-  const mats=matForCargo(cargo);
+  const mats=matsDoEdital();
   const gMats=mats.filter(m=>m.area==='Conhecimentos Gerais');
   const eMats=mats.filter(m=>m.area==='Conhecimentos Específicos');
   const nG=30, nE=isMed?40:50;
@@ -318,7 +300,7 @@ if(location.hash.startsWith('#d=')){document.getElementById('shareIn').value=loc
 
 // CRONOGRAMA
 function renderPlan(){
-  const cargo=STATE.stu==='A'?STATE.cargoA:STATE.cargoB;
+  const cargo=STATE.edital==='10896a860906ced7b'?'tec':'adm';
   const isMed=['tec'].includes(cargo);
   const sprint=[
     {d:'Dia 1-2',t:'Específicos do cargo (parte 1)',x:isMed?'40 q valem 1,60 cada':'50 q valem 1,28 cada — MAIOR peso'},
@@ -354,7 +336,7 @@ document.getElementById('pomoCycles').textContent=STATE.pomoCycles;
 
 function xpForLevel(xp){let lvl=1,need=100;while(xp>=need){xp-=need;lvl++;need=Math.round(need*1.35);}return {lvl,cur:xp,need};}
 function masteryPct(cargo,stu){
-  const mats=matForCargo(cargo);let dom=0,tot=0;
+  const mats=matsDoEdital();let dom=0,tot=0;
   mats.forEach(m=>{m.cards.forEach((_,i)=>{const k='c_'+m.id+'_'+i+'_'+stu;tot++;if(STATE.cards[k]==='known'&&(STATE.leitner[k]||1)>=5)dom++;});});
   return tot?Math.round(dom/tot*100):0;
 }
@@ -384,9 +366,9 @@ function renderTrophy(){
   // Maestria por matéria (do estudante atual)
   const cargo=stu==='A'?STATE.cargoA:STATE.cargoB;
   html+='<div class="card"><h3>🎯 Maestria por matéria — '+(stu==='A'?'Você (A)':'Amiga (B)')+'</h3><div class="mastery">';
-  matForCargo(cargo).forEach(m=>{const p=masteryPct(cargo,stu);});
+  matsDoEdital().forEach(m=>{const p=masteryPct(cargo,stu);});
   // per-matter mastery needs per-matter calc
-  matForCargo(cargo).forEach(m=>{let dom=0,tot=m.cards.length;m.cards.forEach((_,i)=>{const k='c_'+m.id+'_'+i+'_'+stu;if(STATE.cards[k]==='known'&&(STATE.leitner[k]||1)>=5)dom++;});const p=tot?Math.round(dom/tot*100):0;html+='<div class="ms"><div class="top"><span>'+m.nome+'</span><span class="pct">'+p+'%</span></div><div class="xpbar"><i style="width:'+p+'%"></i></div></div>';});
+  matsDoEdital().forEach(m=>{let dom=0,tot=m.cards.length;m.cards.forEach((_,i)=>{const k='c_'+m.id+'_'+i+'_'+stu;if(STATE.cards[k]==='known'&&(STATE.leitner[k]||1)>=5)dom++;});const p=tot?Math.round(dom/tot*100):0;html+='<div class="ms"><div class="top"><span>'+m.nome+'</span><span class="pct">'+p+'%</span></div><div class="xpbar"><i style="width:'+p+'%"></i></div></div>';});
   html+='</div></div>';
   document.getElementById('trophyBox').innerHTML=html;
 }
@@ -430,30 +412,15 @@ document.getElementById('importBtn').onclick=()=>document.getElementById('import
 document.getElementById('importFile').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{STATE=JSON.parse(r.result);save();location.reload();}catch(err){alert('Arquivo inválido.');}};r.readAsText(f);};
 document.getElementById('resetBtn').onclick=()=>{if(confirm('Apagar TODO o progresso?')){localStorage.removeItem(LSKEY);STATE=loadState();location.reload();}};
 
-// === SETUP DE CARGO (escolha inicial) ===
+// === SETUP: landing com 2 cards de edital ===
 function buildSetup(){
-  ['A','B'].forEach(who=>{
-    const cur=who==='A'?STATE.cargoA:STATE.cargoB;
-    const box=document.getElementById('setup'+who);
-    box.innerHTML=Object.entries(DADOS.cargos).map(([k,v])=>`<div class="setup-opt ${k===cur?'sel '+who:''}" data-who="${who}" data-cargo="${k}">${v}</div>`).join('');
-    box.querySelectorAll('.setup-opt').forEach(el=>el.onclick=()=>{
-      const w=el.dataset.who,cg=el.dataset.cargo;
-      if(w==='A')STATE.cargoA=cg;else STATE.cargoB=cg;
-      box.querySelectorAll('.setup-opt').forEach(x=>x.classList.remove('sel','A','B'));
-      el.classList.add('sel',w);save();
-    });
-  ['A','B'].forEach(who=>{
-    const box=document.getElementById('editalCards'+who);
-    const cur=who==='A'?STATE.editalA:STATE.editalB;
-    const opts=[['10896a22e9f36131a','Edital Original','Versao de 05/06 - so Nivel Superior'],['10896a860906ced7b','Edital Retificado','Versao de 19/08 - acrescentou Nivel Medio + IA']];
-    box.innerHTML=opts.map(o=>`<div class="setup-edit-card ${o[0]===cur?'sel '+who:''}" data-who="${who}" data-ed="${o[0]}"><div style="font-weight:800">${o[1]}</div><div style="font-size:11px;opacity:.85;margin-top:2px">${o[2]}</div></div>`).join('');
-    box.querySelectorAll('.setup-edit-card').forEach(el=>el.onclick=()=>{
-      const w=el.dataset.who,ed=el.dataset.ed;
-      if(w==='A')STATE.editalA=ed;else STATE.editalB=ed;
-      box.querySelectorAll('.setup-edit-card').forEach(x=>x.classList.remove('sel','A','B'));
-      el.classList.add('sel',w);save();updateCtx();
-    });
-  });
+  document.querySelectorAll('#setupModal .edital-card').forEach(el=>{
+    el.onclick=()=>{
+      STATE.edital=el.dataset.ed;
+      STATE.setupDone=true;save();
+      document.getElementById('setupModal').style.display='none';
+      updateCtx();renderHome();
+    };
   });
 }
 function showSetup(force){
@@ -463,12 +430,13 @@ function showSetup(force){
 }
 function updateCtx(){
   const b=document.getElementById('ctxBanner');
-  if(STATE.setupDone){b.style.display='flex';document.getElementById('ctxText').innerHTML='📑 <b>'+DADOS.cargos[STATE.cargoA]+'</b> (edital '+STATE.editalA+') &nbsp;|&nbsp; 📑 <b>'+DADOS.cargos[STATE.cargoB]+'</b> (edital '+STATE.editalB+')';}
-  else b.style.display='none';
+  if(STATE.setupDone){
+    const nm=STATE.edital==='10896a860906ced7b'?'Retificado (19/08)':'Original (05/06)';
+    b.style.display='flex';document.getElementById('ctxText').innerHTML='📑 Edital selecionado: <b>'+nm+'</b>';
+  } else b.style.display='none';
 }
-document.getElementById('setupConfirm').onclick=()=>{STATE.setupDone=true;save();document.getElementById('setupModal').style.display='none';updateCtx();renderDash();};
-document.getElementById('ctxChange').onclick=()=>showSetup(true);
-renderDash();renderSobre();pomoRender();
+document.getElementById('ctxChange').onclick=()=>{STATE.setupDone=false;showSetup(true);};
+renderHome();renderSobre();pomoRender();
 (function(){
   const sp=document.getElementById('splash');
   const hideSplash=()=>{if(sp){sp.style.opacity='0';sp.style.transition='opacity .4s';setTimeout(()=>sp.remove(),420);}};
